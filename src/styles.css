@@ -1,0 +1,50 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+span {
+  width: 15px;
+}
+.titr {
+  color: red;
+  font-style: oblique;
+  width: 10px;
+}
+img {
+  width: 30px;
+  height: 30px;
+}
+
+.container{
+  display:flex;
+flex-direction: column,
+  gap:10px,
+}
+
+.menu{
+display:flex;
+flex-direction: column;
+
+gap:10px;
+background-color:#6B3CD4;
+width: 303px;
+height: 832px;
+border-radius: 20px;
+-webkit-text-fill-color: whitesmoke;
+
+
+}
+.menu img {
+margin-left :30%;
+  width: 100px;
+  height: 100px;
+  border-radius:20px;
+}
+.panel{
+display:flex;
+
+gap:20px;
+}
+.bubble{
+  border-radius: 50%;
+}
