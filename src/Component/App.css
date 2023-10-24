@@ -1,0 +1,11 @@
+.App {
+    font-family: sans-serif;
+   display: flex;
+   height: 100%;
+  }
+  .container{
+    display:flex;
+  flex-direction: row;
+    gap:10px;
+    height: 100%;
+  }

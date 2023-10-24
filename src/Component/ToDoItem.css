@@ -1,0 +1,22 @@
+
+.titr {
+    color: red;
+    font-style: oblique;
+    width: 10px;
+  }
+  span {
+    width: 15px;
+  }
+  img {
+    width: 30px;
+    height: 30px;
+  }
+  .panel{
+    display:flex;
+    
+    gap:20px;
+    }
+    .bubble{
+      border-radius: 50%;
+    }
+    

@@ -1,45 +1,56 @@
-import React from "../";
+import React,{useState} from "react";
 import logoDefaultImg from "../LDI.png";
+import profileLogo from "../profile.png";
+import settingLogo from "../OIP.jpg";
+import CategoryItem from "./CategoryItem";
+import "./Sidbar.css";
 
-function Sidbar({ appTitleDynamic, logoDynamic, categories }) {
-  const appTitleDefault = "Ati project";
-  const appTitle = appTitleDynamic ? appTitleDynamic : appTitleDefault;
-  const logoDefault = logoDefaultImg;
-  const logo = logoDynamic ? logoDynamic : logoDefault;
+
+
+function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories }) {
+  
+  const [activCategoryId,setCategoryId] = useState();
+
+  function handelClick(event)
+  {
+     alert(event.id);
+  }
+  // const logoDefault = logoDefaultImg;
+  // const logo = logoDynamic ? logoDynamic : logoDefault;
   return (
-    <div className="menu">
-      <h1 text="To Do List">{appTitle}</h1>
-      <img src={logo} />
-
+    <div className="sidbar">
+      <header>
+      <h1 className="title" text="To Do List">{appTitle}</h1>
+      <img className="logo" src={logo} />
+      </header>
+      <div className="menu" >
       <h1>To Do </h1>
-      <div>
-        <span>All Task</span>
-      </div>
+      
+      <ul > 
+      <CategoryItem 
+        id={0}
+        color= 'rgba(0,0,0,0)'
+       title='All Tasks'
+       isActive="true"
+       onClick={handelClick}
+       />
       {categories.map((categoryItem) => (
-        <li>
-          <div
-            style={{
-              backgroundColor: categoryItem.color,
-              borderRadius: "50%"
-            }}
-          />
-
-          {console.log(categoryItem.color)}
-          <div id={categoryItem.id}>
-            <span>{categoryItem.title}</span>
-          </div>
-        </li>
+        <CategoryItem 
+        id={categoryItem.id}
+        color= {categoryItem.color}
+       title={categoryItem.title} 
+       isActive="true"
+       onClick={handelClick}
+       />
+        
       ))}
-      <h1>The Work Done </h1>
-      <div>
-        <span>All Task</span>
-      </div>
+ </ul> 
 
-      {categories.map((categoryItem) => (
-        <div id={categoryItem.id}>
-          <span>{categoryItem.title}</span>
-        </div>
-      ))}
+    </div>
+    <footer>
+    <img className="profileLogo" src={profileLogo}/>
+      <img className="settingLogo" src={settingLogo}/>
+      </footer>
     </div>
   );
 }

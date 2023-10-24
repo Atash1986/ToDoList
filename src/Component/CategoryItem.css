@@ -1,0 +1,34 @@
+/* .categoryItem
+{ display: flex;
+     margin-Bottom: 5px ;
+     text-align: center;
+     list-style-type: none;
+     margin-left:30%;
+    } */
+.categoryItem
+{
+   
+  margin-bottom: 14px !important ;
+  
+}
+   .activDiv
+
+     { display: flex;
+         align-Items: center; 
+        margin-right: 0px;
+        border-radius: 18px 0 0 18px;
+        padding:10px 20px;
+        width:100%;
+      font-size: 18px;
+      }
+
+          .bubble
+         {
+            display: inline-block;
+            width:18px;
+            height:18px;
+            border-Radius: 50%; 
+            margin-Right:10px ;
+         }; 
+          
+         
