@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import logoDefaultImg from "../LDI.png";
 import profileLogo from "../profile.png";
 import settingLogo from "../OIP.jpg";
@@ -9,11 +9,19 @@ import "./Sidbar.css";
 
 function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories }) {
   
-  const [activCategoryId,setCategoryId] = useState();
+  const [activCategoryId,setCategoryId] = useState(0);
+  console.log({activCategoryId})
 
-  function handelClick(event)
+  function handelClick(event, selectedId)
   {
-     alert(event.id);
+    // const selectedId=Number(event.target.id);
+    setCategoryId(selectedId); 
+  
+     
+   
+  
+  
+   
   }
   // const logoDefault = logoDefaultImg;
   // const logo = logoDynamic ? logoDynamic : logoDefault;
@@ -31,19 +39,21 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories })
         id={0}
         color= 'rgba(0,0,0,0)'
        title='All Tasks'
-       isActive="true"
-       onClick={handelClick}
+       isActive={activCategoryId===0 ?true :false}
+       onClick={(event)=> handelClick(event,0)}
        />
-      {categories.map((categoryItem) => (
+      {categories.map((categoryItem) => {
+       console.log(categoryItem.id);
+       return(
         <CategoryItem 
         id={categoryItem.id}
         color= {categoryItem.color}
        title={categoryItem.title} 
-       isActive="true"
-       onClick={handelClick}
-       />
+       isActive={categoryItem.id ===activCategoryId ?true :false}
+       onClick={(event) => handelClick(event, categoryItem.id)}
+       />)
         
-      ))}
+})}
  </ul> 
 
     </div>

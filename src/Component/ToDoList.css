@@ -1,1 +1,18 @@
 
+.addBox{
+    border-radius: 10Px;
+    background-color:whitesmoke;
+    border-color: white;
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+margin-top: 30%;
+margin-left: 30%;
+justify-content: space-between;
+}
+.taskTitle{
+    border:none;
+    width: 10px;
+    flex-grow: 1;
+    background-color: transparent;
+}

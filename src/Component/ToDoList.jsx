@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ToDoItem from "./ToDoItem";
+import "./ToDoList.css"
 
 function  ToDoList() {
   // const [isDone, setIsDone] = useState("false");
@@ -127,15 +128,18 @@ function  ToDoList() {
   return (
     <div>
       <div className="addBox">
-        <label for="title">Title</label>
+        {/* <label for="title">Title</label> */}
         <input
+        className="taskTitle"
           type="text"
           name="title"
           value={currentItem.title}
           onChange={handleChange}
+          
         />
         <br />
-        <label for="author">Author</label>
+        
+        {/* <label for="author">Author</label> */}
         <select
           type="text"
           name="author"
