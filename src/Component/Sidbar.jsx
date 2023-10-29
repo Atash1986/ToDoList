@@ -12,9 +12,9 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories })
   const [activCategoryId,setCategoryId] = useState(0);
   console.log({activCategoryId})
 
-  function handelClick(event)
+  function handelClick(event, selectedId)
   {
-    const selectedId=Number(event.target.id);
+    // const selectedId=Number(event.target.id);
     setCategoryId(selectedId); 
   
      
@@ -40,7 +40,7 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories })
         color= 'rgba(0,0,0,0)'
        title='All Tasks'
        isActive={activCategoryId===0 ?true :false}
-       onClick={handelClick}
+       onClick={(event)=> handelClick(event,0)}
        />
       {categories.map((categoryItem) => {
        console.log(categoryItem.id);
@@ -50,7 +50,7 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories })
         color= {categoryItem.color}
        title={categoryItem.title} 
        isActive={categoryItem.id ===activCategoryId ?true :false}
-       onClick={handelClick}
+       onClick={(event) => handelClick(event, categoryItem.id)}
        />)
         
 })}

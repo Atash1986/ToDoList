@@ -24,7 +24,7 @@ console.log({isActive});
         backgroundColor:color}}
       />
 
-      <div id={id} onClick={onClick}>
+      <div  onClick={onClick}>
         {title}
       </div>
       </div>
