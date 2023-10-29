@@ -1,11 +1,15 @@
 import React from "react";
 
 import "./CategoryItem.css";
-function CategoryItem ({id,color,title,isActive}){
-console.log(isActive);
+function CategoryItem ({id,color,title,isActive,onClick}){
+console.log({isActive});
     return(
        <li key={id} className="categoryItem">
-   <div className= "activDiv"  style={{backgroundColor:isActive=="true" ? 'white' : "transparent", WebkitTextFillColor:isActive=="true"?"#6B3CD4":"whitesmoke" }} >
+
+   <div className= "activDiv" id={id} onClick={onClick}  style={{
+      backgroundColor: (isActive===true ? 'white' : "transparent"),
+      color: (isActive===true?"#6B3CD4":"whitesmoke"),
+    }} >
 
    
       <div
@@ -19,7 +23,7 @@ console.log(isActive);
         backgroundColor:color}}
       />
 
-      <div  id={id}>
+      <div id={id} onClick={onClick}>
         {title}
       </div>
       </div>
