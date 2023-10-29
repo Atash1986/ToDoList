@@ -12,7 +12,7 @@
   cursor: pointer;
   
 }
-   .activDiv
+   .inner-div
 
      { display: flex;
          align-Items: center; 
@@ -23,6 +23,13 @@
       font-size: 18px;
       }
 
+      .active-div
+      {
+        background-color:white;
+        color:"#6B3CD4";
+      }
+     
+
           .bubble
          {
             display: inline-block;
@@ -30,6 +37,6 @@
             height:18px;
             border-Radius: 50%; 
             margin-Right:10px ;
-         }; 
-          
+         }
+
          

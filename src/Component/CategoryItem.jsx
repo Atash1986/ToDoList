@@ -6,10 +6,11 @@ console.log({isActive});
     return(
        <li key={id} className="categoryItem">
 
-   <div className= "activDiv" id={id} onClick={onClick}  style={{
-      backgroundColor: (isActive===true ? 'white' : "transparent"),
-      color: (isActive===true?"#6B3CD4":"whitesmoke"),
-    }} >
+   <div 
+    className={"inner-div" + (isActive===true ?" active-div":"")} 
+    id={id} 
+    onClick={onClick}  
+     >
 
    
       <div
