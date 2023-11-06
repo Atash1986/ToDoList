@@ -1,28 +1,55 @@
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import logoDefaultImg from "../LDI.png";
 import profileLogo from "../profile.png";
 import settingLogo from "../OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
+import ToDoItem from "./ToDoItem";
 
 
 
-function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories }) {
+function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories}) {
   
   const [activCategoryId,setCategoryId] = useState(0);
-  console.log({activCategoryId})
+  
 
   function handelClick(event, selectedId)
   {
     // const selectedId=Number(event.target.id);
     setCategoryId(selectedId); 
   
-     
+   // console.log(items);
+      
+      // items
+      // .filter((item) => item.catagoryId === selectedId)
+      // .map((item) => {
+      //   // console.log(item.isDone);
+      //   // if(item.isDone===false)
+      //   // {
+      //   return (
+      //     <ToDoItem
+      //       id={item.id}
+      //       title={item.title}
+      //       //   author={.label}
+      //       isDone={item.isDone}
+      //       dateAndTime={item.dateAndTime}
+      //       onChecked={handleCheck}
+      //       author={
+      //         options.find((option) => option.id === item.authorId).label
+      //       }
+
+      //       // item={item}
+      //       // onChecked={handleCheck2}
+      //     />
+      //   );
+      //   // }
+      //   //{alert()}
+      // })}
    
   
   
    
-  }
+    }
   // const logoDefault = logoDefaultImg;
   // const logo = logoDynamic ? logoDynamic : logoDefault;
   return (
@@ -43,14 +70,14 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories })
        onClick={(event)=> handelClick(event,0)}
        />
       {categories.map((categoryItem) => {
-       console.log(categoryItem.id);
+       
        return(
         <CategoryItem 
         id={categoryItem.id}
         color= {categoryItem.color}
-       title={categoryItem.title} 
-       isActive={categoryItem.id ===activCategoryId ?true :false}
-       onClick={(event) => handelClick(event, categoryItem.id)}
+        title={categoryItem.title} 
+        isActive={categoryItem.id ===activCategoryId ?true :false}
+        onClick={(event) => handelClick(event, categoryItem.id)}
        />)
         
 })}
