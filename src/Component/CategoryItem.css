@@ -12,6 +12,10 @@
   cursor: pointer;
   
 }
+.inner-div:hover
+{
+  background-color: rgba(255,255,255,0.5);
+}
    .inner-div
 
      { display: flex;
@@ -26,7 +30,7 @@
       .active-div
       {
         background-color:white;
-        color:"#6B3CD4";
+        color:#6B3CD4;
       }
      
 
@@ -38,5 +42,8 @@
             border-Radius: 50%; 
             margin-Right:10px ;
          }
-
+.categoryItemTitle
+{
+  background-color: "";
+}
          

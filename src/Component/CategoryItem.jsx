@@ -2,9 +2,11 @@ import React from "react";
 
 import "./CategoryItem.css";
 function CategoryItem ({id,color,title,isActive,onClick}){
-console.log({isActive});
+
+  
+  
     return(
-       <li key={id} className="categoryItem">
+       <li   onClick={onClick} key={id} className="categoryItem">
 
    <div 
     className={"inner-div" + (isActive===true ?" active-div":"")} 
@@ -16,15 +18,11 @@ console.log({isActive});
       <div
       className="bubble"
         style={{
-        //    display: "inline-block",
-        // width:"15px",
-        // height:"15px",
-        // borderRadius: "50%", 
-        // marginRight:"10px" ,
-        backgroundColor:color}}
+        backgroundColor:color
+               }}
       />
 
-      <div  onClick={onClick}>
+      <div className="categoryItemTitle">
         {title}
       </div>
       </div>
