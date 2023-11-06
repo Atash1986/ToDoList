@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import "./ToDoItem.css";
 
-function ToDoItem(props) {
+function ToDoItem({id,  title,  isDone,  categoryId,  dateAndTime,  onChecked,  author}) {
   // function ToDoItem({ id, item, onChecked }) {
   // const [isDone, setIsDone] = useState("false");
 
   // const { title, author, dataAndTime } = item;
-  //console.log("author in TodoItem=", props.author);
+  console.log("category in TodoItem=", categoryId);
   return (
     <li
-      id={props.id}
-      style={{ textDecoration: props.isDone ? "line-through" : "none" }}
+      id={id}
+      style={{ textDecoration: isDone ? "line-through" : "none" }}
     >
       <input
         type="checkbox"
-        onClick={() => props.onChecked(props.id)}
+        onClick={() => props.onChecked(id)}
         // id={props.index}
       />
       <img
@@ -23,18 +23,19 @@ function ToDoItem(props) {
       />
 
       <span class="titr">Title </span>
-      <span>{props.title}</span>
+      <span>{title}</span>
 
       <span class="titr">Author </span>
-      <span>{props.author} </span>
+      <span>{author} </span>
 
       <span class="titr">Date And Time</span>
-      <span>{props.dateAndTime}</span>
+      <span>{dateAndTime}</span>
 
       {/* <span name="status" value="false" /> */}
 
       <span class="titr" name="description"></span>
-      <span></span>
+      <span class="titr">Category</span>
+      <span >{ categoryId}</span>
     </li>
   );
 }
