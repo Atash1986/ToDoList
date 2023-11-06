@@ -4,19 +4,19 @@ import profileLogo from "../profile.png";
 import settingLogo from "../OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
-import ToDoItem from "./ToDoItem";
 
 
 
-function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories}) {
+
+function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories,activCategoryId,setCategoryId}) {
   
-  const [activCategoryId,setCategoryId] = useState(0);
-  
-
-  function handelClick(event, selectedId)
+   
+ function handelClick(event, selectedId)
   {
     // const selectedId=Number(event.target.id);
     setCategoryId(selectedId); 
+
+  
   
    // console.log(items);
       
