@@ -1,61 +1,33 @@
-import React,{useState} from "react";
+import React from "react";
 import logoDefaultImg from "../LDI.png";
 import profileLogo from "../profile.png";
 import settingLogo from "../OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
+import PropTypes from 'prop-types';
+import ToDoList from "./ToDoList";
 
 
 
 
-function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories,activCategoryId,setCategoryId}) {
-  
+
+function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories,activeCategoryId,setCategoryId}) {
+ 
    
  function handelClick(event, selectedId)
   {
     // const selectedId=Number(event.target.id);
     setCategoryId(selectedId); 
 
-  
-  
-   // console.log(items);
-      
-      // items
-      // .filter((item) => item.catagoryId === selectedId)
-      // .map((item) => {
-      //   // console.log(item.isDone);
-      //   // if(item.isDone===false)
-      //   // {
-      //   return (
-      //     <ToDoItem
-      //       id={item.id}
-      //       title={item.title}
-      //       //   author={.label}
-      //       isDone={item.isDone}
-      //       dateAndTime={item.dateAndTime}
-      //       onChecked={handleCheck}
-      //       author={
-      //         options.find((option) => option.id === item.authorId).label
-      //       }
-
-      //       // item={item}
-      //       // onChecked={handleCheck2}
-      //     />
-      //   );
-      //   // }
-      //   //{alert()}
-      // })}
-   
-  
+    <ToDoList activeCategoryId={activeCategoryId} />
   
    
     }
-  // const logoDefault = logoDefaultImg;
-  // const logo = logoDynamic ? logoDynamic : logoDefault;
+  
   return (
     <div className="sidbar">
       <header>
-      <h1 className="title" text="To Do List">{appTitle}</h1>
+      <h1 className="title" >{appTitle}</h1>
       <img className="logo" src={logo} />
       </header>
       <div className="menu" >
@@ -66,21 +38,23 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories,ac
         id={0}
         color= 'rgba(0,0,0,0)'
        title='All Tasks'
-       isActive={activCategoryId===0 ?true :false}
+       isActive={activeCategoryId===0 ?true :false}
        onClick={(event)=> handelClick(event,0)}
        />
       {categories.map((categoryItem) => {
        
        return(
         <CategoryItem 
+        key={categoryItem.id}
         id={categoryItem.id}
         color= {categoryItem.color}
         title={categoryItem.title} 
-        isActive={categoryItem.id ===activCategoryId ?true :false}
+        isActive={categoryItem.id ===activeCategoryId ?true :false}
         onClick={(event) => handelClick(event, categoryItem.id)}
        />)
-        
-})}
+      })}
+     
+       
  </ul> 
 
     </div>
@@ -91,4 +65,11 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories,ac
     </div>
   );
 }
+  Sidbar.propTypes = {
+   appTitle: PropTypes.string, // Define the prop type and whether it's required
+   logo: PropTypes.img, // Define the prop type and whether it's required
+      activeCategoryId: PropTypes.number, // Define the prop type and whether it's required
+      setCategoryId: PropTypes.func,
+      categories: PropTypes.object, // Define the prop type and whether it's required
+  };
 export default Sidbar;

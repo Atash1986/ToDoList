@@ -1,42 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ToDoItem.css";
+import PropTypes from 'prop-types';
 
 function ToDoItem({id,  title,  isDone,  categoryId,  dateAndTime,  onChecked,  author}) {
-  // function ToDoItem({ id, item, onChecked }) {
-  // const [isDone, setIsDone] = useState("false");
-
-  // const { title, author, dataAndTime } = item;
+  const  categoryColors = {
+    1: 'red',
+    2: 'blue',
+    3: 'green',
+     } 
   console.log("category in TodoItem=", categoryId);
   return (
-    <li
+    <li 
+    className="taskItem"
       id={id}
       style={{ textDecoration: isDone ? "line-through" : "none" }}
     >
-      <input
-        type="checkbox"
-        onClick={() => props.onChecked(id)}
-        // id={props.index}
-      />
-      <img
+     
+      {/* <img
         src="https://cdn-icons-png.flaticon.com/512/1950/1950715.png"
         alt=""
-      />
+      /> */}
 
-      <span class="titr">Title </span>
-      <span>{title}</span>
 
-      <span class="titr">Author </span>
+     <di className="category" style={{backgroundColor:categoryColors[categoryId]}}></di>
+      <span >{title}</span>
+
+      
       <span>{author} </span>
 
-      <span class="titr">Date And Time</span>
+      
       <span>{dateAndTime}</span>
 
       {/* <span name="status" value="false" /> */}
 
-      <span class="titr" name="description"></span>
-      <span class="titr">Category</span>
-      <span >{ categoryId}</span>
+      {/* <span className="titr" name="description"></span> */}
+      {/* <span className="titr">Category</span> */}
+      {/* <span >{ categoryId}</span> */}
+      <input
+        type="checkbox"
+        onClick={() => onChecked(id)}
+        
+      />
     </li>
+    
   );
 }
+ToDoItem.propTypes = {
+  id: PropTypes.number, // Define the prop type and whether it's required
+  title: PropTypes.string, // Define the prop type and whether it's required
+ isDone: PropTypes.bool, // Define the prop type and whether it's required
+
+ categoryId: PropTypes.number, // Define the prop type and whether it's required
+ dateAndTime: PropTypes.string, // Define the prop type and whether it's required
+ onChecked: PropTypes.func,
+ author: PropTypes.string, // Define the prop type and whether it's required
+};
 export default ToDoItem;

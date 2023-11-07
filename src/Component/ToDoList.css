@@ -1,7 +1,7 @@
 
 .addBox{
     border-radius: 10Px;
-    background-color:whitesmoke;
+    background-color:white;
     border-color: white;
     display: flex;
     flex-direction: row;

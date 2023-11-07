@@ -1,31 +1,34 @@
 import React, { useState } from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
+import PropTypes from 'prop-types';
+import taskItems from "./TaskItems";
 
 
-function  ToDoList({ activeCategoryId}) {
-   console.log(typeof activeCategoryId);
+function  ToDoList({activeCategoryId}) {
+  
+ 
   // const [isDone, setIsDone] = useState("false");
   const options = [
-    { id: "-1", value: "Select On", label: "Select On" },
-    { id: "11", value: "Emad", label: "Emad Armoun" },
-    { id: "12", value: "Atefeh", label: "Atefeh Ashourzadeh" },
-    { id: "13", value: "Mahdiar", label: "Mahdiar Armoun" },
-    { id: "14", value: "Arian", label: "Arian Armoun" },
-    { id: "15", value: "Niloo", label: "Niloo Armoun" }
+    { id: -1, value: "Select On", label: "Select On" },
+    { id: 11, value: "Emad", label: "Emad Armoun" },
+    { id: 12, value: "Atefeh", label: "Atefeh Ashourzadeh" },
+    { id: 13, value: "Mahdiar", label: "Mahdiar Armoun" },
+    { id: 14, value: "Arian", label: "Arian Armoun" },
+    { id: 15, value: "Niloo", label: "Niloo Armoun" }
   ];
   const [itemId, setItemID] = useState(0);
-  const [selectedOption, setSelectedOption] = useState({ id: "", value: "" });
+  // const [selectedOption, setSelectedOption] = useState({ id: "", value: "" });
 
   const [currentItem, setCurrentItem] = useState({
     title: "",
     id: "",
     dateAndTime: "2023",
     isDone: false,
-    authorId: "-1",
+    authorId: -1,
     categoryId:"0"
   });
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(taskItems);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -36,14 +39,14 @@ function  ToDoList({ activeCategoryId}) {
     }));
   }
 
-  function handleCheck2(selectIndex) {
-    // clone the items list into a new array (copy)
-    const newItems = [...items];
-    const preIsDone = items[selectIndex].isDone;
-    newItems[selectIndex].isDone = !preIsDone;
+  // function handleCheck2(selectIndex) {
+  //   // clone the items list into a new array (copy)
+  //   const newItems = [...items];
+  //   const preIsDone = items[selectIndex].isDone;
+  //   newItems[selectIndex].isDone = !preIsDone;
 
-    setItems(newItems);
-  }
+  //   setItems(newItems);
+  // }
   function handleSelect(event) {
     // const { key, lable } = event.taget;
 
@@ -67,14 +70,14 @@ function  ToDoList({ activeCategoryId}) {
       authorId: idSelect
     }));
   }
-  function handleCheckNew(selectId) {
-    setItems((prevItems) => {
-      const checkedItem = items.find((item) => item.id === selectId);
-      const newItem = { ...checkedItem, isDone: !checkedItem.isDone };
-      console.log("newItem: " + newItem.isDone);
-      return [...prevItems, newItem];
-    });
-  }
+  // function handleCheckNew(selectId) {
+  //   setItems((prevItems) => {
+  //     const checkedItem = items.find((item) => item.id === selectId);
+  //     const newItem = { ...checkedItem, isDone: !checkedItem.isDone };
+  //     console.log("newItem: " + newItem.isDone);
+  //     return [...prevItems, newItem];
+  //   });
+  // }
   function handleCheck(selectId) {
     // console.log("selectIndex received = ", selectIndex);
     setItems((prevItems) => {
@@ -105,11 +108,11 @@ function  ToDoList({ activeCategoryId}) {
       ...prevCurrentItem,
       title: "",
       dateAndTime: "",
-      authorId: "-1",
+      authorId: -1,
       categoryId:"0"
     }));
   }
-  function addItem(event) {
+  function addItem() {
     // event.defaultPrevented();
     
     const currentDT = new Date();
@@ -152,7 +155,10 @@ function  ToDoList({ activeCategoryId}) {
           onChange={handleSelect}
         >
           {options.map((option) => (
-            <option id={option.id} value={option.value}>
+            <option 
+            key={option.id}
+            id={option.id} 
+            value={option.value}>
               {option.label}
             </option>
           ))}
@@ -164,14 +170,15 @@ function  ToDoList({ activeCategoryId}) {
       </div>
       <div>
         <ul>
-          {/* <h1>To Do List</h1> */}
-          {items.filter((item) => item.isDone === false)
+          <h1>To Do List</h1>
+          {items.filter((item) => !item.isDone && (item.categoryId ===activeCategoryId||activeCategoryId===0)) 
             .map((item) => {
               // console.log(item.isDone);
               // if(item.isDone===false)
               // {
               return (
                 <ToDoItem
+                key={item.id}
                   id={item.id}
                   title={item.title}
                   isDone={item.isDone}
@@ -190,9 +197,26 @@ function  ToDoList({ activeCategoryId}) {
               //{alert()}
               )
             })}
-            
-                
-          {/* <h1> The Work Done</h1> */}
+
+            {/* <hr/>
+             {items.filter((taskItem)=> taskItem.categoryId ===activeCategoryId||taskItem.categoryId==="0")
+      .map((taskItem) => {
+       
+     return(
+     <ToDoItem
+     key={taskItem.id}
+     id={taskItem.id}
+     title={taskItem.title}
+     dateAndTime={taskItem.DateAndTime}
+     author={taskItem.author}
+     isDone={taskItem.isDone}
+     categoryId={taskItem.categoryId}
+     onChecked={handleCheck}
+     />)
+    
+   })}
+                 */}
+          <h1> The Work Done</h1>
           {items.map((item) => {
             if (item.isDone === true) {
               //  console.log("Id :" + item.authorId);
@@ -224,4 +248,7 @@ function  ToDoList({ activeCategoryId}) {
     </div>
   );
 }
+ToDoList.propTypes = {
+  activeCategoryId: PropTypes.number, // Define the prop type and whether it's required
+};
 export default ToDoList;
