@@ -1,14 +1,16 @@
 import React from "react";
 import "./ToDoItem.css";
 import PropTypes from 'prop-types';
+import CircularCheckbox from "./CircularCheckBox";
+import CategoryColors from "./CategoryColors";
 
 function ToDoItem({id,  title,  isDone,  categoryId,  dateAndTime,  onChecked,  author}) {
-  const  categoryColors = {
-    1: 'red',
-    2: 'blue',
-    3: 'green',
-     } 
-  console.log("category in TodoItem=", categoryId);
+  // const  categoryColors = {
+  //   1: 'red',
+  //   2: 'blue',
+  //   3: 'green',
+  //    } 
+ 
   return (
     <li 
     className="taskItem"
@@ -22,7 +24,7 @@ function ToDoItem({id,  title,  isDone,  categoryId,  dateAndTime,  onChecked,  
       /> */}
 
 
-     <di className="category" style={{backgroundColor:categoryColors[categoryId]}}></di>
+     <di className="category" style={{backgroundColor:CategoryColors[categoryId]}}></di>
       <span >{title}</span>
 
       
@@ -36,7 +38,13 @@ function ToDoItem({id,  title,  isDone,  categoryId,  dateAndTime,  onChecked,  
       {/* <span className="titr" name="description"></span> */}
       {/* <span className="titr">Category</span> */}
       {/* <span >{ categoryId}</span> */}
+      <CircularCheckbox 
+      id={id}
+      onChecked={onChecked}
+      isChecked={false}
+      />
       <input
+      className="checkBox"
         type="checkbox"
         onClick={() => onChecked(id)}
         

@@ -45,6 +45,7 @@ function Sidbar({ appTitle = 'Ati project', logo = logoDefaultImg, categories,ac
        
        return(
         <CategoryItem 
+        className="CategoryItem"
         key={categoryItem.id}
         id={categoryItem.id}
         color= {categoryItem.color}

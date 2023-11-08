@@ -4,9 +4,7 @@
     font-style: oblique;
     width: 10px;
   }
-  span {
-    width: 15px;
-  }
+  
   img {
     width: 30px;
     height: 30px;
@@ -26,12 +24,17 @@
       border-color: white;
       display: flex;
       flex-direction: row;
-      width: 1000px;
+      width: 800px;
   margin-top: 5%;
-  margin-left: 30%;
+  margin-left: 10%;
   justify-content: space-between;
+  height: 60px;
   }
   .category{
     width: 40px;
     border-radius: 10px 0 0 10px;
+  }
+  .category span 
+  {
+    width:fit-content;
   }

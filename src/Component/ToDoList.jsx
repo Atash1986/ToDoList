@@ -122,7 +122,7 @@ function  ToDoList({activeCategoryId}) {
     setItems((prevItems) => {
       // ????? setCurrentItem( { ...currentItem, dateAndTime: dateTime });
    const newItem = { ...currentItem, dateAndTime: dateTime, id: itemId ,categoryId:activeCategoryId};
-   console.log(newItem.categoryId);
+  
       // console.log("currentItem " + currentItem.dateAndTime);
       return [...prevItems, newItem];
     });
@@ -169,7 +169,7 @@ function  ToDoList({activeCategoryId}) {
         <br />
       </div>
       <div>
-        <ul>
+        <ul className="taskBox">
           <h1>To Do List</h1>
           {items.filter((item) => !item.isDone && (item.categoryId ===activeCategoryId||activeCategoryId===0)) 
             .map((item) => {
