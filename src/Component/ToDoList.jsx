@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
 import PropTypes from 'prop-types';
@@ -17,9 +17,16 @@ function  ToDoList({activeCategoryId}) {
     { id: 14, value: "Arian", label: "Arian Armoun" },
     { id: 15, value: "Niloo", label: "Niloo Armoun" }
   ];
-  const [itemId, setItemID] = useState(0);
+  const [items, setItems] = useState(taskItems);
+  const [itemId, setItemId] = useState(null);
   // const [selectedOption, setSelectedOption] = useState({ id: "", value: "" });
-
+  useEffect(() => {
+    if (taskItems.length > 0) {
+      // Get the maximum id from taskItems
+      const maxId = Math.max(...taskItems.map((item) => item.id));
+      setItemId(maxId+1);
+    }
+  }, [taskItems]);
   const [currentItem, setCurrentItem] = useState({
     title: "",
     id: "",
@@ -28,7 +35,7 @@ function  ToDoList({activeCategoryId}) {
     authorId: -1,
     categoryId:"0"
   });
-  const [items, setItems] = useState(taskItems);
+  
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -81,9 +88,9 @@ function  ToDoList({activeCategoryId}) {
   function handleCheck(selectId) {
     // console.log("selectIndex received = ", selectIndex);
     setItems((prevItems) => {
-      return prevItems.map((item, id) => {
-        // console.log("check item with selectIndex=", index);
-        if (id === selectId) {
+      return prevItems.map((item) => {
+          if (item.id === selectId) {
+         
           // Create a new object to avoselectIndex mutating the original item
           //  setCurrentItem({ ...item, isDone: !item.isDone });
           //return prevItems.filter((item, index));
@@ -117,7 +124,7 @@ function  ToDoList({activeCategoryId}) {
     
     const currentDT = new Date();
     const dateTime = currentDT.toLocaleString();
-    setItemID(itemId + 1);
+    setItemId(itemId + 1);
     // console.log(itemId);
     setItems((prevItems) => {
       // ????? setCurrentItem( { ...currentItem, dateAndTime: dateTime });
@@ -173,7 +180,7 @@ function  ToDoList({activeCategoryId}) {
           <h1>To Do List</h1>
           {items.filter((item) => !item.isDone && (item.categoryId ===activeCategoryId||activeCategoryId===0)) 
             .map((item) => {
-              // console.log(item.isDone);
+           
               // if(item.isDone===false)
               // {
               return (
@@ -223,6 +230,7 @@ function  ToDoList({activeCategoryId}) {
               return (
                 <ToDoItem
                   key={item.id}
+                  id={item.id}
                   title={item.title}
                   //author={options[item.author].label}
                   isDone={item.isDone}
