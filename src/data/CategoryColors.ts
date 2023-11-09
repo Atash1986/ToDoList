@@ -1,6 +1,2 @@
-const CategoryColors = {
-  1: "red",
-  2: "blue",
-  3: "green",
-};
+const CategoryColors = ["red", "blue", "green"];
 export default CategoryColors;

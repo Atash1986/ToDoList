@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEvent } from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
-import taskItems from "./TaskItems";
-import { AuthorsItems } from "./AuthorsItems";
+import taskItems from "../data/TaskItems";
+import { AuthorsItems } from "../data/AuthorsItems";
 import { taskItem } from "../types/taskItem";
 import { authors } from "../types/authors";
 
@@ -26,7 +26,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     categoryId: 0,
   });
 
-  function handleChange(event) {
+  function handleChange(event: any) {
     const { name, value } = event.target;
 
     setCurrentItem((prevInputText) => ({
@@ -35,7 +35,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     }));
   }
 
-  function handleSelect(event) {
+  function handleSelect(event: any) {
     const selectIndex: number = event.target.selectedIndex;
     const authorSelect: authors | undefined = AuthorsItems.find(
       (option, index) => index === selectIndex
@@ -50,7 +50,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     }));
   }
 
-  function handleCheck(selectId) {
+  function handleCheck(selectId: number) {
     setItems((prevItems) => {
       return prevItems.map((item: taskItem) => {
         if (item.id === selectId) {
