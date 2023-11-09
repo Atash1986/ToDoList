@@ -1,26 +1,25 @@
-
-.addBox{
-    border-radius: 10Px;
-    background-color:white;
-    border-color: white;
-    display: flex;
-    flex-direction: row;
-    width: 800px;
-margin-top: 30%;
-margin-left: 14%;
-justify-content: space-between;
-border: 1px;
-border-color: #6666;
-font-family: inter;
-font-size: 16px;
-font-weight: 400px;
+.addBox {
+  border-radius: 10px;
+  background-color: white;
+  border-color: white;
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  margin-top: 30%;
+  margin-left: 14%;
+  justify-content: space-between;
+  border: 1px;
+  border-color: #6666;
+  font-family: inter;
+  font-size: 16px;
+  font-weight: 400px;
 }
-.taskTitle{
-    border:none;
-    width: 10px;
-    flex-grow: 1;
-    background-color: transparent;
+.taskTitle {
+  border: none;
+  width: 10px;
+  flex-grow: 1;
+  background-color: transparent;
 }
-.taksBox{
-    margin-left: 10%;
+.taksBox {
+  margin-left: 10%;
 }

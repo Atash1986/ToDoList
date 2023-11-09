@@ -1,99 +1,59 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
-import PropTypes from 'prop-types';
 import taskItems from "./TaskItems";
+import { AuthorsItems } from "./AuthorsItems";
+import { taskItem } from "../types/taskItem";
+import { authors } from "../types/authors";
 
+function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
+  const [items, setItems] = useState<taskItem[]>(taskItems);
+  const [itemId, setItemId] = useState<number>(-1);
 
-function  ToDoList({activeCategoryId}) {
-  
- 
-  // const [isDone, setIsDone] = useState("false");
-  const options = [
-    { id: -1, value: "Select On", label: "Select On" },
-    { id: 11, value: "Emad", label: "Emad Armoun" },
-    { id: 12, value: "Atefeh", label: "Atefeh Ashourzadeh" },
-    { id: 13, value: "Mahdiar", label: "Mahdiar Armoun" },
-    { id: 14, value: "Arian", label: "Arian Armoun" },
-    { id: 15, value: "Niloo", label: "Niloo Armoun" }
-  ];
-  const [items, setItems] = useState(taskItems);
-  const [itemId, setItemId] = useState(null);
-  // const [selectedOption, setSelectedOption] = useState({ id: "", value: "" });
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
       const maxId = Math.max(...taskItems.map((item) => item.id));
-      setItemId(maxId+1);
+      setItemId(maxId + 1);
     }
   }, [taskItems]);
-  const [currentItem, setCurrentItem] = useState({
+  const [currentItem, setCurrentItem] = useState<taskItem>({
     title: "",
-    id: "",
+    id: -1,
     dateAndTime: "2023",
     isDone: false,
     authorId: -1,
-    categoryId:"0"
+    categoryId: 0,
   });
-  
 
   function handleChange(event) {
     const { name, value } = event.target;
 
     setCurrentItem((prevInputText) => ({
       ...prevInputText,
-      [name]: value
+      [name]: value,
     }));
   }
 
-  // function handleCheck2(selectIndex) {
-  //   // clone the items list into a new array (copy)
-  //   const newItems = [...items];
-  //   const preIsDone = items[selectIndex].isDone;
-  //   newItems[selectIndex].isDone = !preIsDone;
-
-  //   setItems(newItems);
-  // }
   function handleSelect(event) {
-    // const { key, lable } = event.taget;
-
-    //  const idSelect=event.target[event.target.selectedIndex].id;
-    const selectIndex = event.target.selectedIndex;
-
-    const authorSelect = options.find((option, index) => index === selectIndex);
-    const idSelect = authorSelect.id;
-    // const authorSelect2 = options.find((option) => option.id === idSelect)
-    //  .label;
-
-    // const valueSelect = authorSelect.label;
-
-    // alert(authorSelect2);
-    // console.log("idSelect: " + idSelect);
-    //  console.log("lable: " + authorSelect.label);
-
+    const selectIndex: number = event.target.selectedIndex;
+    const authorSelect: authors | undefined = AuthorsItems.find(
+      (option, index) => index === selectIndex
+    );
+    let idSelect: number;
+    if (authorSelect) {
+      idSelect = authorSelect.id;
+    }
     setCurrentItem((prevCurrentItem) => ({
       ...prevCurrentItem,
-      //id :idSelect,
-      authorId: idSelect
+      authorId: idSelect,
     }));
   }
-  // function handleCheckNew(selectId) {
-  //   setItems((prevItems) => {
-  //     const checkedItem = items.find((item) => item.id === selectId);
-  //     const newItem = { ...checkedItem, isDone: !checkedItem.isDone };
-  //     console.log("newItem: " + newItem.isDone);
-  //     return [...prevItems, newItem];
-  //   });
-  // }
+
   function handleCheck(selectId) {
-    // console.log("selectIndex received = ", selectIndex);
     setItems((prevItems) => {
-      return prevItems.map((item) => {
-          if (item.id === selectId) {
-         
-          // Create a new object to avoselectIndex mutating the original item
-          //  setCurrentItem({ ...item, isDone: !item.isDone });
-          //return prevItems.filter((item, index));
+      return prevItems.map((item: taskItem) => {
+        if (item.id === selectId) {
           return { ...item, isDone: !item.isDone };
         }
 
@@ -101,162 +61,121 @@ function  ToDoList({activeCategoryId}) {
       });
     });
   }
-  /*function deleteItem(selectIndex) {
-    // console.log("checked");
-    setItems(prevItems=>{
-    return  prevItems.filter((item,index) => index !==selectIndex)
-   
-    });
-  }*/
 
   function reset() {
-    //setSelectedOption("0");
     setCurrentItem((prevCurrentItem) => ({
       ...prevCurrentItem,
       title: "",
       dateAndTime: "",
       authorId: -1,
-      categoryId:"0"
+      categoryId: 0,
     }));
   }
   function addItem() {
-    // event.defaultPrevented();
-    
-    const currentDT = new Date();
-    const dateTime = currentDT.toLocaleString();
+    const currentDT: Date = new Date();
+    const dateTime: string = currentDT.toLocaleString();
     setItemId(itemId + 1);
-    // console.log(itemId);
+
     setItems((prevItems) => {
-      // ????? setCurrentItem( { ...currentItem, dateAndTime: dateTime });
-   const newItem = { ...currentItem, dateAndTime: dateTime, id: itemId ,categoryId:activeCategoryId};
-  
-      // console.log("currentItem " + currentItem.dateAndTime);
+      const newItem = {
+        ...currentItem,
+        dateAndTime: dateTime,
+        id: itemId,
+        categoryId: activeCategoryId,
+      };
+
       return [...prevItems, newItem];
     });
     reset();
   }
-  //  console.log("Date&Time in TodoList=", currentItem.dateAndTime);
 
   return (
     <div>
       <div className="addBox">
-        {/* <label for="title">Title</label> */}
         <input
-        className="taskTitle"
+          className="taskTitle"
           type="text"
           name="title"
           value={currentItem.title}
           onChange={handleChange}
-          
         />
         <br />
-        
-        {/* <label for="author">Author</label> */}
+
         <select
-          type="text"
           name="author"
-          // value={currentItem.authorId}
           value={
-            options.find((option) => option.id === currentItem.authorId).value
+            AuthorsItems.find(
+              (option: authors) => option.id === currentItem.authorId
+            )?.value || "Default Value"
           }
           onChange={handleSelect}
         >
-          {options.map((option) => (
-            <option 
-            key={option.id}
-            id={option.id} 
-            value={option.value}>
+          {AuthorsItems.map((option: authors) => (
+            <option key={option.id} id={String(option.id)} value={option.value}>
               {option.label}
             </option>
           ))}
         </select>
         <br />
         <br />
-        <button onClick={(event) => addItem(event)}>Add</button>
+        <button onClick={(event) => addItem()}>Add</button>
         <br />
       </div>
       <div>
         <ul className="taskBox">
           <h1>To Do List</h1>
-          {items.filter((item) => !item.isDone && (item.categoryId ===activeCategoryId||activeCategoryId===0)) 
+          {items
+            .filter(
+              (item: taskItem) =>
+                !item.isDone &&
+                (item.categoryId === activeCategoryId || activeCategoryId === 0)
+            )
             .map((item) => {
-           
               // if(item.isDone===false)
               // {
-              return (
-                <ToDoItem
-                key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  isDone={item.isDone}
-                  categoryId={item.categoryId}
-                  dateAndTime={item.dateAndTime}
-                  onChecked={handleCheck}
-                  author={
-                    options.find((option) => option.id === item.authorId).label
-                  }
-
-                  // item={item}
-                  // onChecked={handleCheck2}
-                />
-             
-              // }
-              //{alert()}
-              )
-            })}
-
-            {/* <hr/>
-             {items.filter((taskItem)=> taskItem.categoryId ===activeCategoryId||taskItem.categoryId==="0")
-      .map((taskItem) => {
-       
-     return(
-     <ToDoItem
-     key={taskItem.id}
-     id={taskItem.id}
-     title={taskItem.title}
-     dateAndTime={taskItem.DateAndTime}
-     author={taskItem.author}
-     isDone={taskItem.isDone}
-     categoryId={taskItem.categoryId}
-     onChecked={handleCheck}
-     />)
-    
-   })}
-                 */}
-          <h1> The Work Done</h1>
-          {items.map((item) => {
-            if (item.isDone === true) {
-              //  console.log("Id :" + item.authorId);
               return (
                 <ToDoItem
                   key={item.id}
                   id={item.id}
                   title={item.title}
-                  //author={options[item.author].label}
+                  isDone={item.isDone}
+                  categoryId={item.categoryId}
+                  dateAndTime={item.dateAndTime}
+                  onChecked={handleCheck}
+                  author={
+                    AuthorsItems.find(
+                      (option: authors) => option.id === item.authorId
+                    )?.label || "Default Author"
+                  }
+                />
+              );
+            })}
+
+          <h1> The Work Done</h1>
+          {items.map((item: taskItem) => {
+            if (item.isDone === true) {
+              return (
+                <ToDoItem
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
                   isDone={item.isDone}
                   dateAndTime={item.dateAndTime}
                   onChecked={handleCheck}
                   author={
-                    options.find((option) => option.id === item.authorId).label
+                    AuthorsItems.find(
+                      (option: authors) => option.id === item.authorId
+                    )?.label || "Default Author"
                   }
                   categoryId={item.categoryId}
-                  />
+                />
               );
-
-              //{alert()}
             }
           })}
         </ul>
-        {/* return (
-          <Sidbar 
-             items={items}
-             options={options}/>
-        ) */}
       </div>
     </div>
   );
 }
-ToDoList.propTypes = {
-  activeCategoryId: PropTypes.number, // Define the prop type and whether it's required
-};
+
 export default ToDoList;

@@ -1,40 +1,37 @@
-
 .titr {
-    color: red;
-    font-style: oblique;
-    width: 10px;
-  }
-  
-  img {
-    width: 30px;
-    height: 30px;
-  }
-  .panel{
-    display:flex;
-    
-    gap:20px;
-    }
-    .bubble{
-      border-radius: 50%;
-    }
-    .taskItem
-    {
-      border-radius: 10Px;
-      background-color:white;
-      border-color: white;
-      display: flex;
-      flex-direction: row;
-      width: 800px;
+  color: red;
+  font-style: oblique;
+  width: 10px;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+}
+.panel {
+  display: flex;
+
+  gap: 20px;
+}
+.bubble {
+  border-radius: 50%;
+}
+.taskItem {
+  border-radius: 10px;
+  background-color: white;
+  border-color: white;
+  display: flex;
+  flex-direction: row;
+  width: 800px;
   margin-top: 5%;
   margin-left: 10%;
   justify-content: space-between;
   height: 60px;
-  }
-  .category{
-    width: 40px;
-    border-radius: 10px 0 0 10px;
-  }
-  .category span 
-  {
-    width:fit-content;
-  }
+}
+.category {
+  width: 40px;
+  border-radius: 10px 0 0 10px;
+}
+.category span {
+  width: fit-content;
+}

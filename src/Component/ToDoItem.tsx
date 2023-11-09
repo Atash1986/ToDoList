@@ -1,66 +1,50 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
-import PropTypes from 'prop-types';
-import CircularCheckbox from "./CircularCheckBox";
-import CategoryColors from "./CategoryColors";
 
-function ToDoItem({id,  title,  isDone,  categoryId,  dateAndTime,  onChecked,  author}) {
-  // const  categoryColors = {
-  //   1: 'red',
-  //   2: 'blue',
-  //   3: 'green',
-  //    } 
- 
+// import CircularCheckbox from "./CircularCheckBox";
+import CategoryColors from "./CategoryColors";
+type Props = {
+  id: number;
+  title: string;
+  isDone: boolean;
+  categoryId: number;
+  dateAndTime: string;
+  onChecked: (id: number) => void;
+  author: string;
+};
+function ToDoItem({
+  id,
+  title,
+  isDone,
+  categoryId,
+  dateAndTime,
+  onChecked,
+  author,
+}: Props) {
   return (
-    <li 
-    className="taskItem"
-      id={id}
+    <li
+      className="taskItem"
+      id={String(id)}
       style={{ textDecoration: isDone ? "line-through" : "none" }}
     >
-     
-      {/* <img
-        src="https://cdn-icons-png.flaticon.com/512/1950/1950715.png"
-        alt=""
-      /> */}
+      <div
+        className="category"
+        style={{ backgroundColor: CategoryColors[categoryId] }}
+      ></div>
+      <span>{title}</span>
 
-
-     <di className="category" style={{backgroundColor:CategoryColors[categoryId]}}></di>
-      <span >{title}</span>
-
-      
       <span>{author} </span>
 
-      
       <span>{dateAndTime}</span>
 
-      {/* <span name="status" value="false" /> */}
-
-      {/* <span className="titr" name="description"></span> */}
-      {/* <span className="titr">Category</span> */}
-      {/* <span >{ categoryId}</span> */}
-      <CircularCheckbox 
-      id={id}
-      onChecked={onChecked}
-      isChecked={false}
-      />
+      {/* <CircularCheckbox id={id} onChecked={onChecked} isChecked={false} /> */}
       <input
-      className="checkBox"
+        className="checkBox"
         type="checkbox"
         onClick={() => onChecked(id)}
-        
       />
     </li>
-    
   );
 }
-ToDoItem.propTypes = {
-  id: PropTypes.number, // Define the prop type and whether it's required
-  title: PropTypes.string, // Define the prop type and whether it's required
- isDone: PropTypes.bool, // Define the prop type and whether it's required
 
- categoryId: PropTypes.number, // Define the prop type and whether it's required
- dateAndTime: PropTypes.string, // Define the prop type and whether it's required
- onChecked: PropTypes.func,
- author: PropTypes.string, // Define the prop type and whether it's required
-};
 export default ToDoItem;
