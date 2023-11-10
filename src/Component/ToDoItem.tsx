@@ -38,11 +38,11 @@ function ToDoItem({
               ?.color || "white",
         }}
       ></div>
-      <span>{title}</span>
+      <span className="taskItemTitle">{title}</span>
 
-      <span>{author} </span>
+      <span className="taskAuthor">{author} </span>
 
-      <span>{dateAndTime}</span>
+      <span className="taskDate">{dateAndTime}</span>
 
       {/* <CircularCheckbox id={id} onChecked={onChecked} isChecked={false} /> */}
       <input

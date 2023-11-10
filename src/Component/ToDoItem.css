@@ -17,7 +17,7 @@ img {
   border-radius: 50%;
 }
 .taskItem {
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: white;
   border-color: white;
   display: flex;
@@ -27,11 +27,24 @@ img {
   margin-left: 10%;
   justify-content: space-between;
   height: 60px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400px;
 }
 .category {
   width: 40px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 20px 0 0 20px;
+  height: 60px;
 }
-.category span {
+.taskItem span {
   width: fit-content;
+}
+.taskAuthor {
+  color: #999999;
+}
+.taskDate {
+  color: #999999;
+}
+taskItemTitle {
+  color: #444444;
 }

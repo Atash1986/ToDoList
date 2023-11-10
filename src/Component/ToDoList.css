@@ -1,18 +1,20 @@
 .addBox {
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: white;
   border-color: white;
   display: flex;
   flex-direction: row;
   width: 800px;
+  height: 60px;
   margin-top: 30%;
   margin-left: 14%;
   justify-content: space-between;
   border: 1px;
   border-color: #6666;
-  font-family: inter;
+  font-family: Arial;
   font-size: 16px;
   font-weight: 400px;
+  align-items: center;
 }
 .taskTitle {
   border: none;
@@ -22,4 +24,18 @@
 }
 .taksBox {
   margin-left: 10%;
+}
+.addBox select {
+  border-radius: 10px;
+  width: 127px;
+  height: 37px;
+  margin-right: 4%;
+}
+.addButton {
+  margin-right: 6%;
+  background-image: url("../buttonAdd.jpeg");
+  width: 30px;
+  border: none;
+  height: 30px;
+  cursor: pointer;
 }

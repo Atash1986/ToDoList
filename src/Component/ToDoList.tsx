@@ -118,7 +118,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         </select>
         <br />
         <br />
-        <button onClick={(event) => addItem()}>Add</button>
+        <button className="addButton" onClick={(event) => addItem()}></button>
         <br />
       </div>
       <div>
