@@ -1,49 +1,57 @@
-/* .categoryItem
-{ display: flex;
-     margin-Bottom: 5px ;
-     text-align: center;
-     list-style-type: none;
-     margin-left:30%;
-    } */
-.categoryItem
-{
-   
-  margin-bottom: 14px !important ;
-  cursor: pointer;
-  
+.inner-div:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }
-.inner-div:hover
-{
-  background-color: rgba(255,255,255,0.5);
+.inner-div {
+  display: flex;
+  align-items: center;
+  margin-right: 0px;
+  border-radius: 18px 0 0 18px;
+  padding: 10px 20px;
+  width: 100%;
+  font-size: 18px;
 }
-   .inner-div
 
-     { display: flex;
-         align-Items: center; 
-        margin-right: 0px;
-        border-radius: 18px 0 0 18px;
-        padding:10px 20px;
-        width:100%;
-      font-size: 18px;
-      }
+.active-div {
+  background-color: white;
+  color: #6b3cd4;
+}
 
-      .active-div
-      {
-        background-color:white;
-        color:#6B3CD4;
-      }
-     
-
-          .bubble
-         {
-            display: inline-block;
-            width:18px;
-            height:18px;
-            border-Radius: 50%; 
-            margin-Right:10px ;
-         }
-.categoryItemTitle
-{
+.bubble {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.categoryItemTitle {
   background-color: "";
 }
-         
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.categoryItem {
+  margin-bottom: 14px !important ;
+  cursor: pointer;
+}
+
+.categoryItem:hover {
+  animation: shake 0.5s infinite; /* Apply the 'shake' animation with a 0.5s duration and infinite iterations */
+}
