@@ -2,7 +2,7 @@ import "./App.css";
 import ToDoList from "./ToDoList";
 import Sidbar from "./Sidbar";
 import logoDynamic from "../logo.jpeg";
-import Categories from "../data/Categories";
+import Categories from "../data/categories";
 import React, { useState } from "react";
 function App() {
   const [activeCategoryId, setCategoryId] = useState<number>(0);

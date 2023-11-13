@@ -1,8 +1,8 @@
 import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
 import CategoryItem from "./CategoryItem";
-import { category } from "../types/category";
-import categories from "../data/Categories";
+import { category } from "../types/Category";
+import categories from "../data/categories";
 type Props = {
   id: number;
   title: string;
