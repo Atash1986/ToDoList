@@ -1,14 +1,15 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
-import taskItems from "../data/TaskItems";
-import { authorsItems } from "../data/AuthorsItems";
-import { taskItem } from "../types/taskItem";
-import { authors } from "../types/authors";
+import taskItems from "../data/taskItems";
+import { authorsItems } from "../data/authorsItems";
+import { taskItem } from "../types/TaskItem";
+import { authors } from "../types/Authors";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<taskItem[]>(taskItems);
   const [itemId, setItemId] = useState<number>(-1);
+  const [isDivVisible, setDivVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (taskItems.length > 0) {
@@ -34,7 +35,9 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
       [name]: value,
     }));
   }
-
+  function handleClickDone(event: any) {
+    setDivVisible(!isDivVisible);
+  }
   function handleSelect(event: any) {
     const selectIndex: number = event.target.selectedIndex;
     const authorSelect: authors | undefined = authorsItems.find(
@@ -149,27 +152,45 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
                 />
               );
             })}
+          <div onClick={handleClickDone} className="textTaskDone">
+            {isDivVisible ? (
+              <span>Hide The Completed Tasks</span>
+            ) : (
+              <span>Show The Completed Tasks</span>
+            )}
+          </div>
 
-          {items.map((item: taskItem) => {
-            if (item.isDone === true) {
-              return (
-                <ToDoItem
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  isDone={item.isDone}
-                  dateAndTime={item.dateAndTime}
-                  onChecked={handleCheck}
-                  author={
-                    authorsItems.find(
-                      (option: authors) => option.id === item.authorId
-                    )?.label || "Default Author"
+          {isDivVisible && (
+            <div className="taskDoneItem">
+              {items
+                .filter(
+                  (item: taskItem) =>
+                    item.isDone &&
+                    (item.categoryId === activeCategoryId ||
+                      activeCategoryId === 0)
+                )
+                .map((item: taskItem) => {
+                  if (item.isDone === true) {
+                    return (
+                      <ToDoItem
+                        key={item.id}
+                        id={item.id}
+                        title={item.title}
+                        isDone={item.isDone}
+                        dateAndTime={item.dateAndTime}
+                        onChecked={handleCheck}
+                        author={
+                          authorsItems.find(
+                            (option: authors) => option.id === item.authorId
+                          )?.label || "Default Author"
+                        }
+                        categoryId={item.categoryId}
+                      />
+                    );
                   }
-                  categoryId={item.categoryId}
-                />
-              );
-            }
-          })}
+                })}
+            </div>
+          )}
         </ul>
       </div>
     </div>

@@ -39,3 +39,36 @@
   height: 30px;
   cursor: pointer;
 }
+.textTaskDone {
+  color: #868686;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 25%;
+  margin-top: 10%;
+  text-align: center;
+}
+.textTaskDone:hover {
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+  border-bottom: 6px solid #e0d5f6;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.taskDoneItem {
+  padding: 10px;
+
+  margin-top: 10px;
+}
