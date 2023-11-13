@@ -1,8 +1,5 @@
 import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
-
-// import CircularCheckbox from "./CircularCheckBox";
-import CategoryColors from "../data/CategoryColors";
 import CategoryItem from "./CategoryItem";
 import { Category } from "../types/category";
 import categories from "../data/Categories";

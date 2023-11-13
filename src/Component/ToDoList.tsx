@@ -123,7 +123,6 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
       </div>
       <div>
         <ul className="taskBox">
-          <h1>To Do List</h1>
           {items
             .filter(
               (item: taskItem) =>
@@ -151,7 +150,6 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
               );
             })}
 
-          <h1> The Work Done</h1>
           {items.map((item: taskItem) => {
             if (item.isDone === true) {
               return (
