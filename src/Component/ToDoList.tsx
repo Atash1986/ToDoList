@@ -2,7 +2,7 @@ import React, { useState, useEffect, MouseEvent } from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
 import taskItems from "../data/TaskItems";
-import { AuthorsItems } from "../data/AuthorsItems";
+import { authorsItems } from "../data/AuthorsItems";
 import { taskItem } from "../types/taskItem";
 import { authors } from "../types/authors";
 
@@ -37,7 +37,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
   function handleSelect(event: any) {
     const selectIndex: number = event.target.selectedIndex;
-    const authorSelect: authors | undefined = AuthorsItems.find(
+    const authorSelect: authors | undefined = authorsItems.find(
       (option, index) => index === selectIndex
     );
     let idSelect: number;
@@ -104,13 +104,13 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         <select
           name="author"
           value={
-            AuthorsItems.find(
+            authorsItems.find(
               (option: authors) => option.id === currentItem.authorId
             )?.value || "Default Value"
           }
           onChange={handleSelect}
         >
-          {AuthorsItems.map((option: authors) => (
+          {authorsItems.map((option: authors) => (
             <option key={option.id} id={String(option.id)} value={option.value}>
               {option.label}
             </option>
@@ -142,7 +142,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
                   dateAndTime={item.dateAndTime}
                   onChecked={handleCheck}
                   author={
-                    AuthorsItems.find(
+                    authorsItems.find(
                       (option: authors) => option.id === item.authorId
                     )?.label || "Default Author"
                   }
@@ -161,7 +161,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
                   dateAndTime={item.dateAndTime}
                   onChecked={handleCheck}
                   author={
-                    AuthorsItems.find(
+                    authorsItems.find(
                       (option: authors) => option.id === item.authorId
                     )?.label || "Default Author"
                   }

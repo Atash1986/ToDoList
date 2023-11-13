@@ -1,7 +1,7 @@
 import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
 import CategoryItem from "./CategoryItem";
-import { Category } from "../types/category";
+import { category } from "../types/category";
 import categories from "../data/Categories";
 type Props = {
   id: number;
@@ -31,7 +31,7 @@ function ToDoItem({
         className="category"
         style={{
           backgroundColor:
-            categories.find((category: Category) => category.id === categoryId)
+            categories.find((category: category) => category.id === categoryId)
               ?.color || "white",
         }}
       ></div>
