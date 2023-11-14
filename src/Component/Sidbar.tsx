@@ -1,7 +1,7 @@
 import React, { MouseEvent } from "react";
-import logoDefaultImg from "../LDI.png";
-import profileLogo from "../profile.png";
-import settingLogo from "../OIP.jpg";
+import logoDefaultImg from "../assest/image/LDI.png";
+import profileLogo from "../assest/image/profile.png";
+import settingLogo from "../assest/image/OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
 import ToDoList from "./ToDoList";

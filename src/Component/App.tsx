@@ -1,7 +1,7 @@
 import "./App.css";
 import ToDoList from "./ToDoList";
 import Sidbar from "./Sidbar";
-import logoDynamic from "../logo.jpeg";
+import logoDynamic from "../assest/image/logo.jpeg";
 import Categories from "../data/categories";
 import React, { useState } from "react";
 function App() {
