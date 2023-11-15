@@ -17,6 +17,7 @@
   "devDependencies": {
     "@babel/runtime": "7.13.8",
     "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/parser": "^5.62.0",
     "eslint": "^8.52.0",
     "eslint-plugin-react": "^7.33.2",
     "file-loader": "^6.2.0",
