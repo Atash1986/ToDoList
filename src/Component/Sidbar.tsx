@@ -5,12 +5,12 @@ import settingLogo from "../assest/image/OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
 import ToDoList from "./ToDoList";
-import { category } from "../types/category";
-import { setterFn } from "../types/general";
+import { category } from "../types/Category";
+import { setterFn } from "../types/General";
 
 type Props = {
   appTitle: string;
-  logo: string;
+  logo: any;
   categories: Array<category>;
   activeCategoryId: number;
   setCategoryId: setterFn;
