@@ -6,7 +6,9 @@ type Props = {
   color: string;
   title: string;
   isActive: boolean;
-  onClick: (event: MouseEvent<HTMLElement>) => void;
+  // onClick: (event: any) => void;
+  onClick: any;
+  //
 };
 function CategoryItem({ id, color, title, isActive, onClick }: Props) {
   return (
