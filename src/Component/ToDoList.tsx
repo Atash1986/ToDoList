@@ -5,6 +5,7 @@ import taskItems from "../data/taskItems";
 import { authorsItems } from "../data/authorsItems";
 import { taskItem } from "../types/TaskItem";
 import { authors } from "../types/Authors";
+import * as MyPlus from "../assest/image/plus.svg";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<taskItem[]>(taskItems);
@@ -121,7 +122,10 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         </select>
         <br />
         <br />
-        <button className="addButton" onClick={(event) => addItem()}></button>
+        <button className="addButton" onClick={(event) => addItem()}>
+          <img src="plus.svg" />
+          {/* <MyPlus /> */}
+        </button>
         <br />
       </div>
       <div>
