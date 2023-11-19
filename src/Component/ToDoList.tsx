@@ -1,14 +1,18 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
-import taskItems from "../data/TaskItems";
-import { AuthorsItems } from "../data/AuthorsItems";
-import { taskItem } from "../types/taskItem";
-import { authors } from "../types/authors";
+import taskItems from "../data/taskItems";
+import { authorsItems } from "../data/authorsItems";
+import { taskItem } from "../types/TaskItem";
+import { authors } from "../types/Authors";
+import * as MyPlus from "../assest/image/plus.svg";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<taskItem[]>(taskItems);
   const [itemId, setItemId] = useState<number>(-1);
+  const [isDivVisible, setDivVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (taskItems.length > 0) {
@@ -34,10 +38,12 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
       [name]: value,
     }));
   }
-
+  function handleClickDone(event: any) {
+    setDivVisible(!isDivVisible);
+  }
   function handleSelect(event: any) {
     const selectIndex: number = event.target.selectedIndex;
-    const authorSelect: authors | undefined = AuthorsItems.find(
+    const authorSelect: authors | undefined = authorsItems.find(
       (option, index) => index === selectIndex
     );
     let idSelect: number;
@@ -91,26 +97,35 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
   return (
     <div>
+      <Tooltip id="my-tooltip" />;
       <div className="addBox">
         <input
+          disabled={activeCategoryId === 0}
           className="taskTitle"
           type="text"
           name="title"
           value={currentItem.title}
           onChange={handleChange}
+          data-tooltip-id={activeCategoryId === 0 ? "my-tooltip" : ""}
+          data-tooltip-content={
+            activeCategoryId === 0
+              ? "You Must First Select One Category Item"
+              : ""
+          }
         />
         <br />
 
         <select
+          disabled={activeCategoryId === 0}
           name="author"
           value={
-            AuthorsItems.find(
+            authorsItems.find(
               (option: authors) => option.id === currentItem.authorId
             )?.value || "Default Value"
           }
           onChange={handleSelect}
         >
-          {AuthorsItems.map((option: authors) => (
+          {authorsItems.map((option: authors) => (
             <option key={option.id} id={String(option.id)} value={option.value}>
               {option.label}
             </option>
@@ -118,12 +133,19 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         </select>
         <br />
         <br />
-        <button className="addButton" onClick={(event) => addItem()}></button>
+        <button
+          className="addButton"
+          onClick={(event) => addItem()}
+          disabled={activeCategoryId === 0}
+          style={{ cursor: activeCategoryId === 0 ? "not-allowed" : "pointer" }}
+        >
+          <img src="plus.svg" />
+          {/* <MyPlus /> */}
+        </button>
         <br />
       </div>
       <div>
         <ul className="taskBox">
-          <h1>To Do List</h1>
           {items
             .filter(
               (item: taskItem) =>
@@ -143,35 +165,55 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
                   dateAndTime={item.dateAndTime}
                   onChecked={handleCheck}
                   author={
-                    AuthorsItems.find(
+                    authorsItems.find(
                       (option: authors) => option.id === item.authorId
                     )?.label || "Default Author"
                   }
                 />
               );
             })}
+          <div onClick={handleClickDone} className="textTaskDone">
+            {isDivVisible ? (
+              <span>Hide The Completed Tasks</span>
+            ) : (
+              <span>Show The Completed Tasks</span>
+            )}
+          </div>
+          <li className="sparator"></li>
+          <br />
+          <br />
 
-          <h1> The Work Done</h1>
-          {items.map((item: taskItem) => {
-            if (item.isDone === true) {
-              return (
-                <ToDoItem
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  isDone={item.isDone}
-                  dateAndTime={item.dateAndTime}
-                  onChecked={handleCheck}
-                  author={
-                    AuthorsItems.find(
-                      (option: authors) => option.id === item.authorId
-                    )?.label || "Default Author"
+          {isDivVisible && (
+            <div className="taskDoneItem">
+              {items
+                .filter(
+                  (item: taskItem) =>
+                    item.isDone &&
+                    (item.categoryId === activeCategoryId ||
+                      activeCategoryId === 0)
+                )
+                .map((item: taskItem) => {
+                  if (item.isDone === true) {
+                    return (
+                      <ToDoItem
+                        key={item.id}
+                        id={item.id}
+                        title={item.title}
+                        isDone={item.isDone}
+                        dateAndTime={item.dateAndTime}
+                        onChecked={handleCheck}
+                        author={
+                          authorsItems.find(
+                            (option: authors) => option.id === item.authorId
+                          )?.label || "Default Author"
+                        }
+                        categoryId={item.categoryId}
+                      />
+                    );
                   }
-                  categoryId={item.categoryId}
-                />
-              );
-            }
-          })}
+                })}
+            </div>
+          )}
         </ul>
       </div>
     </div>

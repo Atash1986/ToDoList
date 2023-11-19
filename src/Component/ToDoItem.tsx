@@ -1,11 +1,8 @@
 import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
-
-// import CircularCheckbox from "./CircularCheckBox";
-import CategoryColors from "../data/CategoryColors";
 import CategoryItem from "./CategoryItem";
-import { Category } from "../types/category";
-import categories from "../data/Categories";
+import { category } from "../types/Category";
+import categories from "../data/categories";
 type Props = {
   id: number;
   title: string;
@@ -34,7 +31,7 @@ function ToDoItem({
         className="category"
         style={{
           backgroundColor:
-            categories.find((category: Category) => category.id === categoryId)
+            categories.find((category: category) => category.id === categoryId)
               ?.color || "white",
         }}
       ></div>

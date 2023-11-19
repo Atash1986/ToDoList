@@ -29,8 +29,16 @@
     "module": "commonjs" /* Specify what module code is generated. */,
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
-    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
+    // "paths": {
+    //   "*": ["*", "src/*"]
+    // }
+    // "extensions": [
+    //   ".js",
+    //   ".jsx",
+    //   ".ts",
+    //   ".tsx"
+    // ] /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
     // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
@@ -69,7 +77,7 @@
     // "newLine": "crlf",                                /* Set the newline character for emitting files. */
     // "stripInternal": true,                            /* Disable emitting declarations that have '@internal' in their JSDoc comments. */
     // "noEmitHelpers": true,                            /* Disable generating custom helper functions like '__extends' in compiled output. */
-    // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    //"noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */,
     // "preserveConstEnums": true,                       /* Disable erasing 'const enum' declarations in generated code. */
     // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
     // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
@@ -104,7 +112,7 @@
     // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
 
     /* Completeness */
-    // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
+    // "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   }
 }

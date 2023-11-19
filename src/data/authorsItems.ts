@@ -1,4 +1,4 @@
-export const AuthorsItems = [
+export const authorsItems = [
   { id: -1, value: "Select On", label: "Select On" },
   { id: 11, value: "Emad", label: "Emad Armoun" },
   { id: 12, value: "Atefeh", label: "Atefeh Ashourzadeh" },

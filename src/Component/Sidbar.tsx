@@ -1,19 +1,19 @@
 import React, { MouseEvent } from "react";
-import logoDefaultImg from "../LDI.png";
-import profileLogo from "../profile.png";
-import settingLogo from "../OIP.jpg";
+import logoDefaultImg from "../assest/image/LDI.png";
+import profileLogo from "../assest/image/profile.png";
+import settingLogo from "../assest/image/OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
 import ToDoList from "./ToDoList";
-import { Category } from "../types/category";
-import { SetterFn } from "../types/general";
+import { category } from "../types/Category";
+import { setterFn } from "../types/General";
 
 type Props = {
   appTitle: string;
-  logo: string;
-  categories: Array<Category>;
+  logo: any;
+  categories: Array<category>;
   activeCategoryId: number;
-  setCategoryId: SetterFn;
+  setCategoryId: setterFn;
 };
 
 function Sidbar({
@@ -47,7 +47,7 @@ function Sidbar({
             isActive={activeCategoryId === 0 ? true : false}
             onClick={(event: MouseEvent<HTMLElement>) => handelClick(event, 0)}
           />
-          {categories.map((categoryItem: Category) => {
+          {categories.map((categoryItem: category) => {
             return (
               <CategoryItem
                 key={categoryItem.id}
