@@ -6,6 +6,8 @@ import { authorsItems } from "../data/authorsItems";
 import { taskItem } from "../types/TaskItem";
 import { authors } from "../types/Authors";
 import * as MyPlus from "../assest/image/plus.svg";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<taskItem[]>(taskItems);
@@ -95,17 +97,26 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
   return (
     <div>
+      <Tooltip id="my-tooltip" />;
       <div className="addBox">
         <input
+          disabled={activeCategoryId === 0}
           className="taskTitle"
           type="text"
           name="title"
           value={currentItem.title}
           onChange={handleChange}
+          data-tooltip-id={activeCategoryId === 0 ? "my-tooltip" : ""}
+          data-tooltip-content={
+            activeCategoryId === 0
+              ? "You Must First Select One Category Item"
+              : ""
+          }
         />
         <br />
 
         <select
+          disabled={activeCategoryId === 0}
           name="author"
           value={
             authorsItems.find(
@@ -122,7 +133,12 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         </select>
         <br />
         <br />
-        <button className="addButton" onClick={(event) => addItem()}>
+        <button
+          className="addButton"
+          onClick={(event) => addItem()}
+          disabled={activeCategoryId === 0}
+          style={{ cursor: activeCategoryId === 0 ? "not-allowed" : "pointer" }}
+        >
           <img src="plus.svg" />
           {/* <MyPlus /> */}
         </button>
@@ -163,6 +179,9 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
               <span>Show The Completed Tasks</span>
             )}
           </div>
+          <li className="sparator"></li>
+          <br />
+          <br />
 
           {isDivVisible && (
             <div className="taskDoneItem">
