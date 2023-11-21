@@ -1,14 +1,15 @@
 import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
 import CategoryItem from "./CategoryItem";
-import { category } from "../types/Category";
+import { Category } from "../types/Category";
 import categories from "../data/categories";
 type Props = {
   id: number;
   title: string;
   isDone: boolean;
   categoryId: number;
-  dateAndTime: string;
+  date: string;
+  time: string;
   onChecked: (id: number) => void;
   author: string;
 };
@@ -17,7 +18,8 @@ function ToDoItem({
   title,
   isDone,
   categoryId,
-  dateAndTime,
+  date,
+  time,
   onChecked,
   author,
 }: Props) {
@@ -31,16 +33,17 @@ function ToDoItem({
         className="category"
         style={{
           backgroundColor:
-            categories.find((category: category) => category.id === categoryId)
+            categories.find((category: Category) => category.id === categoryId)
               ?.color || "white",
         }}
       ></div>
       <span className="taskItemTitle">{title}</span>
 
       <span className="taskAuthor">{author} </span>
-
-      <span className="taskDate">{dateAndTime}</span>
-
+      <div className="taskDateAndTime">
+        <span className="taskDate">{date}</span>
+        <span className="taskDate">{time}</span>
+      </div>
       {/* <CircularCheckbox id={id} onChecked={onChecked} isChecked={false} /> */}
       <input
         className="checkBox"

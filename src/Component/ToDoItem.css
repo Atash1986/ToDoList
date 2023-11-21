@@ -19,6 +19,7 @@ img {
 .taskItem {
   border-radius: 15px;
   background-color: white;
+
   border-color: white;
   display: flex;
   flex-direction: row;
@@ -28,7 +29,7 @@ img {
   justify-content: space-between;
   height: 60px;
   align-items: center;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -41,11 +42,29 @@ img {
   width: fit-content;
 }
 .taskAuthor {
+  margin: auto;
   color: #999999;
+  text-align: left !important;
 }
 .taskDate {
+  margin: auto;
   color: #999999;
 }
 taskItemTitle {
   color: #444444;
+}
+.taskItemTitle {
+  font-size: 18px;
+  margin-right: auto;
+  margin-left: 20px;
+}
+
+.checkBox {
+  margin: auto;
+  display: block;
+  text-align: left;
+}
+.taskDateAndTime {
+  display: flex;
+  flex-direction: column;
 }

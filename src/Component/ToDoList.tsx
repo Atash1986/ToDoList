@@ -3,14 +3,14 @@ import ToDoItem from "./ToDoItem";
 import "./ToDoList.css";
 import taskItems from "../data/taskItems";
 import { authorsItems } from "../data/authorsItems";
-import { taskItem } from "../types/TaskItem";
-import { authors } from "../types/Authors";
+import { TaskItem } from "../types/TaskItem";
+import { Authors } from "../types/Authors";
 import * as MyPlus from "../assest/image/plus.svg";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
-  const [items, setItems] = useState<taskItem[]>(taskItems);
+  const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [itemId, setItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
 
@@ -21,10 +21,10 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
       setItemId(maxId + 1);
     }
   }, [taskItems]);
-  const [currentItem, setCurrentItem] = useState<taskItem>({
+  const [currentItem, setCurrentItem] = useState<TaskItem>({
     title: "",
     id: -1,
-    dateAndTime: "2023",
+    dateAndTime: { date: "2023", time: "14:30" },
     isDone: false,
     authorId: -1,
     categoryId: 0,
@@ -43,7 +43,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   }
   function handleSelect(event: any) {
     const selectIndex: number = event.target.selectedIndex;
-    const authorSelect: authors | undefined = authorsItems.find(
+    const authorSelect: Authors | undefined = authorsItems.find(
       (option, index) => index === selectIndex
     );
     let idSelect: number;
@@ -58,7 +58,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
   function handleCheck(selectId: number) {
     setItems((prevItems) => {
-      return prevItems.map((item: taskItem) => {
+      return prevItems.map((item: TaskItem) => {
         if (item.id === selectId) {
           return { ...item, isDone: !item.isDone };
         }
@@ -72,20 +72,31 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     setCurrentItem((prevCurrentItem) => ({
       ...prevCurrentItem,
       title: "",
-      dateAndTime: "",
+      dateAndTime: { date: "", time: "" },
       authorId: -1,
       categoryId: 0,
     }));
   }
   function addItem() {
-    const currentDT: Date = new Date();
-    const dateTime: string = currentDT.toLocaleString();
+    const dateObject: Date = new Date();
+    const day = dateObject.getDate();
+    const hour = dateObject.getHours();
+    const minute = dateObject.getMinutes();
+    const dayName: string = dateObject.toLocaleDateString("en-US", {
+      weekday: "long",
+    });
+    const monthName: string = dateObject.toLocaleDateString("en-US", {
+      month: "long",
+    });
+    const date = dayName.slice(0, 3) + "," + day + " " + monthName.slice(0, 3);
+
+    const time: string = hour + ":" + minute;
     setItemId(itemId + 1);
 
     setItems((prevItems) => {
       const newItem = {
         ...currentItem,
-        dateAndTime: dateTime,
+        dateAndTime: { date, time },
         id: itemId,
         categoryId: activeCategoryId,
       };
@@ -94,50 +105,46 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     });
     reset();
   }
-
+  const isAllCategory = activeCategoryId === 0;
   return (
     <div>
       <Tooltip id="my-tooltip" />;
       <div className="addBox">
         <input
-          disabled={activeCategoryId === 0}
+          disabled={isAllCategory}
           className="taskTitle"
           type="text"
           name="title"
           value={currentItem.title}
           onChange={handleChange}
-          data-tooltip-id={activeCategoryId === 0 ? "my-tooltip" : ""}
+          data-tooltip-id={isAllCategory ? "my-tooltip" : ""}
           data-tooltip-content={
-            activeCategoryId === 0
-              ? "You Must First Select One Category Item"
-              : ""
+            isAllCategory ? "You Must First Select One Category Item" : ""
           }
         />
-        <br />
 
         <select
-          disabled={activeCategoryId === 0}
+          disabled={isAllCategory}
           name="author"
           value={
             authorsItems.find(
-              (option: authors) => option.id === currentItem.authorId
+              (option: Authors) => option.id === currentItem.authorId
             )?.value || "Default Value"
           }
           onChange={handleSelect}
         >
-          {authorsItems.map((option: authors) => (
+          {authorsItems.map((option: Authors) => (
             <option key={option.id} id={String(option.id)} value={option.value}>
               {option.label}
             </option>
           ))}
         </select>
-        <br />
-        <br />
+
         <button
           className="addButton"
           onClick={(event) => addItem()}
-          disabled={activeCategoryId === 0}
-          style={{ cursor: activeCategoryId === 0 ? "not-allowed" : "pointer" }}
+          disabled={isAllCategory}
+          style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
           <img src="plus.svg" />
           {/* <MyPlus /> */}
@@ -148,9 +155,9 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         <ul className="taskBox">
           {items
             .filter(
-              (item: taskItem) =>
+              (item: TaskItem) =>
                 !item.isDone &&
-                (item.categoryId === activeCategoryId || activeCategoryId === 0)
+                (item.categoryId === activeCategoryId || isAllCategory)
             )
             .map((item) => {
               // if(item.isDone===false)
@@ -162,11 +169,12 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
                   title={item.title}
                   isDone={item.isDone}
                   categoryId={item.categoryId}
-                  dateAndTime={item.dateAndTime}
+                  date={item.dateAndTime.date}
+                  time={item.dateAndTime.time}
                   onChecked={handleCheck}
                   author={
                     authorsItems.find(
-                      (option: authors) => option.id === item.authorId
+                      (option: Authors) => option.id === item.authorId
                     )?.label || "Default Author"
                   }
                 />
@@ -187,12 +195,11 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
             <div className="taskDoneItem">
               {items
                 .filter(
-                  (item: taskItem) =>
+                  (item: TaskItem) =>
                     item.isDone &&
-                    (item.categoryId === activeCategoryId ||
-                      activeCategoryId === 0)
+                    (item.categoryId === activeCategoryId || isAllCategory)
                 )
-                .map((item: taskItem) => {
+                .map((item: TaskItem) => {
                   if (item.isDone === true) {
                     return (
                       <ToDoItem
@@ -200,11 +207,12 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
                         id={item.id}
                         title={item.title}
                         isDone={item.isDone}
-                        dateAndTime={item.dateAndTime}
+                        date={item.dateAndTime.date}
+                        time={item.dateAndTime.time}
                         onChecked={handleCheck}
                         author={
                           authorsItems.find(
-                            (option: authors) => option.id === item.authorId
+                            (option: Authors) => option.id === item.authorId
                           )?.label || "Default Author"
                         }
                         categoryId={item.categoryId}

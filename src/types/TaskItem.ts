@@ -1,8 +1,10 @@
-export type taskItem = {
+import { DateTime } from "./DateTime";
+
+export type TaskItem = {
   id: number;
   title: string;
   isDone: boolean;
   authorId: number;
-  dateAndTime: string;
+  dateAndTime: DateTime;
   categoryId: number;
 };
