@@ -13,7 +13,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [itemId, setItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-
+  const [showError, setShowError] = useState<boolean>(false);
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
@@ -35,6 +35,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
     setCurrentItem((prevInputText) => ({
       ...prevInputText,
+
       [name]: value,
     }));
   }
@@ -76,6 +77,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
       authorId: -1,
       categoryId: 0,
     }));
+    setShowError(false);
   }
   function addItem() {
     const dateObject: Date = new Date();
@@ -88,20 +90,27 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     const monthName: string = dateObject.toLocaleDateString("en-US", {
       month: "long",
     });
-    const date = dayName.slice(0, 3) + "," + day + " " + monthName.slice(0, 3);
-
+    const date = dayName + "," + day + " " + monthName.slice(0, 3);
     const time: string = hour + ":" + minute;
+
     setItemId(itemId + 1);
 
     setItems((prevItems) => {
-      const newItem = {
-        ...currentItem,
-        dateAndTime: { date, time },
-        id: itemId,
-        categoryId: activeCategoryId,
-      };
+      console.log(currentItem.title);
+      if (currentItem.title !== "") {
+        console.log(currentItem.title);
+        const newItem = {
+          ...currentItem,
+          dateAndTime: { date, time },
+          id: itemId,
+          categoryId: activeCategoryId,
+        };
 
-      return [...prevItems, newItem];
+        return [...prevItems, newItem];
+      } else {
+        setShowError(true);
+        return prevItems;
+      }
     });
     reset();
   }
@@ -122,7 +131,12 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
             isAllCategory ? "You Must First Select One Category Item" : ""
           }
         />
-
+        <span
+          className="ErrorRequrment"
+          style={{ display: showError ? "block" : "none" }}
+        >
+          Please Add Title For Task
+        </span>
         <select
           disabled={isAllCategory}
           name="author"
