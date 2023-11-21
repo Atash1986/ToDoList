@@ -18,6 +18,7 @@
 .taskTitle {
   border: none;
   width: 10px;
+
   flex-grow: 1;
   background-color: transparent;
   font-size: 20px;
@@ -28,6 +29,7 @@
 .taksBox {
   margin-left: 10%;
 }
+
 .addBox select {
   border-radius: 10px;
   width: 127px;

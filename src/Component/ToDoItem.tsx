@@ -37,19 +37,17 @@ function ToDoItem({
               ?.color || "white",
         }}
       ></div>
-      <span className="taskItemTitle">{title}</span>
+      <div className="titleCol">{title}</div>
 
-      <span className="taskAuthor">{author} </span>
-      <div className="taskDateAndTime">
+      <div className="authorCol">{author} </div>
+      <div className="dateAndTimeCol">
         <span className="taskDate">{date}</span>
         <span className="taskDate">{time}</span>
       </div>
       {/* <CircularCheckbox id={id} onChecked={onChecked} isChecked={false} /> */}
-      <input
-        className="checkBox"
-        type="checkbox"
-        onClick={() => onChecked(id)}
-      />
+      <div className="checkBoxCol">
+        <input type="checkbox" onClick={() => onChecked(id)} />
+      </div>
     </li>
   );
 }

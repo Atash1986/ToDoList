@@ -19,7 +19,7 @@ img {
 .taskItem {
   border-radius: 15px;
   background-color: white;
-
+  text-align: left;
   border-color: white;
   display: flex;
   flex-direction: row;
@@ -41,30 +41,35 @@ img {
 .taskItem span {
   width: fit-content;
 }
-.taskAuthor {
+.authorCol {
+  flex: 2;
   margin: auto;
   color: #999999;
-  text-align: left !important;
+  text-align: center;
 }
 .taskDate {
+  flex: 1;
   margin: auto;
   color: #999999;
 }
-taskItemTitle {
-  color: #444444;
-}
-.taskItemTitle {
+
+.titleCol {
   font-size: 18px;
   margin-right: auto;
   margin-left: 20px;
+  flex: 4;
+  color: #444444;
 }
 
-.checkBox {
+.checkBoxCol {
   margin: auto;
   display: block;
-  text-align: left;
+  text-align: center;
+  flex: 1;
 }
-.taskDateAndTime {
+.dateAndTimeCol {
   display: flex;
+  flex: 2;
   flex-direction: column;
+  text-align: center;
 }
