@@ -1,1 +1,1 @@
-export type setterFn = (value: number) => void;
+export type SetterFn = (value: number) => void;
