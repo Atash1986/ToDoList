@@ -5,15 +5,15 @@ import settingLogo from "../assest/image/OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
 import ToDoList from "./ToDoList";
-import { category } from "../types/Category";
-import { setterFn } from "../types/General";
+import { Category } from "../types/Category";
+import { SetterFn } from "../types/General";
 
 type Props = {
   appTitle: string;
   logo: any;
-  categories: Array<category>;
+  categories: Array<Category>;
   activeCategoryId: number;
-  setCategoryId: setterFn;
+  setCategoryId: SetterFn;
 };
 
 function Sidbar({
@@ -47,7 +47,7 @@ function Sidbar({
             isActive={activeCategoryId === 0 ? true : false}
             onClick={(event: MouseEvent<HTMLElement>) => handelClick(event, 0)}
           />
-          {categories.map((categoryItem: category) => {
+          {categories.map((categoryItem: Category) => {
             return (
               <CategoryItem
                 key={categoryItem.id}
