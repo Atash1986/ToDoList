@@ -4,7 +4,7 @@ import profileLogo from "../assest/image/profile.png";
 import settingLogo from "../assest/image/OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
-import ToDoList from "./ToDoList";
+import ToDoList from "./MainPage";
 import { Category } from "../types/Category";
 import { SetterFn } from "../types/General";
 

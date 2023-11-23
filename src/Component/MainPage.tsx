@@ -1,6 +1,6 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import ToDoItem from "./ToDoItem";
-import "./ToDoList.css";
+import "./MainPage.css";
 import taskItems from "../data/taskItems";
 import { authorsItems } from "../data/authorsItems";
 import { TaskItem } from "../types/TaskItem";
@@ -8,12 +8,13 @@ import { Authors } from "../types/Authors";
 import * as MyPlus from "../assest/image/plus.svg";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import AddBox from "./AddBox";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [itemId, setItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-  const [showError, setShowError] = useState<boolean>(false);
+
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
@@ -30,31 +31,8 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     categoryId: 0,
   });
 
-  function handleChange(event: any) {
-    const { name, value } = event.target;
-
-    setCurrentItem((prevInputText) => ({
-      ...prevInputText,
-
-      [name]: value,
-    }));
-  }
   function handleClickDone(event: any) {
     setDivVisible(!isDivVisible);
-  }
-  function handleSelect(event: any) {
-    const selectIndex: number = event.target.selectedIndex;
-    const authorSelect: Authors | undefined = authorsItems.find(
-      (option, index) => index === selectIndex
-    );
-    let idSelect: number;
-    if (authorSelect) {
-      idSelect = authorSelect.id;
-    }
-    setCurrentItem((prevCurrentItem) => ({
-      ...prevCurrentItem,
-      authorId: idSelect,
-    }));
   }
 
   function handleCheck(selectId: number) {
@@ -69,102 +47,16 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     });
   }
 
-  function reset() {
-    setCurrentItem((prevCurrentItem) => ({
-      ...prevCurrentItem,
-      title: "",
-      dateAndTime: { date: "", time: "" },
-      authorId: -1,
-      categoryId: 0,
-    }));
-    setShowError(false);
-  }
-  function addItem() {
-    const dateObject: Date = new Date();
-    const day = dateObject.getDate();
-    const hour = dateObject.getHours();
-    const minute = dateObject.getMinutes();
-    const dayName: string = dateObject.toLocaleDateString("en-US", {
-      weekday: "long",
-    });
-    const monthName: string = dateObject.toLocaleDateString("en-US", {
-      month: "long",
-    });
-    const date = dayName + "," + day + " " + monthName.slice(0, 3);
-    const time: string = hour + ":" + minute;
-
-    setItemId(itemId + 1);
-
-    setItems((prevItems) => {
-      console.log(currentItem.title);
-      if (currentItem.title !== "") {
-        console.log(currentItem.title);
-        const newItem = {
-          ...currentItem,
-          dateAndTime: { date, time },
-          id: itemId,
-          categoryId: activeCategoryId,
-        };
-
-        return [...prevItems, newItem];
-      } else {
-        setShowError(true);
-        return prevItems;
-      }
-    });
-    reset();
-  }
   const isAllCategory = activeCategoryId === 0;
   return (
     <div>
-      <Tooltip id="my-tooltip" />;
-      <div className="addBox">
-        <input
-          disabled={isAllCategory}
-          className="taskTitle"
-          type="text"
-          name="title"
-          value={currentItem.title}
-          onChange={handleChange}
-          data-tooltip-id={isAllCategory ? "my-tooltip" : ""}
-          data-tooltip-content={
-            isAllCategory ? "You Must First Select One Category Item" : ""
-          }
-        />
-        <span
-          className="ErrorRequrment"
-          style={{ display: showError ? "block" : "none" }}
-        >
-          Please Add Title For Task
-        </span>
-        <select
-          disabled={isAllCategory}
-          name="author"
-          value={
-            authorsItems.find(
-              (option: Authors) => option.id === currentItem.authorId
-            )?.value || "Default Value"
-          }
-          onChange={handleSelect}
-        >
-          {authorsItems.map((option: Authors) => (
-            <option key={option.id} id={String(option.id)} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-
-        <button
-          className="addButton"
-          onClick={(event) => addItem()}
-          disabled={isAllCategory}
-          style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
-        >
-          <img src="plus.svg" />
-          {/* <MyPlus /> */}
-        </button>
-        <br />
-      </div>
+      <AddBox
+        activeCategoryId={activeCategoryId}
+        itemId={itemId}
+        setItems={setItems}
+        setItemId={setItemId}
+        items={items}
+      />
       <div>
         <ul className="taskBox">
           {items
