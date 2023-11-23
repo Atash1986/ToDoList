@@ -9,6 +9,7 @@ import * as MyPlus from "../assest/image/plus.svg";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
+import ToDoLists from "./ToDoLists";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
@@ -35,19 +36,16 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     setDivVisible(!isDivVisible);
   }
 
-  function handleCheck(selectId: number) {
-    setItems((prevItems) => {
-      return prevItems.map((item: TaskItem) => {
-        if (item.id === selectId) {
-          return { ...item, isDone: !item.isDone };
-        }
-
-        return item; // Return unchanged items
-      });
-    });
-  }
-
   const isAllCategory = activeCategoryId === 0;
+  const filterItems: TaskItem[] = items.filter(
+    (item: TaskItem) =>
+      !item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
+  );
+  const filterItems2: TaskItem[] = items.filter(
+    (item: TaskItem) =>
+      item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
+  );
+
   return (
     <div>
       <AddBox
@@ -58,77 +56,32 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         items={items}
       />
       <div>
-        <ul className="taskBox">
-          {items
-            .filter(
-              (item: TaskItem) =>
-                !item.isDone &&
-                (item.categoryId === activeCategoryId || isAllCategory)
-            )
-            .map((item) => {
-              // if(item.isDone===false)
-              // {
-              return (
-                <ToDoItem
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  isDone={item.isDone}
-                  categoryId={item.categoryId}
-                  date={item.dateAndTime.date}
-                  time={item.dateAndTime.time}
-                  onChecked={handleCheck}
-                  author={
-                    authorsItems.find(
-                      (option: Authors) => option.id === item.authorId
-                    )?.label || "Default Author"
-                  }
-                />
-              );
-            })}
-          <div onClick={handleClickDone} className="textTaskDone">
-            {isDivVisible ? (
-              <span>Hide The Completed Tasks</span>
-            ) : (
-              <span>Show The Completed Tasks</span>
-            )}
-          </div>
-          <li className="sparator"></li>
-          <br />
-          <br />
+        <ToDoLists
+          filterItems={filterItems}
+          setItems={setItems}
+          items={items}
+        />
 
-          {isDivVisible && (
-            <div className="taskDoneItem">
-              {items
-                .filter(
-                  (item: TaskItem) =>
-                    item.isDone &&
-                    (item.categoryId === activeCategoryId || isAllCategory)
-                )
-                .map((item: TaskItem) => {
-                  if (item.isDone === true) {
-                    return (
-                      <ToDoItem
-                        key={item.id}
-                        id={item.id}
-                        title={item.title}
-                        isDone={item.isDone}
-                        date={item.dateAndTime.date}
-                        time={item.dateAndTime.time}
-                        onChecked={handleCheck}
-                        author={
-                          authorsItems.find(
-                            (option: Authors) => option.id === item.authorId
-                          )?.label || "Default Author"
-                        }
-                        categoryId={item.categoryId}
-                      />
-                    );
-                  }
-                })}
-            </div>
+        <div onClick={handleClickDone} className="textTaskDone">
+          {isDivVisible ? (
+            <span>Hide The Completed Tasks</span>
+          ) : (
+            <span>Show The Completed Tasks</span>
           )}
-        </ul>
+        </div>
+        <li className="sparator"></li>
+        <br />
+        <br />
+
+        {isDivVisible && (
+          <div className="taskDoneItem">
+            <ToDoLists
+              filterItems={filterItems2}
+              setItems={setItems}
+              items={items}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
