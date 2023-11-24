@@ -10,12 +10,15 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
 import ToDoLists from "./ToDoLists";
+import categories from "../data/categories";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [itemId, setItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-
+  let numberOfActive: number = 0;
+  let numberOfDone: number = 0;
+  const numberOfCategory: number = categories.length;
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
@@ -41,13 +44,29 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     (item: TaskItem) =>
       !item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
   );
-  const filterItems2: TaskItem[] = items.filter(
+  numberOfActive = filterItems.length;
+  const filterItemsDone: TaskItem[] = items.filter(
     (item: TaskItem) =>
       item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
   );
+  numberOfDone = filterItemsDone.length;
 
   return (
     <div>
+      <div className="statisticsBox">
+        <div className="statisticsDetail">
+          <span className="number">{numberOfActive}</span>
+          <span className="name">Active Tasks</span>
+        </div>
+        <div className="statisticsDetail">
+          <span className="number">{numberOfDone}</span>
+          <span className="name">Done Tasks</span>
+        </div>
+        <div className="statisticsDetail">
+          <span className="number">{numberOfCategory}</span>
+          <span className="name">Categories</span>
+        </div>
+      </div>
       <AddBox
         activeCategoryId={activeCategoryId}
         itemId={itemId}
@@ -76,7 +95,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         {isDivVisible && (
           <div className="taskDoneItem">
             <ToDoLists
-              filterItems={filterItems2}
+              filterItems={filterItemsDone}
               setItems={setItems}
               items={items}
             />
