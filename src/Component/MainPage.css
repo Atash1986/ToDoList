@@ -56,9 +56,10 @@
   background: rgb(243, 242, 241);
   background: rgb(245, 245, 245);
   background: linear-gradient(
-    0deg,
-    rgba(245, 245, 245, 1) 0%,
-    rgba(255, 255, 255, 1) 89%
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(255, 255, 255, 1) 10%,
+    rgba(255, 255, 255, 0) 100%
   );
   border-radius: 15px;
   border-color: white;
