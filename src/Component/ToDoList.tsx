@@ -4,13 +4,11 @@ import ToDoItem from "./ToDoItem";
 import { Authors } from "../types/Authors";
 import { authorsItems } from "../data/authorsItems";
 function ToDoList({
-  filterItems,
+  items,
   setItems,
-}: // items,
-{
-  filterItems: TaskItem[];
+}: {
+  items: TaskItem[];
   setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
-  //  items: TaskItem[];
 }): React.JSX.Element {
   function handleCheck(selectId: number) {
     setItems((prevItems) => {
@@ -25,17 +23,11 @@ function ToDoList({
   }
   return (
     <ul className="taskBox">
-      {filterItems.map((item: TaskItem) => {
+      {items.map((item: TaskItem) => {
         return (
           <ToDoItem
             item={item}
             key={item.id}
-            // id={item.id}
-            // title={item.title}
-            // isDone={item.isDone}
-            // categoryId={item.categoryId}
-            // date={item.dateAndTime.date}
-            // time={item.dateAndTime.time}
             onChecked={handleCheck}
             author={
               authorsItems.find(

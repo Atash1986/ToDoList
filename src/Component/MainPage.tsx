@@ -72,11 +72,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         items={items}
       />
       <div>
-        <ToDoList
-          filterItems={activeItems}
-          setItems={setItems}
-          // items={items}
-        />
+        <ToDoList items={activeItems} setItems={setItems} />
 
         <div onClick={handleClickDone} className="textTaskDone">
           {isDivVisible ? (
@@ -91,11 +87,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
 
         {isDivVisible && (
           <div className="taskDoneItem">
-            <ToDoList
-              filterItems={doneItems}
-              setItems={setItems}
-              // items={items}
-            />
+            <ToDoList items={doneItems} setItems={setItems} />
           </div>
         )}
       </div>
