@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import taskItems from "../data/taskItems";
@@ -15,19 +15,20 @@ function AddBox({
 }: {
   activeCategoryId: number;
   itemId: number;
-  setItemId: React.Dispatch<React.SetStateAction<number>>;
-  setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
+  setItemId: (itemId: number) => void;
+  setItems: Dispatch<SetStateAction<TaskItem[]>>;
   items: TaskItem[];
 }) {
-  const isAllCategory = activeCategoryId === 0;
-  const [currentItem, setCurrentItem] = useState<TaskItem>({
+  const initializ: TaskItem = {
     title: "",
     id: -1,
     dateAndTime: { date: "2023", time: "14:30" },
     isDone: false,
     authorId: -1,
     categoryId: 0,
-  });
+  };
+  const isAllCategory = activeCategoryId === 0;
+  const [currentItem, setCurrentItem] = useState<TaskItem>(initializ);
   const [showError, setShowError] = useState<boolean>(false);
   function handleChange(event: any) {
     const { name, value } = event.target;
@@ -53,13 +54,7 @@ function AddBox({
     }));
   }
   function reset() {
-    setCurrentItem((prevCurrentItem) => ({
-      ...prevCurrentItem,
-      title: "",
-      dateAndTime: { date: "", time: "" },
-      authorId: -1,
-      categoryId: 0,
-    }));
+    setCurrentItem(initializ);
     setShowError(false);
   }
   function addItem() {
@@ -142,7 +137,7 @@ function AddBox({
         <br />
       </div>
       <span
-        className="ErrorRequrment"
+        className="errorRequirement"
         style={{ display: showError ? "block" : "none" }}
       >
         Please Add Title For Task

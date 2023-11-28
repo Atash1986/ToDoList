@@ -1,5 +1,5 @@
 import "./App.css";
-import ToDoList from "./MainPage";
+import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
 import logoDynamic from "../assest/image/logo.jpeg";
 import Categories from "../data/categories";
@@ -17,7 +17,7 @@ function App() {
           setCategoryId={setCategoryId}
         />
 
-        <ToDoList activeCategoryId={activeCategoryId} />
+        <MainPage activeCategoryId={activeCategoryId} />
       </div>
     </div>
   );

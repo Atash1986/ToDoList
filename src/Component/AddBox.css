@@ -6,8 +6,8 @@
   flex-direction: row;
   width: 800px;
   height: 60px;
-  margin-top: 5%;
-  margin-left: 14%;
+  margin-top: 47px;
+  margin-left: 125px;
   justify-content: space-between;
   border: 1px;
   border-color: #6666;
@@ -19,7 +19,7 @@
   border-radius: 10px;
   width: 127px;
   height: 37px;
-  margin-right: 4%;
+  margin-right: 35px;
 }
 .taskTitle {
   border: none;
@@ -32,19 +32,16 @@
 .taskTitle:focus {
   outline: none;
 }
-.ErrorRequrment {
+.errorRequirement {
   color: red;
-  margin-top: 3%;
-  margin-left: 30%;
+  margin-top: 25px;
+  margin-left: 130px;
 }
 
 .addButton {
-  margin-right: 6%;
+  margin-right: 32px;
   background: none;
   width: 30px;
   border: none;
   height: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-size: contain;
 }

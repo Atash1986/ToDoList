@@ -6,8 +6,8 @@
   color: #868686;
   font-size: 16px;
   cursor: pointer;
-  margin-left: 25%;
-  margin-top: 10%;
+  margin-left: 186px;
+  margin-top: 80px;
   text-align: center;
   /* jh */
 }
@@ -46,7 +46,7 @@
 .sparator {
   display: none;
   opacity: 0;
-  transition: visibility 1s, opacity 1s linear;
+  transition: visibility 500ms, opacity 1s linear;
   /* background: rgb(243, 242, 241);
   background: rgb(245, 245, 245);
   background: linear-gradient(
@@ -67,8 +67,8 @@
   display: flex;
   flex-direction: row;
   width: 800px;
-  margin-top: 2%;
-  margin-left: 10%;
+  margin-top: 15px;
+  margin-left: 133px;
   justify-content: space-between;
   height: 60px;
   align-items: center;
@@ -80,9 +80,9 @@
   color: red;
 }
 .statisticsBox {
-  margin-left: 15%;
-  margin-top: 5%;
-  padding-right: 20%;
+  margin-left: 130px;
+  margin-top: 30px;
+  /* /* padding-right: 20%; */
   display: flex;
   flex-direction: row;
   width: 95%;
@@ -95,7 +95,7 @@
   flex-direction: column;
   background-color: #023e8a;
   width: 30%;
-  height: 20%px;
+  height: 140px;
   color: white;
   font-size: 30px;
   align-items: center;
@@ -103,8 +103,8 @@
 }
 .number {
   font-size: 60px;
-  padding-bottom: 2%;
-  padding-top: 2%;
+  padding-bottom: 12px;
+  padding-top: 4px;
 }
 .name {
   font-size: 18px;

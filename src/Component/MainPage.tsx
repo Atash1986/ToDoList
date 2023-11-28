@@ -14,7 +14,7 @@ import categories from "../data/categories";
 
 function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
-  const [itemId, setItemId] = useState<number>(-1);
+  const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   let numberOfActive: number = 0;
   let numberOfDone: number = 0;
@@ -23,7 +23,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
       const maxId = Math.max(...taskItems.map((item) => item.id));
-      setItemId(maxId + 1);
+      setLastItemId(maxId + 1);
     }
   }, [taskItems]);
   const [currentItem, setCurrentItem] = useState<TaskItem>({
@@ -69,16 +69,16 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
       </div>
       <AddBox
         activeCategoryId={activeCategoryId}
-        itemId={itemId}
+        itemId={lastItemId}
         setItems={setItems}
-        setItemId={setItemId}
+        setItemId={setLastItemId}
         items={items}
       />
       <div>
         <ToDoLists
           filterItems={filterItems}
           setItems={setItems}
-          items={items}
+          // items={items}
         />
 
         <div onClick={handleClickDone} className="textTaskDone">
@@ -97,7 +97,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
             <ToDoLists
               filterItems={filterItemsDone}
               setItems={setItems}
-              items={items}
+              // items={items}
             />
           </div>
         )}

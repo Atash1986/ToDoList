@@ -6,11 +6,11 @@ import { authorsItems } from "../data/authorsItems";
 function ToDoLists({
   filterItems,
   setItems,
-  items,
-}: {
+}: // items,
+{
   filterItems: TaskItem[];
   setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
-  items: TaskItem[];
+  //  items: TaskItem[];
 }): React.JSX.Element {
   function handleCheck(selectId: number) {
     setItems((prevItems) => {
