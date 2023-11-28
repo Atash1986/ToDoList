@@ -28,13 +28,14 @@ function ToDoList({
       {filterItems.map((item: TaskItem) => {
         return (
           <ToDoItem
+            item={item}
             key={item.id}
-            id={item.id}
-            title={item.title}
-            isDone={item.isDone}
-            categoryId={item.categoryId}
-            date={item.dateAndTime.date}
-            time={item.dateAndTime.time}
+            // id={item.id}
+            // title={item.title}
+            // isDone={item.isDone}
+            // categoryId={item.categoryId}
+            // date={item.dateAndTime.date}
+            // time={item.dateAndTime.time}
             onChecked={handleCheck}
             author={
               authorsItems.find(

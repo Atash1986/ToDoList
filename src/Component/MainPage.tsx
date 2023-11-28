@@ -16,9 +16,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-  let numberOfActive: number = 0;
-  let numberOfDone: number = 0;
-  const numberOfCategory: number = categories.length;
+
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
@@ -40,30 +38,29 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   }
 
   const isAllCategory = activeCategoryId === 0;
-  const filterItems: TaskItem[] = items.filter(
+  const activeItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
       !item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
   );
-  numberOfActive = filterItems.length;
-  const filterItemsDone: TaskItem[] = items.filter(
+
+  const doneItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
       item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
   );
-  numberOfDone = filterItemsDone.length;
 
   return (
     <div>
       <div className="statisticsBox">
         <div className="statisticsDetail">
-          <span className="number">{numberOfActive}</span>
+          <span className="number">{activeItems.length}</span>
           <span className="name">Active Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{numberOfDone}</span>
+          <span className="number">{doneItems.length}</span>
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{numberOfCategory}</span>
+          <span className="number">{categories.length}</span>
           <span className="name">Categories</span>
         </div>
       </div>
@@ -76,7 +73,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       />
       <div>
         <ToDoList
-          filterItems={filterItems}
+          filterItems={activeItems}
           setItems={setItems}
           // items={items}
         />
@@ -95,7 +92,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         {isDivVisible && (
           <div className="taskDoneItem">
             <ToDoList
-              filterItems={filterItemsDone}
+              filterItems={doneItems}
               setItems={setItems}
               // items={items}
             />
