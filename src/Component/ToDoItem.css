@@ -66,6 +66,7 @@ img {
   display: block;
   text-align: center;
   flex: 1;
+  cursor: pointer;
 }
 .dateAndTimeCol {
   display: flex;

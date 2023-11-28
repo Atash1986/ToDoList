@@ -9,10 +9,10 @@ import * as MyPlus from "../assest/image/plus.svg";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
-import ToDoLists from "./ToDoLists";
+import ToDoList from "./ToDoList";
 import categories from "../data/categories";
 
-function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
+function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
@@ -75,7 +75,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
         items={items}
       />
       <div>
-        <ToDoLists
+        <ToDoList
           filterItems={filterItems}
           setItems={setItems}
           // items={items}
@@ -94,7 +94,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
         {isDivVisible && (
           <div className="taskDoneItem">
-            <ToDoLists
+            <ToDoList
               filterItems={filterItemsDone}
               setItems={setItems}
               // items={items}
@@ -106,4 +106,4 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   );
 }
 
-export default ToDoList;
+export default MainPage;

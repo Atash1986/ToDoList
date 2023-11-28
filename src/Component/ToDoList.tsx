@@ -3,7 +3,7 @@ import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
 import { Authors } from "../types/Authors";
 import { authorsItems } from "../data/authorsItems";
-function ToDoLists({
+function ToDoList({
   filterItems,
   setItems,
 }: // items,
@@ -48,4 +48,4 @@ function ToDoLists({
   );
 }
 
-export default ToDoLists;
+export default ToDoList;
