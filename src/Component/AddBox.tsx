@@ -106,6 +106,7 @@ function AddBox({
 
     if (currentItem.title === "") {
       errorListLocal.push("Add Title");
+      // setErrorList((errorList) => [...errorList, "Add Title"]);
     }
     if (currentItem.authorId === -1) {
       errorListLocal.push("Add Select");
