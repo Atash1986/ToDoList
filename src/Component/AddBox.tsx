@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import taskItems from "../data/taskItems";
@@ -19,6 +19,8 @@ function AddBox({
   setItems: Dispatch<SetStateAction<TaskItem[]>>;
   items: TaskItem[];
 }) {
+  const [errorList, setErrorList] = useState<string[]>([]);
+
   const initializ: TaskItem = {
     title: "",
     id: -1,
@@ -27,11 +29,23 @@ function AddBox({
     authorId: -1,
     categoryId: 0,
   };
+  let containerStyle;
+  let showError = false;
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initializ);
-  const [showError, setShowError] = useState<boolean>(false);
+  // const [showError, setShowError] = useState<boolean>(false);
+  function removeItemsWithValue(errorMessage: String) {
+    const newArray = errorList.filter((item) => item !== errorMessage);
+    setErrorList(newArray);
+  }
   function handleChange(event: any) {
     const { name, value } = event.target;
+    // setShowError(false);
+
+    if (currentItem.title !== "") {
+      removeItemsWithValue("Add Title");
+    }
+    // else errorList.push("Please add tiltle");
 
     setCurrentItem((prevInputText) => ({
       ...prevInputText,
@@ -47,7 +61,11 @@ function AddBox({
     let idSelect: number;
     if (authorSelect) {
       idSelect = authorSelect.id;
+      if (idSelect !== -1) {
+        removeItemsWithValue("Add Select");
+      }
     }
+
     setCurrentItem((prevCurrentItem) => ({
       ...prevCurrentItem,
       authorId: idSelect,
@@ -55,9 +73,22 @@ function AddBox({
   }
   function reset() {
     setCurrentItem(initializ);
-    setShowError(false);
   }
+  // setErrorList([...errorList, "Add Select"]);
+  // const errorListCopy = [...errorList];
+  // errorListCopy.push("Add Select");
+  // setErrorList(errorListCopy);
+
+  // setErrorList((prevErrorList) => {
+  //   console.log("Previous Error List:", prevErrorList);
+  //   const newErrorList = [...prevErrorList, "Add Select"];
+  //   console.log("New Error List:", newErrorList);
+  //   return newErrorList;
+  // });
+
   function addItem() {
+    setErrorList([]);
+
     const dateObject: Date = new Date();
     const day = dateObject.getDate();
     const hour = dateObject.getHours();
@@ -71,10 +102,19 @@ function AddBox({
     const date = dayName + "," + day + " " + monthName.slice(0, 3);
     const time: string = hour + ":" + minute;
 
-    setItemId(itemId + 1);
+    const errorListLocal = [];
 
-    setItems((prevItems: TaskItem[]) => {
-      if (currentItem.title !== "") {
+    if (currentItem.title === "") {
+      errorListLocal.push("Add Title");
+    }
+    if (currentItem.authorId === -1) {
+      errorListLocal.push("Add Select");
+    }
+    setErrorList(errorListLocal);
+    if (errorListLocal.length === 0) {
+      setItemId(itemId + 1);
+
+      setItems((prevItems: TaskItem[]) => {
         const newItem = {
           ...currentItem,
           dateAndTime: { date, time },
@@ -83,11 +123,10 @@ function AddBox({
         };
 
         return [...prevItems, newItem];
-      } else {
-        setShowError(true);
-        return prevItems;
-      }
-    });
+      });
+    } else {
+      return;
+    }
     reset();
   }
 
@@ -136,12 +175,14 @@ function AddBox({
         </button>
         <br />
       </div>
-      <span
-        className="errorRequirement"
-        style={{ display: showError ? "block" : "none" }}
-      >
-        Please Add Title For Task
-      </span>
+
+      <div className="errorRequirement">
+        <span>
+          {errorList.map((error, index) => (
+            <div key={index}>{error}</div>
+          ))}
+        </span>
+      </div>
     </div>
   );
 }
