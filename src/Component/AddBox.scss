@@ -1,0 +1,47 @@
+.addBox {
+  border-radius: 20px;
+  background-color: white;
+  border-color: white;
+  border: 1px;
+  border-color: #6666;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 800px;
+  height: 60px;
+  margin-top: 47px;
+  margin-left: 125px;
+  font-family: Arial;
+  font-weight: 400px;
+}
+.addBox select {
+  border-radius: 10px;
+  width: 127px;
+  height: 37px;
+  margin-right: 35px;
+}
+.taskTitle {
+  flex-grow: 1;
+  border: none;
+  width: 10px;
+  background-color: transparent;
+  font-size: 20px;
+}
+.taskTitle:focus {
+  outline: none;
+}
+.errorRequirement {
+  display: block;
+  color: red;
+  margin-top: 25px;
+  margin-left: 130px;
+}
+
+.addButton {
+  margin-right: 32px;
+  border: none;
+  background: none;
+  width: 30px;
+  height: 30px;
+}
