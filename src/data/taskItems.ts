@@ -1,10 +1,12 @@
-const taskItems = [
+import { TaskItem } from "../types/TaskItem";
+
+const taskItems: TaskItem[] = [
   {
     id: 0,
     title: "out  Task 1",
     isDone: false,
     authorId: 11,
-    dateAndTime: "20231124 12:34",
+    dateAndTime: { date: "Thu,12 Des", time: "14:30" },
     categoryId: 2,
   },
   {
@@ -12,7 +14,7 @@ const taskItems = [
     title: "Pc Needed 1",
     isDone: false,
     authorId: 12,
-    dateAndTime: "20231124 12:34",
+    dateAndTime: { date: "Thu,12 Des", time: "14:30" },
     categoryId: 3,
   },
   {
@@ -20,7 +22,7 @@ const taskItems = [
     title: "Home Task 1",
     isDone: false,
     authorId: 13,
-    dateAndTime: "20231124 12:34",
+    dateAndTime: { date: "Thu,12 Des", time: "14:30" },
     categoryId: 1,
   },
   {
@@ -28,7 +30,7 @@ const taskItems = [
     title: "out  Task  2",
     isDone: false,
     authorId: 14,
-    dateAndTime: "20231124 12:34",
+    dateAndTime: { date: "Thu,12 Des", time: "14:30" },
     categoryId: 2,
   },
   {
@@ -36,7 +38,7 @@ const taskItems = [
     title: "Home Task 2",
     isDone: false,
     authorId: 12,
-    dateAndTime: "20231124 12:34",
+    dateAndTime: { date: "Thu,12 Des", time: "14:30" },
     categoryId: 1,
   },
   {
@@ -44,7 +46,7 @@ const taskItems = [
     title: "Pc Needed 2",
     isDone: false,
     authorId: 13,
-    dateAndTime: "20231124 12:34",
+    dateAndTime: { date: "Thu,12 Des", time: "14:30" },
     categoryId: 3,
   },
 ];

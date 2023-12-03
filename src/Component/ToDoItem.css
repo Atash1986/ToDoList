@@ -19,6 +19,7 @@ img {
 .taskItem {
   border-radius: 15px;
   background-color: white;
+  text-align: left;
   border-color: white;
   display: flex;
   flex-direction: row;
@@ -28,7 +29,7 @@ img {
   justify-content: space-between;
   height: 60px;
   align-items: center;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -40,12 +41,35 @@ img {
 .taskItem span {
   width: fit-content;
 }
-.taskAuthor {
+.authorCol {
+  flex: 2;
+  margin: auto;
   color: #999999;
+  text-align: center;
 }
 .taskDate {
+  flex: 1;
+  margin: auto;
   color: #999999;
 }
-taskItemTitle {
+
+.titleCol {
+  font-size: 18px;
+  margin-right: auto;
+  margin-left: 20px;
+  flex: 4;
   color: #444444;
+}
+
+.checkBoxCol {
+  margin: auto;
+  display: block;
+  text-align: center;
+  flex: 1;
+}
+.dateAndTimeCol {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  text-align: center;
 }

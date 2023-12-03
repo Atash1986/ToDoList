@@ -1,5 +1,5 @@
 import "./App.css";
-import ToDoList from "./ToDoList";
+import ToDoList from "./MainPage";
 import Sidbar from "./Sidbar";
 import logoDynamic from "../assest/image/logo.jpeg";
 import Categories from "../data/categories";
