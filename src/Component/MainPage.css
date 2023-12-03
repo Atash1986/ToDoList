@@ -46,7 +46,7 @@
 .sparator {
   display: none;
   opacity: 0;
-  transition: visibility 500ms, opacity 1s linear;
+  transition: all 500ms linear;
   /* background: rgb(243, 242, 241);
   background: rgb(245, 245, 245);
   background: linear-gradient(

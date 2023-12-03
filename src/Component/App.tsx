@@ -1,4 +1,6 @@
 import "./App.css";
+import { GrDocumentText } from "react-icons/gr";
+
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
 import logoDynamic from "../assest/image/logo.jpeg";
@@ -11,7 +13,7 @@ function App() {
       <div className="container">
         <Sidbar
           appTitle="Ati To Do  List"
-          logo={logoDynamic}
+          logo={<GrDocumentText size="7em" />}
           categories={Categories}
           activeCategoryId={activeCategoryId}
           setCategoryId={setCategoryId}
