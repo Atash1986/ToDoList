@@ -1,25 +1,30 @@
-.addBox {
+$Primery_color: #333;
+@mixin flex($direction: column) {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.addBox {
+  @include flex;
   border-radius: 20px;
   background-color: white;
   border-color: white;
   border: 1px;
-  border-color: rgba(102, 102, 102, 0.4);
+  border-color: #6666;
+
   width: 800px;
   height: 60px;
   margin-top: 47px;
   margin-left: 125px;
   font-family: Arial;
   font-weight: 400px;
-}
-.addBox select {
-  border-radius: 10px;
-  width: 127px;
-  height: 37px;
-  margin-right: 35px;
+  select {
+    border-radius: 10px;
+    width: 127px;
+    height: 37px;
+    margin-right: 35px;
+  }
 }
 
 .taskTitle {
@@ -29,7 +34,6 @@
   background-color: transparent;
   font-size: 20px;
 }
-
 .taskTitle:focus {
   outline: none;
 }
@@ -47,4 +51,4 @@
   background: none;
   width: 30px;
   height: 30px;
-}/*# sourceMappingURL=AddBox.css.map */
+}

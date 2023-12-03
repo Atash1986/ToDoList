@@ -3,14 +3,12 @@ import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
 import { Authors } from "../types/Authors";
 import { authorsItems } from "../data/authorsItems";
-function ToDoLists({
-  filterItems,
-  setItems,
+function ToDoList({
   items,
+  setItems,
 }: {
-  filterItems: TaskItem[];
-  setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
   items: TaskItem[];
+  setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
 }): React.JSX.Element {
   function handleCheck(selectId: number) {
     setItems((prevItems) => {
@@ -25,16 +23,11 @@ function ToDoLists({
   }
   return (
     <ul className="taskBox">
-      {filterItems.map((item: TaskItem) => {
+      {items.map((item: TaskItem) => {
         return (
           <ToDoItem
+            item={item}
             key={item.id}
-            id={item.id}
-            title={item.title}
-            isDone={item.isDone}
-            categoryId={item.categoryId}
-            date={item.dateAndTime.date}
-            time={item.dateAndTime.time}
             onChecked={handleCheck}
             author={
               authorsItems.find(
@@ -48,4 +41,4 @@ function ToDoLists({
   );
 }
 
-export default ToDoLists;
+export default ToDoList;

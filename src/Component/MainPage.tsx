@@ -9,21 +9,19 @@ import * as MyPlus from "../assest/image/plus.svg";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
-import ToDoLists from "./ToDoLists";
+import ToDoList from "./ToDoList";
 import categories from "../data/categories";
 
-function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
+function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
-  const [itemId, setItemId] = useState<number>(-1);
+  const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-  let numberOfActive: number = 0;
-  let numberOfDone: number = 0;
-  const numberOfCategory: number = categories.length;
+
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
       const maxId = Math.max(...taskItems.map((item) => item.id));
-      setItemId(maxId + 1);
+      setLastItemId(maxId + 1);
     }
   }, [taskItems]);
   const [currentItem, setCurrentItem] = useState<TaskItem>({
@@ -40,46 +38,41 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   }
 
   const isAllCategory = activeCategoryId === 0;
-  const filterItems: TaskItem[] = items.filter(
+  const activeItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
       !item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
   );
-  numberOfActive = filterItems.length;
-  const filterItemsDone: TaskItem[] = items.filter(
+
+  const doneItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
       item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
   );
-  numberOfDone = filterItemsDone.length;
 
   return (
     <div>
       <div className="statisticsBox">
         <div className="statisticsDetail">
-          <span className="number">{numberOfActive}</span>
+          <span className="number">{activeItems.length}</span>
           <span className="name">Active Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{numberOfDone}</span>
+          <span className="number">{doneItems.length}</span>
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{numberOfCategory}</span>
+          <span className="number">{categories.length}</span>
           <span className="name">Categories</span>
         </div>
       </div>
       <AddBox
         activeCategoryId={activeCategoryId}
-        itemId={itemId}
+        itemId={lastItemId}
         setItems={setItems}
-        setItemId={setItemId}
+        setItemId={setLastItemId}
         items={items}
       />
       <div>
-        <ToDoLists
-          filterItems={filterItems}
-          setItems={setItems}
-          items={items}
-        />
+        <ToDoList items={activeItems} setItems={setItems} />
 
         <div onClick={handleClickDone} className="textTaskDone">
           {isDivVisible ? (
@@ -94,11 +87,7 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
 
         {isDivVisible && (
           <div className="taskDoneItem">
-            <ToDoLists
-              filterItems={filterItemsDone}
-              setItems={setItems}
-              items={items}
-            />
+            <ToDoList items={doneItems} setItems={setItems} />
           </div>
         )}
       </div>
@@ -106,4 +95,4 @@ function ToDoList({ activeCategoryId }: { activeCategoryId: number }) {
   );
 }
 
-export default ToDoList;
+export default MainPage;
