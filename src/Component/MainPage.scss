@@ -1,7 +1,7 @@
-@mixin flex($direction: column) {
+@mixin flex($direction: column, $justify: space-between) {
   display: flex;
   flex-direction: $direction;
-  justify-content: space-between;
+  justify-content: $justify;
   align-items: center;
 }
 
@@ -13,11 +13,11 @@
   margin-top: 80px;
   text-align: center;
 
-  :hover {
+  &:hover {
     font-weight: bold;
     font-size: 18px;
   }
-  :hover + .sparator {
+  &:hover + .sparator {
     font-size: 18px;
     font-weight: bold;
     opacity: 1;
@@ -69,8 +69,8 @@
 }
 
 .statisticsDetail {
-  padding-top: 2%;
-  @include flex;
+  padding-top: 10px;
+  @include flex(column, none);
   background-color: #023e8a;
   width: 30%;
   height: 140px;
@@ -79,8 +79,8 @@
   text-align: center;
   .number {
     font-size: 60px;
-    padding-bottom: 12px;
-    padding-top: 4px;
+    padding-bottom: 6px;
+    padding-top: 20px;
   }
   .name {
     font-size: 18px;

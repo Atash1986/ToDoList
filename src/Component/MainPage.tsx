@@ -11,6 +11,7 @@ import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
 import ToDoList from "./ToDoList";
 import categories from "../data/categories";
+import { initTask } from "../data/initTask";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
@@ -24,14 +25,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       setLastItemId(maxId + 1);
     }
   }, [taskItems]);
-  const [currentItem, setCurrentItem] = useState<TaskItem>({
-    title: "",
-    id: -1,
-    dateAndTime: { date: "2023", time: "14:30" },
-    isDone: false,
-    authorId: -1,
-    categoryId: 0,
-  });
+  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
 
   function handleClickDone(event: any) {
     setDivVisible(!isDivVisible);
