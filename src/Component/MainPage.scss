@@ -1,3 +1,9 @@
+@mixin flex($direction: column) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: space-between;
+  align-items: center;
+}
 .taksBox {
   margin-left: 10%;
 }
@@ -9,17 +15,18 @@
   margin-left: 186px;
   margin-top: 80px;
   text-align: center;
-}
-.textTaskDone :hover {
-  font-weight: bold;
-  font-size: 18px;
-}
-.textTaskDone :hover + .sparator {
-  font-size: 18px;
-  font-weight: bold;
-  opacity: 1;
-  display: block;
-  opacity: 1;
+
+  :hover {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  :hover + .sparator {
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 1;
+    display: block;
+    opacity: 1;
+  }
 }
 
 .taskDoneItem {
@@ -31,13 +38,16 @@
   display: none;
   opacity: 0;
   transition: all 500ms linear;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include flex(row);
   background: rgb(243, 242, 241);
   background: rgb(245, 245, 245);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgb(255, 255, 255) 10%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(255, 255, 255, 1) 10%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
   border-radius: 15px;
   border-color: white;
   width: 800px;
@@ -54,10 +64,7 @@
 }
 
 .statisticsBox {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include flex(row);
   margin-left: 130px;
   margin-top: 30px;
   width: 95%;
@@ -66,22 +73,19 @@
 
 .statisticsDetail {
   padding-top: 2%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  @include flex;
   background-color: #023e8a;
   width: 30%;
   height: 140px;
   color: white;
   font-size: 30px;
   text-align: center;
+  .number {
+    font-size: 60px;
+    padding-bottom: 12px;
+    padding-top: 4px;
+  }
+  .name {
+    font-size: 18px;
+  }
 }
-.statisticsDetail .number {
-  font-size: 60px;
-  padding-bottom: 12px;
-  padding-top: 4px;
-}
-.statisticsDetail .name {
-  font-size: 18px;
-}/*# sourceMappingURL=MainPage.css.map */
