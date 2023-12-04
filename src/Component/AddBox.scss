@@ -1,17 +1,17 @@
 $Primery_color: white;
 @mixin flex($direction: column) {
   display: flex;
-  flex-direction: $direction;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 .addBox {
   @include flex;
   border-radius: 20px;
-  background-color: Primery_color;
-  border-color: Primery_color;
+  background-color: $Primery_color;
+  border-color: $Primery_color;
   border: 1px;
-  border-color: #6666;
+
   width: 800px;
   height: 60px;
   margin-top: 47px;

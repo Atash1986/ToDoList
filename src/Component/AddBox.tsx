@@ -5,6 +5,7 @@ import taskItems from "../data/taskItems";
 import { authorsItems } from "../data/authorsItems";
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
+import { initTask } from "../data/initTask";
 import "./AddBox.css";
 function AddBox({
   activeCategoryId,
@@ -21,18 +22,10 @@ function AddBox({
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
-  const initializ: TaskItem = {
-    title: "",
-    id: -1,
-    dateAndTime: { date: "2023", time: "14:30" },
-    isDone: false,
-    authorId: -1,
-    categoryId: 0,
-  };
   let containerStyle;
   let showError = false;
   const isAllCategory = activeCategoryId === 0;
-  const [currentItem, setCurrentItem] = useState<TaskItem>(initializ);
+  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   // const [showError, setShowError] = useState<boolean>(false);
   function removeItemsWithValue(errorMessage: String) {
     const newArray = errorList.filter((item) => item !== errorMessage);
@@ -72,7 +65,7 @@ function AddBox({
     }));
   }
   function reset() {
-    setCurrentItem(initializ);
+    setCurrentItem(initTask);
   }
   // setErrorList([...errorList, "Add Select"]);
   // const errorListCopy = [...errorList];

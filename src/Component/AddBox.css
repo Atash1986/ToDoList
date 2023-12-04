@@ -1,13 +1,12 @@
 .addBox {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
-  background-color: Primery_color;
-  border-color: Primery_color;
+  background-color: white;
+  border-color: white;
   border: 1px;
-  border-color: rgba(102, 102, 102, 0.4);
   width: 800px;
   height: 60px;
   margin-top: 47px;
