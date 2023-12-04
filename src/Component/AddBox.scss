@@ -1,18 +1,17 @@
-$Primery_color: #333;
+$Primery_color: white;
 @mixin flex($direction: column) {
   display: flex;
-  flex-direction: row;
+  flex-direction: $direction;
   justify-content: space-between;
   align-items: center;
 }
 .addBox {
   @include flex;
   border-radius: 20px;
-  background-color: white;
-  border-color: white;
+  background-color: Primery_color;
+  border-color: Primery_color;
   border: 1px;
   border-color: #6666;
-
   width: 800px;
   height: 60px;
   margin-top: 47px;
@@ -33,9 +32,9 @@ $Primery_color: #333;
   width: 10px;
   background-color: transparent;
   font-size: 20px;
-}
-.taskTitle:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }
 
 .errorRequirement {

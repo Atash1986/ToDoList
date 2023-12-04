@@ -1,11 +1,11 @@
 .addBox {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
-  background-color: white;
-  border-color: white;
+  background-color: Primery_color;
+  border-color: Primery_color;
   border: 1px;
   border-color: rgba(102, 102, 102, 0.4);
   width: 800px;
@@ -29,7 +29,6 @@
   background-color: transparent;
   font-size: 20px;
 }
-
 .taskTitle:focus {
   outline: none;
 }
