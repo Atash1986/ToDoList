@@ -28,9 +28,7 @@ function Sidbar({
   setCategoryId,
 }: Props) {
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
-    // const selectedId=Number(event.target.id);
     setCategoryId(selectedId);
-
     <ToDoList activeCategoryId={activeCategoryId} />;
   }
 
@@ -50,6 +48,7 @@ function Sidbar({
             isActive={activeCategoryId === 0 ? true : false}
             onClick={(event: MouseEvent<HTMLElement>) => handelClick(event, 0)}
           />
+
           {categories.map((categoryItem: Category) => {
             return (
               <CategoryItem
@@ -65,10 +64,7 @@ function Sidbar({
         </ul>
       </div>
       <footer>
-        {/* <IoDocumentTextOutline /> */}
         <CgProfile className="profileLogo" />
-        {/* <img className="profileLogo" src={profileLogo} /> */}
-        {/* <img className="settingLogo" src={settingLogo} /> */}
         <IoSettingsOutline className="settingLogo" />
       </footer>
     </div>
