@@ -12,8 +12,10 @@ import AddBox from "./AddBox";
 import ToDoList from "./ToDoList";
 import categories from "../data/categories";
 import { initTask } from "../data/initTask";
+import { ToggleButton } from "./ToggleButton";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
+  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
@@ -25,11 +27,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       setLastItemId(maxId + 1);
     }
   }, [taskItems]);
-  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-
-  function handleClickDone(event: any) {
-    setDivVisible(!isDivVisible);
-  }
 
   const isAllCategory = activeCategoryId === 0;
   const activeItems: TaskItem[] = items.filter(
@@ -68,16 +65,10 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       <div>
         <ToDoList items={activeItems} setItems={setItems} />
 
-        <div onClick={handleClickDone} className="textTaskDone">
-          {isDivVisible ? (
-            <span>Hide The Completed Tasks</span>
-          ) : (
-            <span>Show The Completed Tasks</span>
-          )}
-        </div>
-        <li className="sparator"></li>
-        <br />
-        <br />
+        <ToggleButton
+          isDivVisible={isDivVisible}
+          setDivVisible={setDivVisible}
+        />
 
         {isDivVisible && (
           <div className="taskDoneItem">
