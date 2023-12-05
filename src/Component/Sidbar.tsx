@@ -46,9 +46,7 @@ function Sidbar({
 
         <ul>
           <CategoryItem
-            id={0}
-            color="rgba(0,0,0,0)"
-            title="All Tasks"
+            categoryItem={{ id: 0, color: "rgba(0,0,0,0)", title: "All Task" }}
             isActive={activeCategoryId === 0 ? true : false}
             onClick={(event: MouseEvent<HTMLElement>) => handelClick(event, 0)}
           />
@@ -56,9 +54,7 @@ function Sidbar({
             return (
               <CategoryItem
                 key={categoryItem.id}
-                id={categoryItem.id}
-                color={categoryItem.color}
-                title={categoryItem.title}
+                categoryItem={categoryItem}
                 isActive={categoryItem.id === activeCategoryId ? true : false}
                 onClick={(event: MouseEvent<HTMLElement>) =>
                   handelClick(event, categoryItem.id)
