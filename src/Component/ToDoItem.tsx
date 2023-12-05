@@ -5,12 +5,6 @@ import { Category } from "../types/Category";
 import categories from "../data/categories";
 import { TaskItem } from "../types/TaskItem";
 type Props = {
-  // id: number;
-  // title: string;
-  // isDone: boolean;
-  // categoryId: number;
-  // date: string;
-  // time: string;
   item: TaskItem;
   onChecked: (id: number) => void;
   author: string;
@@ -38,7 +32,6 @@ function ToDoItem({ item, onChecked, author }: Props) {
         <span className="taskDate">{item.dateAndTime.date}</span>
         <span className="taskDate">{item.dateAndTime.time}</span>
       </div>
-      {/* <CircularCheckbox id={id} onChecked={onChecked} isChecked={false} /> */}
       <div className="checkBoxCol">
         <input type="checkbox" onClick={() => onChecked(item.id)} />
       </div>
