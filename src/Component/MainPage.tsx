@@ -11,31 +11,25 @@ import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
 import ToDoList from "./ToDoList";
 import categories from "../data/categories";
+import { initTask } from "../data/initTask";
+import { ToggleButton } from "./ToggleButton";
+import NoData from "../assest/image/no-data.png";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
+  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
+  const [isEmpty, setisEmpty] = useState<boolean>(true);
 
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
+      setisEmpty(false);
       const maxId = Math.max(...taskItems.map((item) => item.id));
       setLastItemId(maxId + 1);
     }
   }, [taskItems]);
-  const [currentItem, setCurrentItem] = useState<TaskItem>({
-    title: "",
-    id: -1,
-    dateAndTime: { date: "2023", time: "14:30" },
-    isDone: false,
-    authorId: -1,
-    categoryId: 0,
-  });
-
-  function handleClickDone(event: any) {
-    setDivVisible(!isDivVisible);
-  }
 
   const isAllCategory = activeCategoryId === 0;
   const activeItems: TaskItem[] = items.filter(
@@ -70,20 +64,19 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         setItems={setItems}
         setItemId={setLastItemId}
         items={items}
+        setisEmpty={setisEmpty}
       />
       <div>
-        <ToDoList items={activeItems} setItems={setItems} />
+        {isEmpty || activeItems.length === 0 ? (
+          <img className="noData" src={NoData} />
+        ) : (
+          <ToDoList items={activeItems} setItems={setItems} />
+        )}
 
-        <div onClick={handleClickDone} className="textTaskDone">
-          {isDivVisible ? (
-            <span>Hide The Completed Tasks</span>
-          ) : (
-            <span>Show The Completed Tasks</span>
-          )}
-        </div>
-        <li className="sparator"></li>
-        <br />
-        <br />
+        <ToggleButton
+          isDivVisible={isDivVisible}
+          setDivVisible={setDivVisible}
+        />
 
         {isDivVisible && (
           <div className="taskDoneItem">

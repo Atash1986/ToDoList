@@ -1,31 +1,30 @@
 import React, { MouseEvent } from "react";
 
 import "./CategoryItem.css";
+import { Category } from "../types/Category";
 type Props = {
-  id: number;
-  color: string;
-  title: string;
+  categoryItem: Category;
   isActive: boolean;
   // onClick: (event: any) => void;
   onClick: any;
   //
 };
-function CategoryItem({ id, color, title, isActive, onClick }: Props) {
+function CategoryItem({ categoryItem, isActive, onClick }: Props) {
   return (
-    <li onClick={onClick} key={id} className="categoryItem">
+    <li onClick={onClick} key={categoryItem.id} className="categoryItem">
       <div
         className={"inner-div" + (isActive === true ? " active-div" : "")}
-        id={String(id)}
+        id={String(categoryItem.id)}
         onClick={onClick}
       >
         <div
           className="bubble"
           style={{
-            backgroundColor: color,
+            backgroundColor: categoryItem.color,
           }}
         />
 
-        <div className="categoryItemTitle">{title}</div>
+        <div className="categoryItemTitle">{categoryItem.title}</div>
       </div>
     </li>
   );

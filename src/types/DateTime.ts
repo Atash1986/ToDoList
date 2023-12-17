@@ -1,1 +1,1 @@
-export type DateTime = { date: string; time: string };
+export type DateTime = { date: String; time: String };

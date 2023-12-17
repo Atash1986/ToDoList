@@ -18,6 +18,7 @@
     transform: translateX(0);
   }
 }
+
 .inner-div {
   display: flex;
   align-items: center;
@@ -26,9 +27,10 @@
   padding: 10px 20px;
   width: 100%;
   font-size: 18px;
-}
-.inner-div:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .active-div {
@@ -49,9 +51,10 @@
 }
 
 .categoryItem {
-  margin-bottom: 14px !important;
+  margin-bottom: 14px !important ;
   cursor: pointer;
+
+  &:hover {
+    animation: shake 0.5s infinite; /* Apply the 'shake' animation with a 0.5s duration and infinite iterations */
+  }
 }
-.categoryItem:hover {
-  animation: shake 0.5s infinite; /* Apply the 'shake' animation with a 0.5s duration and infinite iterations */
-}/*# sourceMappingURL=CategoryItem.css.map */

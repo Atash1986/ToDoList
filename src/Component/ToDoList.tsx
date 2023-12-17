@@ -3,6 +3,7 @@ import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
 import { Authors } from "../types/Authors";
 import { authorsItems } from "../data/authorsItems";
+import NoData from "../assest/image/no-data.png";
 function ToDoList({
   items,
   setItems,
@@ -23,20 +24,23 @@ function ToDoList({
   }
   return (
     <ul className="taskBox">
-      {items.map((item: TaskItem) => {
-        return (
-          <ToDoItem
-            item={item}
-            key={item.id}
-            onChecked={handleCheck}
-            author={
-              authorsItems.find(
-                (option: Authors) => option.id === item.authorId
-              )?.label || "Default Author"
-            }
-          />
-        );
-      })}
+      {
+        items.map((item: TaskItem) => {
+          return (
+            <ToDoItem
+              item={item}
+              key={item.id}
+              onChecked={handleCheck}
+              author={
+                authorsItems.find(
+                  (option: Authors) => option.id === item.authorId
+                )?.label || "Default Author"
+              }
+            />
+          );
+        })
+        // : (console.log(items), (<img src={NoData} />))
+      }
     </ul>
   );
 }

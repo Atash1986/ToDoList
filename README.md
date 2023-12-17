@@ -1,4 +1,4 @@
-# ToDoList_11102023
+# ToDo List Project
 
 ---
 
@@ -12,6 +12,6 @@ npm run start
 
 ## Nameing Convention is:
 
-- Data must be camelCase
-- Types must be PascalCase
-- The Component must be KebabCase
+- Data Files must be use camelCase convention in naming.
+- Type Files must be use PascalCase convention in naming.
+- Component Files must be use KebabCase convention in naming.

@@ -7,7 +7,6 @@
   background-color: white;
   border-color: white;
   border: 1px;
-  border-color: rgba(102, 102, 102, 0.4);
   width: 800px;
   height: 60px;
   margin-top: 47px;
@@ -29,7 +28,6 @@
   background-color: transparent;
   font-size: 20px;
 }
-
 .taskTitle:focus {
   outline: none;
 }

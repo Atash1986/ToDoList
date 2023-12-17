@@ -5,45 +5,42 @@ import taskItems from "../data/taskItems";
 import { authorsItems } from "../data/authorsItems";
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
+import { initTask } from "../data/initTask";
+import { removeItemsWithValue } from "../util/itemHelpers";
 import "./AddBox.css";
+import { DateHelpers } from "../util/dateHelpers";
 function AddBox({
   activeCategoryId,
   itemId,
   setItemId,
   setItems,
   items,
+  setisEmpty,
 }: {
   activeCategoryId: number;
   itemId: number;
   setItemId: (itemId: number) => void;
   setItems: Dispatch<SetStateAction<TaskItem[]>>;
   items: TaskItem[];
+  setisEmpty: any;
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
-  const initializ: TaskItem = {
-    title: "",
-    id: -1,
-    dateAndTime: { date: "2023", time: "14:30" },
-    isDone: false,
-    authorId: -1,
-    categoryId: 0,
-  };
   let containerStyle;
   let showError = false;
   const isAllCategory = activeCategoryId === 0;
-  const [currentItem, setCurrentItem] = useState<TaskItem>(initializ);
+  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   // const [showError, setShowError] = useState<boolean>(false);
-  function removeItemsWithValue(errorMessage: String) {
-    const newArray = errorList.filter((item) => item !== errorMessage);
-    setErrorList(newArray);
-  }
+  // function removeItemsWithValue(errorMessage: String) {
+  //   const newArray = errorList.filter((item) => item !== errorMessage);
+  //   setErrorList(newArray);
+  // }
+
   function handleChange(event: any) {
     const { name, value } = event.target;
-    // setShowError(false);
 
     if (currentItem.title !== "") {
-      removeItemsWithValue("Add Title");
+      removeItemsWithValue("Add Title", errorList, setErrorList);
     }
     // else errorList.push("Please add tiltle");
 
@@ -62,7 +59,7 @@ function AddBox({
     if (authorSelect) {
       idSelect = authorSelect.id;
       if (idSelect !== -1) {
-        removeItemsWithValue("Add Select");
+        removeItemsWithValue("Add Select", errorList, setErrorList);
       }
     }
 
@@ -72,7 +69,7 @@ function AddBox({
     }));
   }
   function reset() {
-    setCurrentItem(initializ);
+    setCurrentItem(initTask);
   }
   // setErrorList([...errorList, "Add Select"]);
   // const errorListCopy = [...errorList];
@@ -89,18 +86,7 @@ function AddBox({
   function addItem() {
     setErrorList([]);
 
-    const dateObject: Date = new Date();
-    const day = dateObject.getDate();
-    const hour = dateObject.getHours();
-    const minute = dateObject.getMinutes();
-    const dayName: string = dateObject.toLocaleDateString("en-US", {
-      weekday: "long",
-    });
-    const monthName: string = dateObject.toLocaleDateString("en-US", {
-      month: "long",
-    });
-    const date = dayName + "," + day + " " + monthName.slice(0, 3);
-    const time: string = hour + ":" + minute;
+    const dateTime = DateHelpers();
 
     const errorListLocal = [];
 
@@ -116,9 +102,10 @@ function AddBox({
       setItemId(itemId + 1);
 
       setItems((prevItems: TaskItem[]) => {
+        setisEmpty(false);
         const newItem = {
           ...currentItem,
-          dateAndTime: { date, time },
+          dateAndTime: { date: dateTime.date, time: dateTime.time },
           id: itemId,
           categoryId: activeCategoryId,
         };

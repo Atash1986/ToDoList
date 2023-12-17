@@ -1,11 +1,17 @@
 .App {
-  font-family: sans-serif;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "sans-serif";
   height: 100%;
 }
+
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 10px;
   height: 100%;
-}
+}/*# sourceMappingURL=App.css.map */

@@ -1,8 +1,12 @@
-.sidbar {
+@mixin flex($Direction: column, $Align: center) {
   display: flex;
-  flex-direction: column;
+  flex-direction: $Direction;
   justify-content: space-between;
-  align-items: normal;
+  align-items: $Align;
+}
+
+.sidbar {
+  @include flex(column, normal);
   background-color: #023e8a;
   position: relative; /* to make footer in the bottom of the body*/
   margin: 0; /*to make footer fill the screen width without scroll*/
@@ -11,9 +15,9 @@
   height: 100%;
   border-radius: 20px;
   color: whitesmoke;
-}
-.sidbar ul {
-  list-style: none;
+  ul {
+    list-style: none;
+  }
 }
 
 .title {
@@ -49,33 +53,26 @@
   top: 5px;
   margin-right: 0px;
   border-radius: 20px, 0px, 0px, 20px;
-}
-.menu li {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-  text-align: center;
-  list-style-type: none;
+
+  li {
+    @include flex;
+    margin-bottom: 5px;
+    text-align: center;
+    list-style-type: none;
+  }
 }
 
 .profileLogo {
   width: 30px;
   height: 30px;
 }
-
 .settingLogo {
   width: 30px;
   height: 30px;
 }
-
 footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include flex(row);
   margin-bottom: 5%;
   margin-left: 5%;
   margin-right: 5%;
-}/*# sourceMappingURL=Sidbar.css.map */
+}

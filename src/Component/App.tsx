@@ -1,6 +1,6 @@
 import "./App.css";
 import { GrDocumentText } from "react-icons/gr";
-
+import { IconContext } from "react-icons";
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
 import logoDynamic from "../assest/image/logo.jpeg";
@@ -9,19 +9,21 @@ import React, { useState } from "react";
 function App() {
   const [activeCategoryId, setCategoryId] = useState<number>(0);
   return (
-    <div className="App ">
-      <div className="container">
-        <Sidbar
-          appTitle="Ati To Do  List"
-          logo={<GrDocumentText size="7em" />}
-          categories={Categories}
-          activeCategoryId={activeCategoryId}
-          setCategoryId={setCategoryId}
-        />
+    <IconContext.Provider value={{ color: "white" }}>
+      <div className="App ">
+        <div className="container">
+          <Sidbar
+            appTitle="Ati To Do  List"
+            logo={<GrDocumentText size="7em" />}
+            categories={Categories}
+            activeCategoryId={activeCategoryId}
+            setCategoryId={setCategoryId}
+          />
 
-        <MainPage activeCategoryId={activeCategoryId} />
+          <MainPage activeCategoryId={activeCategoryId} />
+        </div>
       </div>
-    </div>
+    </IconContext.Provider>
   );
 }
 export default App;
