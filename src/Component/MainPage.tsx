@@ -41,7 +41,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   );
 
   return (
-    <div>
+    <div className="contentTasks">
       <div className="statisticsBox">
         <div className="statisticsDetail">
           <span className="number">{activeItems.length}</span>

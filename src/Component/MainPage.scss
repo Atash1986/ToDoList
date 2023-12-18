@@ -1,5 +1,7 @@
 @import "GenralStyle";
-
+.contentTasks {
+  margin-top: 250px;
+}
 .textTaskDone {
   color: #868686;
   font-size: 16px;
@@ -59,7 +61,7 @@
   @include flex(row);
   margin-left: 130px;
   margin-top: 30px;
-  width: 95%;
+  width: 800px;
   height: 150px;
 }
 
