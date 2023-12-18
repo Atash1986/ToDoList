@@ -8,7 +8,7 @@ import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
 import { removeItemsWithValue } from "../util/itemHelpers";
 import "./AddBox.css";
-import { DateHelpers } from "../util/dateHelpers";
+import { getFormatedDateTime } from "../util/dateHelpers";
 function AddBox({
   activeCategoryId,
   itemId,
@@ -84,7 +84,7 @@ function AddBox({
   function addItem() {
     setErrorList([]);
 
-    const dateTime = DateHelpers();
+    const dateTime = getFormatedDateTime();
 
     const errorListLocal = [];
 
