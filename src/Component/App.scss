@@ -1,9 +1,10 @@
 @import "GenralStyle";
 
 .App {
-  @include flex;
+  @include flex(row, unset, left);
   font-family: $Primery_Font;
   height: 100%;
+  margin-top: 20px;
 }
 
 .container {

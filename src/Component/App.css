@@ -1,10 +1,11 @@
 .App {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: unset;
   align-items: center;
   font-family: "sans-serif";
   height: 100%;
+  margin-top: 20px;
 }
 
 .container {
