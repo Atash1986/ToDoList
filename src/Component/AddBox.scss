@@ -1,11 +1,10 @@
-$Primery_color: white;
 @import "GenralStyle";
 
 .addBox {
   @extend flex;
   border-radius: 20px;
-  background-color: $Primery_color;
-  border-color: $Primery_color;
+  background-color: white;
+  border-color: white;
   border: 1px;
 
   width: 800px;

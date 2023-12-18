@@ -66,7 +66,7 @@
 .statisticsDetail {
   padding-top: 10px;
   @include flex(column, none);
-  background-color: #023e8a;
+  background-color: $Primery_color;
   width: 30%;
   height: 140px;
   color: white;
