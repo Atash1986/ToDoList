@@ -15,14 +15,12 @@ function AddBox({
   setItemId,
   setItems,
   items,
-  setisEmpty,
 }: {
   activeCategoryId: number;
   itemId: number;
   setItemId: (itemId: number) => void;
   setItems: Dispatch<SetStateAction<TaskItem[]>>;
   items: TaskItem[];
-  setisEmpty: any;
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
@@ -102,7 +100,6 @@ function AddBox({
       setItemId(itemId + 1);
 
       setItems((prevItems: TaskItem[]) => {
-        setisEmpty(false);
         const newItem = {
           ...currentItem,
           dateAndTime: { date: dateTime.date, time: dateTime.time },

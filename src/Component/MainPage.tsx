@@ -20,12 +20,10 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-  const [isEmpty, setisEmpty] = useState<boolean>(true);
 
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
-      setisEmpty(false);
       const maxId = Math.max(...taskItems.map((item) => item.id));
       setLastItemId(maxId + 1);
     }
@@ -64,10 +62,9 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         setItems={setItems}
         setItemId={setLastItemId}
         items={items}
-        setisEmpty={setisEmpty}
       />
       <div>
-        {isEmpty || activeItems.length === 0 ? (
+        {activeItems.length === 0 ? (
           <img className="noData" src={NoData} />
         ) : (
           <ToDoList items={activeItems} setItems={setItems} />
