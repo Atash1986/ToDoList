@@ -13,7 +13,7 @@ import ToDoList from "./ToDoList";
 import categories from "../data/categories";
 import { initTask } from "../data/initTask";
 import { ToggleButton } from "./ToggleButton";
-import NoData from "../assest/image/no-data.png";
+import NoDataImage from "../assest/image/no-data.png";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
@@ -65,7 +65,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       />
       <div>
         {activeItems.length === 0 ? (
-          <img className="noData" src={NoData} />
+          <img className="noDataImage" src={NoDataImage} />
         ) : (
           <ToDoList items={activeItems} setItems={setItems} />
         )}

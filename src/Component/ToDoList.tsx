@@ -3,7 +3,6 @@ import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
 import { Authors } from "../types/Authors";
 import { authorsItems } from "../data/authorsItems";
-import NoData from "../assest/image/no-data.png";
 function ToDoList({
   items,
   setItems,
