@@ -20,6 +20,8 @@
 }
 .inner-div {
   display: flex;
+  flex-direction: row;
+  justify-content: "unset";
   align-items: center;
   margin-right: 0px;
   border-radius: 18px 0 0 18px;

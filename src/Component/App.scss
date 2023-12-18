@@ -1,11 +1,4 @@
-$Primery_Font: "sans-serif";
-
-@mixin flex($direction: column) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: space-between;
-  align-items: center;
-}
+@import "GenralStyle";
 
 .App {
   @include flex;

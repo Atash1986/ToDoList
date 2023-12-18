@@ -1,12 +1,8 @@
 $Primery_color: white;
-@mixin flex($direction: column) {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+@import "GenralStyle";
+
 .addBox {
-  @include flex;
+  @extend flex;
   border-radius: 20px;
   background-color: $Primery_color;
   border-color: $Primery_color;

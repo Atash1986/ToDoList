@@ -1,0 +1,8 @@
+$Primery_Font: "sans-serif";
+
+@mixin flex($direction: column, $justify: space-between, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: center;
+}

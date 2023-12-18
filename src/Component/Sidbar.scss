@@ -1,12 +1,6 @@
-@mixin flex($Direction: column, $Align: center) {
-  display: flex;
-  flex-direction: $Direction;
-  justify-content: space-between;
-  align-items: $Align;
-}
-
+@import "GenralStyle";
 .sidbar {
-  @include flex(column, normal);
+  @include flex(column, space-between, normal);
   background-color: #023e8a;
   position: relative; /* to make footer in the bottom of the body*/
   margin: 0; /*to make footer fill the screen width without scroll*/

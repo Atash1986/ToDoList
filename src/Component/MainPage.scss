@@ -1,9 +1,4 @@
-@mixin flex($direction: column, $justify: space-between) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: center;
-}
+@import "GenralStyle";
 
 .textTaskDone {
   color: #868686;
