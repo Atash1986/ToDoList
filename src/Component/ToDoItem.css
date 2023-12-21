@@ -67,14 +67,6 @@ img {
   color: #444444;
 }
 
-.checkBoxCol {
-  margin: auto;
-  display: block;
-  text-align: center;
-  flex: 1;
-  cursor: pointer;
-}
-
 .dateAndTimeCol {
   display: flex;
   flex-direction: row;
