@@ -33,13 +33,26 @@ function AddBox({
   //   const newArray = errorList.filter((item) => item !== errorMessage);
   //   setErrorList(newArray);
   // }
+  function checkValidation() {
+    setErrorList([]);
+    const errorListLocal = [];
+
+    if (currentItem.title === "") {
+      errorListLocal.push("Title is required");
+    }
+    if (currentItem.authorId === -1) {
+      errorListLocal.push("Author is required");
+    }
+    setErrorList(errorListLocal);
+  }
 
   function handleChange(event: any) {
     const { name, value } = event.target;
+    checkValidation();
 
-    if (currentItem.title !== "") {
-      removeItemsWithValue("Add Title", errorList, setErrorList);
-    }
+    // if (currentItem.title !== "") {
+    //   removeItemsWithValue("Add Title", errorList, setErrorList);
+    // }
     // else errorList.push("Please add tiltle");
 
     setCurrentItem((prevInputText) => ({
@@ -49,6 +62,7 @@ function AddBox({
     }));
   }
   function handleSelect(event: any) {
+    checkValidation();
     const selectIndex: number = event.target.selectedIndex;
     const authorSelect: Authors | undefined = authorsItems.find(
       (option, index) => index === selectIndex
@@ -56,9 +70,6 @@ function AddBox({
     let idSelect: number;
     if (authorSelect) {
       idSelect = authorSelect.id;
-      if (idSelect !== -1) {
-        removeItemsWithValue("Add Select", errorList, setErrorList);
-      }
     }
 
     setCurrentItem((prevCurrentItem) => ({
@@ -88,15 +99,18 @@ function AddBox({
 
     const errorListLocal = [];
 
-    if (currentItem.title === "") {
-      errorListLocal.push("Add Title");
-      // setErrorList((errorList) => [...errorList, "Add Title"]);
-    }
-    if (currentItem.authorId === -1) {
-      errorListLocal.push("Add Select");
-    }
-    setErrorList(errorListLocal);
-    if (errorListLocal.length === 0) {
+    checkValidation();
+
+    // if (currentItem.title === "") {
+    //   errorListLocal.push("Add Title");
+    //   // setErrorList((errorList) => [...errorList, "Add Title"]);
+    // }
+    // if (currentItem.authorId === -1) {
+    //   errorListLocal.push("Add Select");
+    // }
+    // setErrorList(errorListLocal);
+
+    if (errorList.length === 0) {
       setItemId(itemId + 1);
 
       setItems((prevItems: TaskItem[]) => {
