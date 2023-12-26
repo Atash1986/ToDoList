@@ -32,8 +32,8 @@ function ToDoItem({ item, onChecked, author }: Props) {
       </div> */}
       <div className="authorCol">{author} </div>
       <div className="dateAndTimeCol">
-        <span className="taskDate">{item.dateAndTime.date}</span>
-        <span className="taskDate">{item.dateAndTime.time}</span>
+        <span className="taskDate">{item.dateAndTime?.date}</span>
+        <span className="taskDate">{item.dateAndTime?.time}</span>
       </div>
       {/* <div className="checkBoxCol">
         <input

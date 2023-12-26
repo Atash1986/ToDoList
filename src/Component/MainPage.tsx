@@ -14,12 +14,25 @@ import categories from "../data/categories";
 import { initTask } from "../data/initTask";
 import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
+import axios from "axios";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
+
+  const getTasks = async () => {
+    const result = await axios.get("http://34.41.198.14:3002/api/tasks");
+    return result.data;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const fetchedItems = await getTasks();
+      setItems(fetchedItems.data);
+    })();
+  }, []);
 
   useEffect(() => {
     if (taskItems.length > 0) {
