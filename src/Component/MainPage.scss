@@ -1,10 +1,7 @@
-@mixin flex($direction: column, $justify: space-between) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: center;
+@import "GenralStyle";
+.contentTasks {
+  margin-top: 250px;
 }
-
 .textTaskDone {
   color: #868686;
   font-size: 16px;
@@ -64,14 +61,14 @@
   @include flex(row);
   margin-left: 130px;
   margin-top: 30px;
-  width: 95%;
+  width: 800px;
   height: 150px;
 }
 
 .statisticsDetail {
   padding-top: 10px;
   @include flex(column, none);
-  background-color: #023e8a;
+  background-color: $Primery_color;
   width: 30%;
   height: 140px;
   color: white;
@@ -86,7 +83,7 @@
     font-size: 18px;
   }
 }
-.noData {
+.noDataImage {
   width: 400px;
   height: 400px;
   margin-left: 320px;

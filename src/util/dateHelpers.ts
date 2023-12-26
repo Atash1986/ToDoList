@@ -1,6 +1,6 @@
 import { DateTime } from "../types/DateTime";
 
-export function DateHelpers() {
+export function getFormatedDateTime() {
   const dateObject: Date = new Date();
   const day = dateObject.getDate();
   const hour = dateObject.getHours();

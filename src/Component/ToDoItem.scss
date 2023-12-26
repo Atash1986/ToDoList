@@ -1,9 +1,4 @@
-@mixin flex($direction: column) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: space-between;
-  align-items: center;
-}
+@import "GenralStyle";
 
 .titr {
   color: red;
@@ -65,14 +60,6 @@ img {
   margin-left: 20px;
   flex: 4;
   color: #444444;
-}
-
-.checkBoxCol {
-  margin: auto;
-  display: block;
-  text-align: center;
-  flex: 1;
-  cursor: pointer;
 }
 
 .dateAndTimeCol {

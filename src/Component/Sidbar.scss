@@ -1,13 +1,7 @@
-@mixin flex($Direction: column, $Align: center) {
-  display: flex;
-  flex-direction: $Direction;
-  justify-content: space-between;
-  align-items: $Align;
-}
-
+@import "GenralStyle";
 .sidbar {
-  @include flex(column, normal);
-  background-color: #023e8a;
+  @include flex;
+  background-color: $Primery_color;
   position: relative; /* to make footer in the bottom of the body*/
   margin: 0; /*to make footer fill the screen width without scroll*/
   gap: 10px;
@@ -17,6 +11,11 @@
   color: whitesmoke;
   ul {
     list-style: none;
+  }
+  footer {
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 
@@ -69,10 +68,4 @@
 .settingLogo {
   width: 30px;
   height: 30px;
-}
-footer {
-  @include flex(row);
-  margin-bottom: 5%;
-  margin-left: 5%;
-  margin-right: 5%;
 }

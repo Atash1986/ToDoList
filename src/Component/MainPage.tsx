@@ -13,19 +13,30 @@ import ToDoList from "./ToDoList";
 import categories from "../data/categories";
 import { initTask } from "../data/initTask";
 import { ToggleButton } from "./ToggleButton";
-import NoData from "../assest/image/no-data.png";
+import NoDataImage from "../assest/image/no-data.png";
+import axios from "axios";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
-  const [isEmpty, setisEmpty] = useState<boolean>(true);
+
+  const getTasks = async () => {
+    const result = await axios.get("http://34.41.198.14:3002/api/tasks");
+    return result.data;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const fetchedItems = await getTasks();
+      setItems(fetchedItems.data);
+    })();
+  }, []);
 
   useEffect(() => {
     if (taskItems.length > 0) {
       // Get the maximum id from taskItems
-      setisEmpty(false);
       const maxId = Math.max(...taskItems.map((item) => item.id));
       setLastItemId(maxId + 1);
     }
@@ -43,7 +54,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   );
 
   return (
-    <div>
+    <div className="contentTasks">
       <div className="statisticsBox">
         <div className="statisticsDetail">
           <span className="number">{activeItems.length}</span>
@@ -64,11 +75,10 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         setItems={setItems}
         setItemId={setLastItemId}
         items={items}
-        setisEmpty={setisEmpty}
       />
       <div>
-        {isEmpty || activeItems.length === 0 ? (
-          <img className="noData" src={NoData} />
+        {activeItems.length === 0 ? (
+          <img className="noDataImage" src={NoDataImage} />
         ) : (
           <ToDoList items={activeItems} setItems={setItems} />
         )}
