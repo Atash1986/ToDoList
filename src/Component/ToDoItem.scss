@@ -63,7 +63,7 @@ img {
 }
 
 .dateAndTimeCol {
-  @include flex(row);
+  @include flex(column);
   flex: 2;
   text-align: center;
 }

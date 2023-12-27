@@ -3,8 +3,8 @@ import { TaskItem } from "../types/TaskItem";
 export const initTask: TaskItem = {
   title: "",
   id: -1,
-  dateAndTime: { date: "2023", time: "14:30" },
+  creationDate: 1702765226,
   isDone: false,
   authorId: -1,
-  categoryId: 0,
+  categoryItem: { id: 0 },
 };
