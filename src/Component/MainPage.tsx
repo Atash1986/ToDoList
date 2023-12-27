@@ -45,12 +45,14 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const isAllCategory = activeCategoryId === 0;
   const activeItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
-      !item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
+      !item.isDone &&
+      (item.categoryItem.id === activeCategoryId || isAllCategory)
   );
 
   const doneItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
-      item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
+      item.isDone &&
+      (item.categoryItem.id === activeCategoryId || isAllCategory)
   );
 
   return (
