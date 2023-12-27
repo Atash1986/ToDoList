@@ -32,7 +32,6 @@ function getDateTimeFromTimeStamp(originalTimestamp: number) {
 }
 
 function ToDoItem({ item, onChecked, author }: Props) {
-  const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   const dateAndTime = getDateTimeFromTimeStamp(item.creationDate);
 
   return (
