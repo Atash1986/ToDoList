@@ -3,6 +3,7 @@ import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
 import { Authors } from "../types/Authors";
 import { authorsItems } from "../data/authorsItems";
+
 function ToDoList({
   items,
   setItems,
@@ -23,23 +24,20 @@ function ToDoList({
   }
   return (
     <ul className="taskBox">
-      {
-        items.map((item: TaskItem) => {
-          return (
-            <ToDoItem
-              item={item}
-              key={item.id}
-              onChecked={handleCheck}
-              author={
-                authorsItems.find(
-                  (option: Authors) => option.id === item.authorId
-                )?.label || "Default Author"
-              }
-            />
-          );
-        })
-        // : (console.log(items), (<img src={NoData} />))
-      }
+      {items.map((item: TaskItem) => {
+        return (
+          <ToDoItem
+            item={item}
+            key={item.id}
+            onChecked={handleCheck}
+            author={
+              authorsItems.find(
+                (option: Authors) => option.id === item.authorId
+              )?.label || "Default Author"
+            }
+          />
+        );
+      })}
     </ul>
   );
 }

@@ -9,6 +9,7 @@ import { initTask } from "../data/initTask";
 import { removeItemsWithValue } from "../util/itemHelpers";
 import "./AddBox.css";
 import { getFormatedDateTime } from "../util/dateHelpers";
+
 function AddBox({
   activeCategoryId,
   itemId,
@@ -28,11 +29,7 @@ function AddBox({
   let showError = false;
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-  // const [showError, setShowError] = useState<boolean>(false);
-  // function removeItemsWithValue(errorMessage: String) {
-  //   const newArray = errorList.filter((item) => item !== errorMessage);
-  //   setErrorList(newArray);
-  // }
+
   function checkValidation() {
     setErrorList([]);
     const errorListLocal = [];
@@ -49,11 +46,6 @@ function AddBox({
   function handleChange(event: any) {
     const { name, value } = event.target;
     checkValidation();
-
-    // if (currentItem.title !== "") {
-    //   removeItemsWithValue("Add Title", errorList, setErrorList);
-    // }
-    // else errorList.push("Please add tiltle");
 
     setCurrentItem((prevInputText) => ({
       ...prevInputText,
@@ -80,17 +72,6 @@ function AddBox({
   function reset() {
     setCurrentItem(initTask);
   }
-  // setErrorList([...errorList, "Add Select"]);
-  // const errorListCopy = [...errorList];
-  // errorListCopy.push("Add Select");
-  // setErrorList(errorListCopy);
-
-  // setErrorList((prevErrorList) => {
-  //   console.log("Previous Error List:", prevErrorList);
-  //   const newErrorList = [...prevErrorList, "Add Select"];
-  //   console.log("New Error List:", newErrorList);
-  //   return newErrorList;
-  // });
 
   function addItem() {
     setErrorList([]);
@@ -100,15 +81,6 @@ function AddBox({
     const errorListLocal = [];
 
     checkValidation();
-
-    // if (currentItem.title === "") {
-    //   errorListLocal.push("Add Title");
-    //   // setErrorList((errorList) => [...errorList, "Add Title"]);
-    // }
-    // if (currentItem.authorId === -1) {
-    //   errorListLocal.push("Add Select");
-    // }
-    // setErrorList(errorListLocal);
 
     if (errorList.length === 0) {
       setItemId(itemId + 1);
@@ -170,7 +142,6 @@ function AddBox({
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
           <img src="plus.svg" />
-          {/* <MyPlus /> */}
         </button>
         <br />
       </div>

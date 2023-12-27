@@ -1,6 +1,5 @@
 import React, { MouseEvent } from "react";
 import { GrDocumentText } from "react-icons/gr";
-
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
@@ -37,7 +36,6 @@ function Sidbar({
       <header>
         <h1 className="title">{appTitle}</h1>
         <div className="logo">{logo}</div>
-        {/* <img className="logo" src={logo} /> */}
       </header>
       <div className="menu">
         <h1>To Do </h1>
