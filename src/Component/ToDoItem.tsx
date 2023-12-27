@@ -43,7 +43,7 @@ function ToDoItem({ item, onChecked, author }: Props) {
           onClick={() => onChecked(item.id)}
         />
       </div> */}
-      <Checkbox item={item} key={item.id} onChecked={onChecked} />
+      <Checkbox item={item} onChecked={onChecked} />
     </li>
   );
 }
