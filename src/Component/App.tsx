@@ -6,6 +6,7 @@ import Sidbar from "./Sidbar";
 import logoDynamic from "../assest/image/logo.jpeg";
 import Categories from "../data/categories";
 import React, { useState } from "react";
+
 function App() {
   const [activeCategoryId, setCategoryId] = useState<number>(0);
   return (
