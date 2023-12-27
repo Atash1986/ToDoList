@@ -4,5 +4,5 @@ $Primery_color: #023e8a;
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
-  align-items: center;
+  align-items: $align;
 }
