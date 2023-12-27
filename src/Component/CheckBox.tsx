@@ -10,9 +10,9 @@ function Checkbox({ onChecked, item }: Props) {
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
   return (
-    <div className="checkBoxCol">
+    <div className="checkbox-col">
       <input
-        className="checkBox"
+        className="checkbox"
         type="checkbox"
         checked={item.isDone}
         onClick={() => onChecked(item.id)}
