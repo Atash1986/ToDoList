@@ -16,9 +16,15 @@
   list-style: none;
 }
 .sidbar footer {
-  margin-bottom: 5%;
-  margin-left: 5%;
-  margin-right: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .title {
