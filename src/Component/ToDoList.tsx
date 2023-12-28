@@ -33,7 +33,7 @@ function ToDoList({
             author={
               authorsItems.find(
                 (option: Authors) => option.id === item.authorId
-              )?.label || "Default Author"
+              )?.name || "Default Author"
             }
           />
         );
