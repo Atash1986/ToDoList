@@ -9,7 +9,7 @@ import { DateTime } from "../types/DateTime";
 
 type Props = {
   item: TaskItem;
-  onChecked: (id: number) => void;
+  onChecked: (id: string) => void;
   author: string;
 };
 function getDateTimeFromTimeStamp(originalTimestamp: number) {

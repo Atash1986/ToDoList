@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TaskItem } from "../types/TaskItem";
 import "./CheckBox.scss";
 type Props = {
-  onChecked: (id: number) => void;
+  onChecked: (id: string) => void;
   item: TaskItem;
 };
 function Checkbox({ onChecked, item }: Props) {

@@ -34,13 +34,13 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
     })();
   }, []);
 
-  useEffect(() => {
-    if (taskItems.length > 0) {
-      // Get the maximum id from taskItems
-      const maxId = Math.max(...taskItems.map((item) => item.id));
-      setLastItemId(maxId + 1);
-    }
-  }, [taskItems]);
+  // useEffect(() => {
+  //   if (taskItems.length > 0) {
+  //     // Get the maximum id from taskItems
+  //     const maxId = Math.max(...taskItems.map((item) => item.id));
+  //     setLastItemId(maxId + 1);
+  //   }
+  // }, [taskItems]);
 
   const isAllCategory = activeCategoryId === 0;
   const activeItems: TaskItem[] = items.filter(

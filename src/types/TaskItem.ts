@@ -1,7 +1,7 @@
 import { DateTime } from "./DateTime";
 
 export type TaskItem = {
-  id: number;
+  id: string;
   title: string;
   isDone: boolean;
   authorId: number;

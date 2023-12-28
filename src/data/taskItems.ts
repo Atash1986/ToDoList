@@ -2,7 +2,7 @@ import { TaskItem } from "../types/TaskItem";
 
 const taskItems: TaskItem[] = [
   {
-    id: 0,
+    id: "0",
     title: "out  Task 1",
     isDone: false,
     authorId: 11,
@@ -10,7 +10,7 @@ const taskItems: TaskItem[] = [
     categoryItem: { id: 2, color: "red" },
   },
   {
-    id: 1,
+    id: "1",
     title: "Pc Needed 1",
     isDone: false,
     authorId: 12,
@@ -18,7 +18,7 @@ const taskItems: TaskItem[] = [
     categoryItem: { id: 3, color: "red" },
   },
   {
-    id: 2,
+    id: "2",
     title: "Home Task 1",
     isDone: false,
     authorId: 13,
@@ -26,7 +26,7 @@ const taskItems: TaskItem[] = [
     categoryItem: { id: 1, color: "red" },
   },
   {
-    id: 3,
+    id: "3",
     title: "out  Task  2",
     isDone: false,
     authorId: 14,
@@ -34,7 +34,7 @@ const taskItems: TaskItem[] = [
     categoryItem: { id: 2, color: "red" },
   },
   {
-    id: 4,
+    id: "4",
     title: "Home Task 2",
     isDone: false,
     authorId: 12,
@@ -42,7 +42,7 @@ const taskItems: TaskItem[] = [
     categoryItem: { id: 1, color: "red" },
   },
   {
-    id: 5,
+    id: "5",
     title: "Pc Needed 2",
     isDone: false,
     authorId: 13,
