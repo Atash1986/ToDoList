@@ -5,14 +5,13 @@
   align-items: left;
   font-family: "sans-serif";
   height: 100%;
-  margin-top: 20px;
 }
 
 .container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   height: 100%;
 }/*# sourceMappingURL=App.css.map */
