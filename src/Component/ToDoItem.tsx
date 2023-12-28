@@ -43,10 +43,10 @@ function ToDoItem({ item, onChecked, author }: Props) {
       <div
         className="category"
         style={{
-          backgroundColor:
-            categories.find(
-              (category: Category) => category.id === item.categoryItem.id
-            )?.color || "white",
+          backgroundColor: item.categoryItem.color || "white",
+          // categories.find(
+          //   (category: Category) => category.id === item.categoryItem.id
+          // )?.color || "white",
         }}
       ></div>
       <div className="titleCol">{item.title}</div>

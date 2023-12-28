@@ -6,5 +6,5 @@ export type TaskItem = {
   isDone: boolean;
   authorId: number;
   creationDate: number;
-  categoryItem: { id: number };
+  categoryItem: { id: number; color: string };
 };

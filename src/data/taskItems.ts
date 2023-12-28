@@ -7,7 +7,7 @@ const taskItems: TaskItem[] = [
     isDone: false,
     authorId: 11,
     creationDate: 1702765226,
-    categoryItem: { id: 2 },
+    categoryItem: { id: 2, color: "red" },
   },
   {
     id: 1,
@@ -15,7 +15,7 @@ const taskItems: TaskItem[] = [
     isDone: false,
     authorId: 12,
     creationDate: 1702765226,
-    categoryItem: { id: 3 },
+    categoryItem: { id: 3, color: "red" },
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const taskItems: TaskItem[] = [
     isDone: false,
     authorId: 13,
     creationDate: 1702765226,
-    categoryItem: { id: 1 },
+    categoryItem: { id: 1, color: "red" },
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const taskItems: TaskItem[] = [
     isDone: false,
     authorId: 14,
     creationDate: 1702765226,
-    categoryItem: { id: 2 },
+    categoryItem: { id: 2, color: "red" },
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const taskItems: TaskItem[] = [
     isDone: false,
     authorId: 12,
     creationDate: 1702765226,
-    categoryItem: { id: 1 },
+    categoryItem: { id: 1, color: "red" },
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ const taskItems: TaskItem[] = [
     isDone: false,
     authorId: 13,
     creationDate: 1702765226,
-    categoryItem: { id: 3 },
+    categoryItem: { id: 3, color: "red" },
   },
 ];
 export default taskItems;
