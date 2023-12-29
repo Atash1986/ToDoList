@@ -42,19 +42,28 @@ function AddBox({
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
+  const [dirty, setDirty] = useState<{ title: boolean; author: boolean }>({
+    title: false,
+    author: false,
+  });
   let containerStyle;
   let showError = false;
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
+  const [selectedOption, setSelectedOption] = useState("");
+
+  useEffect(() => {
+    setSelectedOption("Select author");
+  }, []);
 
   function checkValidation() {
     setErrorList([]);
     const errorListLocal = [];
 
-    if (currentItem.title === "") {
+    if (dirty.title && currentItem.title === "") {
       errorListLocal.push("Title is required");
     }
-    if (currentItem.authorId === -1) {
+    if (dirty.author && currentItem.authorId === -1) {
       errorListLocal.push("Author is required");
     }
     setErrorList(errorListLocal);
@@ -63,16 +72,19 @@ function AddBox({
 
   function handleChange(event: any) {
     const { name, value } = event.target;
-    checkValidation();
+    setDirty((dirty) => ({
+      ...dirty,
+      title: true,
+    }));
 
     setCurrentItem((prevInputText) => ({
       ...prevInputText,
 
       [name]: value,
     }));
+    checkValidation();
   }
   function handleSelect(event: any) {
-    checkValidation();
     const selectIndex: number = event.target.selectedIndex;
     const authorSelect: Authors | undefined = authorsItems?.find(
       (option, index) => index === selectIndex
@@ -86,7 +98,14 @@ function AddBox({
       ...prevCurrentItem,
       authorId: idSelect,
     }));
+    setDirty((dirty) => ({
+      ...dirty,
+      author: true,
+    }));
+
+    checkValidation();
   }
+
   function reset() {
     setCurrentItem(initTask);
   }
@@ -153,6 +172,9 @@ function AddBox({
           }
           onChange={handleSelect}
         >
+          <option id="-1" value="Select author">
+            Select author
+          </option>
           {authorsItems?.map((option: Authors) => (
             <option key={option.id} id={String(option.id)} value={option.name}>
               {option.name}
