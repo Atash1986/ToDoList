@@ -7,8 +7,8 @@ import axios from "axios";
 
 const getToggleButton = async (selectId: string) => {
   try {
-    console.log("in api" + selectId);
-    const url = "http://34.41.198.14:3002/api/task/" + selectId + "/toggleDone";
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+    const url = baseUrl + "task/" + selectId + "/toggleDone";
     const result = await axios.get(url);
 
     return result.data.data;

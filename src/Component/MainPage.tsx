@@ -23,7 +23,8 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
 
   const getTasks = async () => {
-    const result = await axios.get("http://34.41.198.14:3002/api/tasks");
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+    const result = await axios.get(baseUrl + "tasks");
     return result.data;
   };
 

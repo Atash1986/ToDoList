@@ -13,7 +13,8 @@ import { error } from "console";
 let authorsItems: Authors[] | undefined;
 const getAuthorsItems = async () => {
   try {
-    const result = await axios.get("http://34.41.198.14:3002/api/authors");
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+    const result = await axios.get(baseUrl + "authors");
     authorsItems = result.data.data;
     return authorsItems;
   } catch (error) {
@@ -98,10 +99,8 @@ function AddBox({
   const addTask = async () => {
     // console.log(jsonNewTask);
     try {
-      const response = await axios.post(
-        "http://34.41.198.14:3002/api/task",
-        newTask
-      );
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+      const response = await axios.post(baseUrl + "task", newTask);
       return response.data.data;
     } catch (error) {
       const typedError = error as Error;

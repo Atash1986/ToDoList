@@ -12,7 +12,8 @@ function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const getCategory = async () => {
     try {
-      const result = await axios.get("http://34.41.198.14:3002/api/categories");
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+      const result = await axios.get(baseUrl + "categories");
       // setCategories(result.data.data);
       return result.data.data;
     } catch (error) {
