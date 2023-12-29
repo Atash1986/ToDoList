@@ -14,7 +14,7 @@ import { error } from "console";
 type DirtyType = {
   title: boolean;
   author: boolean;
-  addFired: boolean;
+  isAddFired: boolean;
 };
 
 let authorsItems: Authors[] | undefined;
@@ -52,7 +52,7 @@ function AddBox({
   const [dirty, setDirty] = useState<DirtyType>({
     title: false,
     author: false,
-    addFired: false,
+    isAddFired: false,
   });
   let containerStyle;
   let showError = false;
@@ -68,8 +68,8 @@ function AddBox({
     setErrorList([]);
     const errorListLocal = [];
 
-    const preConditionTitle = dirty.addFired || dirty.title;
-    const preConditionAuthor = dirty.addFired || dirty.author;
+    const preConditionTitle = dirty.isAddFired || dirty.title;
+    const preConditionAuthor = dirty.isAddFired || dirty.author;
 
     if (preConditionTitle && currentItem.title === "") {
       errorListLocal.push("Title is required");
@@ -126,7 +126,7 @@ function AddBox({
     setDirty({
       title: false,
       author: false,
-      addFired: false,
+      isAddFired: false,
     });
   }
   const newTask = {
