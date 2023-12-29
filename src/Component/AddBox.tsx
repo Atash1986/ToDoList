@@ -10,6 +10,13 @@ import "./AddBox.css";
 import { getFormatedDateTime } from "../util/dateHelpers";
 import axios from "axios";
 import { error } from "console";
+
+type DirtyType = {
+  title: boolean;
+  author: boolean;
+  addFired: boolean;
+};
+
 let authorsItems: Authors[] | undefined;
 const getAuthorsItems = async () => {
   try {
@@ -42,9 +49,10 @@ function AddBox({
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
-  const [dirty, setDirty] = useState<{ title: boolean; author: boolean }>({
+  const [dirty, setDirty] = useState<DirtyType>({
     title: false,
     author: false,
+    addFired: false,
   });
   let containerStyle;
   let showError = false;
@@ -56,14 +64,17 @@ function AddBox({
     setSelectedOption("Select author");
   }, []);
 
-  function checkValidation() {
+  function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
     setErrorList([]);
     const errorListLocal = [];
 
-    if (dirty.title && currentItem.title === "") {
+    const preConditionTitle = dirty.addFired || dirty.title;
+    const preConditionAuthor = dirty.addFired || dirty.author;
+
+    if (preConditionTitle && currentItem.title === "") {
       errorListLocal.push("Title is required");
     }
-    if (dirty.author && currentItem.authorId === -1) {
+    if (preConditionAuthor && currentItem.authorId === -1) {
       errorListLocal.push("Author is required");
     }
     setErrorList(errorListLocal);
@@ -72,17 +83,18 @@ function AddBox({
 
   function handleChange(event: any) {
     const { name, value } = event.target;
-    setDirty((dirty) => ({
+    const dirtyLocal = {
       ...dirty,
       title: true,
-    }));
+    };
+    setDirty(dirtyLocal);
 
-    setCurrentItem((prevInputText) => ({
-      ...prevInputText,
-
+    const currentItemLocal = {
+      ...currentItem,
       [name]: value,
-    }));
-    checkValidation();
+    };
+    setCurrentItem(currentItemLocal);
+    checkValidation(dirtyLocal, currentItemLocal);
   }
   function handleSelect(event: any) {
     const selectIndex: number = event.target.selectedIndex;
@@ -94,20 +106,28 @@ function AddBox({
       idSelect = authorSelect.id;
     }
 
-    setCurrentItem((prevCurrentItem) => ({
-      ...prevCurrentItem,
-      authorId: idSelect,
-    }));
-    setDirty((dirty) => ({
+    const currentItemLocal = {
+      ...currentItem,
+      authorId: authorSelect?.id || -1,
+    };
+    setCurrentItem(currentItemLocal);
+
+    const dirtyLocal = {
       ...dirty,
       author: true,
-    }));
+    };
+    setDirty(dirtyLocal);
 
-    checkValidation();
+    checkValidation(dirtyLocal, currentItemLocal);
   }
 
   function reset() {
     setCurrentItem(initTask);
+    setDirty({
+      title: false,
+      author: false,
+      addFired: false,
+    });
   }
   const newTask = {
     categoryId: activeCategoryId,
@@ -131,7 +151,12 @@ function AddBox({
 
     const creationDate = Math.floor(new Date().getTime() / 1000);
 
-    const errorListLocal = checkValidation();
+    const dirtyLocal = {
+      ...dirty,
+      addFired: true,
+    };
+    setDirty(dirtyLocal);
+    const errorListLocal = checkValidation(dirtyLocal, currentItem);
 
     if (errorListLocal.length === 0) {
       setItemId(itemId + 1);
