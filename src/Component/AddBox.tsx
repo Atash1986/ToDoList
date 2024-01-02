@@ -10,6 +10,7 @@ import "./AddBox.css";
 import { getFormatedDateTime } from "../util/dateHelpers";
 import axios from "axios";
 import { error } from "console";
+import LoadingSpinnerComponent from "react-spinners-components";
 
 type DirtyType = {
   title: boolean;
@@ -81,7 +82,7 @@ function AddBox({
     return errorListLocal;
   }
 
-  function handleChange(event: any) {
+  function onTitleChange(event: any) {
     const { name, value } = event.target;
     const dirtyLocal = {
       ...dirty,
@@ -96,7 +97,8 @@ function AddBox({
     setCurrentItem(currentItemLocal);
     checkValidation(dirtyLocal, currentItemLocal);
   }
-  function handleSelect(event: any) {
+
+  function onAuthorChange(event: any) {
     const selectIndex: number = event.target.selectedIndex;
     const authorSelect: Authors | undefined = authorsItems?.find(
       (option, index) => index === selectIndex
@@ -146,7 +148,8 @@ function AddBox({
       console.error("Error:", typedError.message);
     }
   };
-  async function addItem() {
+
+  async function onAddBtnClick() {
     setErrorList([]);
 
     const creationDate = Math.floor(new Date().getTime() / 1000);
@@ -181,7 +184,7 @@ function AddBox({
           type="text"
           name="title"
           value={currentItem.title}
-          onChange={handleChange}
+          onChange={onTitleChange}
           data-tooltip-id={isAllCategory ? "my-tooltip" : ""}
           data-tooltip-content={
             isAllCategory ? "You Must First Select One Category Item" : ""
@@ -195,7 +198,7 @@ function AddBox({
               (option: Authors) => option.id === currentItem.authorId
             )?.name || "Default Value"
           }
-          onChange={handleSelect}
+          onChange={onAuthorChange}
         >
           <option id="-1" value="Select author">
             Select author
@@ -209,7 +212,7 @@ function AddBox({
 
         <button
           className="addButton"
-          onClick={(event) => addItem()}
+          onClick={(event) => onAddBtnClick()}
           disabled={isAllCategory}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
