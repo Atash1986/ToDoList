@@ -10,7 +10,6 @@ import "./AddBox.css";
 import { getFormatedDateTime } from "../util/dateHelpers";
 import axios from "axios";
 import { error } from "console";
-import LoadingSpinnerComponent from "react-spinners-components";
 
 type DirtyType = {
   title: boolean;
