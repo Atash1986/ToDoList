@@ -5,30 +5,12 @@ import { Category } from "../types/Category";
 import { TaskItem } from "../types/TaskItem";
 import Checkbox from "./CheckBox";
 import { DateTime } from "../types/DateTime";
-
+import { getDateTimeFromTimeStamp } from "../util/dateHelpers";
 type Props = {
   item: TaskItem;
   onChecked: (id: string) => void;
   // author: string;
 };
-function getDateTimeFromTimeStamp(originalTimestamp: number) {
-  const dateObject = new Date(originalTimestamp * 1000);
-  const day = dateObject.getDate();
-  const hour = dateObject.getHours();
-  const minute = dateObject.getMinutes();
-  const dayName: string = dateObject.toLocaleDateString("en-US", {
-    weekday: "long",
-  });
-  const monthName: string = dateObject.toLocaleDateString("en-US", {
-    month: "long",
-  });
-
-  const date: String =
-    dayName.slice(0, 3) + "," + day + " " + monthName.slice(0, 3);
-  const time: String = hour + ":" + minute;
-  const dateTime: DateTime = { date: date, time: time };
-  return dateTime;
-}
 
 function ToDoItem({ item, onChecked }: Props) {
   const dateAndTime = getDateTimeFromTimeStamp(item.creationDate);

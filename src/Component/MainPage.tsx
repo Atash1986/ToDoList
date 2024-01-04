@@ -1,8 +1,8 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import ToDoItem from "./ToDoItem";
 import "./MainPage.css";
-import taskItems from "../data/taskItems";
-import { authorsItems } from "../data/authorsItems";
+// import taskItems from "../data/taskItems";
+// import { authorsItems } from "../data/authorsItems";
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import * as MyPlus from "../assest/image/plus.svg";
@@ -10,34 +10,91 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
 import ToDoList from "./ToDoList";
-import categories from "../data/categories";
-import { initTask } from "../data/initTask";
 import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
 import axios from "axios";
 import LoadingSpinnerComponent from "react-spinners-components";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
-  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-  const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [activeItems, setActiveItems] = useState<TaskItem[]>([]);
+  const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
+  const isAllCategory = activeCategoryId === 0;
 
-  const getTasks = async () => {
+  function toggleTask(item: TaskItem): TaskItem[] | void {
+    if (item.isDone === true) {
+      // const selectedItem: TaskItem | undefined = activeItems.find(
+      //   (activeItem: TaskItem) => item.id === activeItem.id
+      // );
+      // selectedItem ? (selectedItem.isDone = true) : "";
+      setActiveItems((activeItems) => {
+        return activeItems.filter(
+          (activeItem: TaskItem) => activeItem.id !== item.id
+        );
+      });
+      return setDoneItems([...doneItems, item]);
+    } else {
+      // const selectedItem: TaskItem | undefined = doneItems.find(
+      //   (doneItem: TaskItem) => item.id === doneItem.id
+      // );
+      // selectedItem ? (selectedItem.isDone = false) : "";
+      setDoneItems((doneItems) => {
+        return doneItems.filter(
+          (doneItem: TaskItem) => doneItem.id !== item.id
+        );
+      });
+      return setActiveItems([...activeItems, item]);
+    }
+    //   }
+  }
+  const getActiveItems = async () => {
     setIsLoading(true);
     const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
-    const result = await axios.get(baseUrl + "tasks");
+    const result = await axios.get(baseUrl + "tasks?isDone=false");
     setIsLoading(false);
+
     return result.data;
   };
 
+  const getDoneItems = async () => {
+    setIsLoading(true);
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+    const result = await axios.get(baseUrl + "tasks?isDone=true");
+    setIsLoading(false);
+    return result.data;
+  };
+  // const getTasks = async () => {
+  //   setIsLoading(true);
+  //   const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+  //   const result = await axios.get(baseUrl + "tasks");
+  //   setIsLoading(false);
+
+  //   return result.data;
+  // };
+  const filterByCategory = (items: TaskItem[]) => {
+    return items.filter(
+      (item: TaskItem) =>
+        item.categoryItem.id === activeCategoryId || isAllCategory
+    );
+  };
   useEffect(() => {
     (async () => {
-      const fetchedItems = await getTasks();
-      setItems(fetchedItems.data);
+      const fetchedItems = await getActiveItems();
+      const filteredData = filterByCategory(fetchedItems.data);
+      setActiveItems(filteredData);
+      // filterTasks(fetchedItems.data);
     })();
-  }, []);
+  }, [activeCategoryId]);
+  useEffect(() => {
+    (async () => {
+      const fetchedItems = await getDoneItems();
+      const filteredData = filterByCategory(fetchedItems.data);
+      setDoneItems(filteredData);
+      // filterTasks(fetchedItems.data);
+    })();
+  }, [activeCategoryId]);
 
   // useEffect(() => {
   //   if (taskItems.length > 0) {
@@ -46,19 +103,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   //     setLastItemId(maxId + 1);
   //   }
   // }, [taskItems]);
-
-  const isAllCategory = activeCategoryId === 0;
-  const activeItems: TaskItem[] = items.filter(
-    (item: TaskItem) =>
-      !item?.isDone &&
-      (item.categoryItem.id === activeCategoryId || isAllCategory)
-  );
-
-  const doneItems: TaskItem[] = items.filter(
-    (item: TaskItem) =>
-      item?.isDone &&
-      (item.categoryItem.id === activeCategoryId || isAllCategory)
-  );
 
   return (
     <div className="contentTasks">
@@ -72,28 +116,37 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{categories.length}</span>
+          <span className="number">{3}</span>
           <span className="name">Categories</span>
         </div>
       </div>
       <AddBox
         activeCategoryId={activeCategoryId}
         itemId={lastItemId}
-        setItems={setItems}
+        setItems={setActiveItems}
         setItemId={setLastItemId}
-        items={items}
+        items={activeItems}
       />
       <div>
-        {isLoading === true ? (
+        {isLoading === true && (
           <LoadingSpinnerComponent
             type={"Blocks"}
             colors={["#06628d", "#f91a10"]}
             size={"100px"}
           />
-        ) : activeItems.length === 0 ? (
+        )}
+        {isLoading === false && activeItems.length === 0 && (
           <img className="noDataImage" src={NoDataImage} />
-        ) : (
-          <ToDoList items={activeItems} setItems={setItems} />
+        )}
+        {isLoading === false && activeItems.length > 0 && (
+          <ToDoList
+            items={activeItems}
+            setItems={setActiveItems}
+            toggleTask={toggleTask}
+            // isDone="false"
+            // otherItem={doneItems}
+            // setOtherItem={setDoneItems}
+          />
         )}
 
         <ToggleButton
@@ -103,7 +156,14 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
 
         {isDivVisible && (
           <div className="taskDoneItem">
-            <ToDoList items={doneItems} setItems={setItems} />
+            <ToDoList
+              items={doneItems}
+              setItems={setDoneItems}
+              toggleTask={toggleTask}
+              // isDone="true"
+              // otherItem={activeItems}
+              // setOtherItem={setActiveItems}
+            />
           </div>
         )}
       </div>
