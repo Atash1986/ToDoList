@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-import taskItems from "../data/taskItems";
+
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
@@ -74,7 +74,7 @@ function AddBox({
     if (preConditionTitle && currentItem.title === "") {
       errorListLocal.push("Title is required");
     }
-    if (preConditionAuthor && currentItem.authorId === -1) {
+    if (preConditionAuthor && currentItem.author.id === -1) {
       errorListLocal.push("Author is required");
     }
     setErrorList(errorListLocal);
@@ -98,18 +98,21 @@ function AddBox({
   }
 
   function onAuthorChange(event: any) {
-    const selectIndex: number = event.target.selectedIndex;
-    const authorSelect: Authors | undefined = authorsItems?.find(
-      (option, index) => index === selectIndex
+    const selectedAuthorValue: number = event.target.value;
+    const authorSelected: Authors | undefined = authorsItems?.find(
+      (option) => option.id == selectedAuthorValue
     );
-    let idSelect: number;
-    if (authorSelect) {
-      idSelect = authorSelect.id;
-    }
+    // let idSelect: number;
+    // if (authorSelectedId) {
+    //   idSelect = authorSelectedId.id;
+    // }
 
-    const currentItemLocal = {
+    const currentItemLocal: TaskItem = {
       ...currentItem,
-      authorId: authorSelect?.id || -1,
+      author: {
+        ...currentItem.author,
+        id: authorSelected?.id || -1,
+      },
     };
     setCurrentItem(currentItemLocal);
 
@@ -133,7 +136,7 @@ function AddBox({
   const newTask = {
     categoryId: activeCategoryId,
     title: currentItem.title,
-    authorId: currentItem.authorId,
+    authorId: currentItem.author.id,
   };
   // const jsonNewTask = JSON.stringify(newTask);
   const addTask = async () => {
@@ -194,16 +197,16 @@ function AddBox({
           disabled={isAllCategory}
           name={
             authorsItems?.find(
-              (option: Authors) => option.id === currentItem.authorId
+              (option: Authors) => option.id === currentItem.author.id
             )?.name || "Default Value"
           }
           onChange={onAuthorChange}
         >
-          <option id="-1" value="Select author">
+          <option id="-1" value="-1">
             Select author
           </option>
           {authorsItems?.map((option: Authors) => (
-            <option key={option.id} id={String(option.id)} value={option.name}>
+            <option key={option.id} id={String(option.id)} value={option.id}>
               {option.name}
             </option>
           ))}
