@@ -2,7 +2,6 @@ import React, { MouseEvent } from "react";
 import "./ToDoItem.css";
 import CategoryItem from "./CategoryItem";
 import { Category } from "../types/Category";
-import categories from "../data/categories";
 import { TaskItem } from "../types/TaskItem";
 import Checkbox from "./CheckBox";
 import { DateTime } from "../types/DateTime";
@@ -10,7 +9,7 @@ import { DateTime } from "../types/DateTime";
 type Props = {
   item: TaskItem;
   onChecked: (id: string) => void;
-  author: string;
+  // author: string;
 };
 function getDateTimeFromTimeStamp(originalTimestamp: number) {
   const dateObject = new Date(originalTimestamp * 1000);
@@ -31,7 +30,7 @@ function getDateTimeFromTimeStamp(originalTimestamp: number) {
   return dateTime;
 }
 
-function ToDoItem({ item, onChecked, author }: Props) {
+function ToDoItem({ item, onChecked }: Props) {
   const dateAndTime = getDateTimeFromTimeStamp(item.creationDate);
 
   return (
@@ -50,7 +49,7 @@ function ToDoItem({ item, onChecked, author }: Props) {
         }}
       ></div>
       <div className="titleCol">{item.title}</div>
-      <div className="authorCol">{author} </div>
+      <div className="authorCol">{item.author?.name || "Default name"} </div>
       <div className="dateAndTimeCol">
         <span className="taskDate">{dateAndTime?.date}</span>
         <span className="taskDate">{dateAndTime?.time}</span>
