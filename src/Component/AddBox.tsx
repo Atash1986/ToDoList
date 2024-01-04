@@ -79,7 +79,7 @@ function AddBox({
 
   function onTitleChange(event: any) {
     const { name, value } = event.target;
-    const dirtyLocal = {
+    const dirtyLocal: DirtyType = {
       ...dirty,
       title: true,
     };
@@ -112,7 +112,7 @@ function AddBox({
     };
     setCurrentItem(currentItemLocal);
 
-    const dirtyLocal = {
+    const dirtyLocal: DirtyType = {
       ...dirty,
       author: true,
     };
@@ -152,9 +152,9 @@ function AddBox({
 
     const creationDate = Math.floor(new Date().getTime() / 1000);
 
-    const dirtyLocal = {
+    const dirtyLocal: DirtyType = {
       ...dirty,
-      addFired: true,
+      isAddFired: true,
     };
     setDirty(dirtyLocal);
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
@@ -190,7 +190,7 @@ function AddBox({
         />
 
         <select
-          value={currentItem.author.id}
+          value={currentItem.author?.id || -1}
           disabled={isAllCategory}
           name={
             authorsItems?.find(
