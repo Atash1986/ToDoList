@@ -11,7 +11,6 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    //   border-radius: 0.15em;
     margin-right: 0.5em;
     border: 0.15em solid $Primery_color;
     border-radius: 50%;
@@ -34,6 +33,9 @@
       position: absolute;
       right: 1px;
       top: -5px;
+    }
+    &:hover {
+      box-shadow: 0 0 6px 5px $Primery_color;
     }
   }
 }
