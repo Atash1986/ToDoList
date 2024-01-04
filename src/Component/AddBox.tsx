@@ -58,11 +58,7 @@ function AddBox({
   let showError = false;
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-  const [selectedOption, setSelectedOption] = useState("");
-
-  useEffect(() => {
-    setSelectedOption("Select author");
-  }, []);
+  // const [selectedOption, setSelectedOption] = useState(-1);
 
   function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
     setErrorList([]);
@@ -194,6 +190,7 @@ function AddBox({
         />
 
         <select
+          value={currentItem.author.id}
           disabled={isAllCategory}
           name={
             authorsItems?.find(
@@ -202,7 +199,7 @@ function AddBox({
           }
           onChange={onAuthorChange}
         >
-          <option id="-1" value="-1">
+          <option id="-1" value={-1}>
             Select author
           </option>
           {authorsItems?.map((option: Authors) => (
