@@ -8,6 +8,7 @@ import "./AddBox.css";
 import axios from "axios";
 import { baseUrl } from "../apis/core";
 import { getAuthorsItems } from "../apis/author";
+import { addTask } from "../apis/task";
 
 type DirtyType = {
   title: boolean;
@@ -107,19 +108,10 @@ function AddBox({
       isAddFired: false,
     });
   }
-  const newTask = {
+  const newTaskBody = {
     categoryId: activeCategoryId,
     title: currentItem.title,
     authorId: currentItem.author.id,
-  };
-  const addTask = async () => {
-    try {
-      const response = await axios.post(baseUrl + "task", newTask);
-      return response.data.data;
-    } catch (error) {
-      const typedError = error as Error;
-      console.error("Error:", typedError.message);
-    }
   };
 
   async function onAddBtnClick() {
@@ -137,10 +129,12 @@ function AddBox({
     if (errorListLocal.length === 0) {
       setItemId(itemId + 1);
 
-      const newItem: TaskItem = await addTask();
-      setItems((prevItems: TaskItem[]) => {
-        return [...prevItems, newItem];
-      });
+      const newItem: TaskItem | null = await addTask(newTaskBody);
+      if (newItem !== null) {
+        setItems((prevItems: TaskItem[]) => {
+          return [...prevItems, newItem];
+        });
+      }
     } else {
       return;
     }
