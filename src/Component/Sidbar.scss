@@ -1,4 +1,13 @@
 @import "GeneralStyle";
+.all {
+  background-color: $Primery_color;
+  position: fixed;
+  margin: 0; /*to make footer fill the screen width without scroll*/
+  gap: 10px;
+  width: 303px;
+  height: 100%;
+  border-radius: 20px;
+}
 .sidbar {
   @include flex;
   background-color: $Primery_color;

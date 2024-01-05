@@ -29,6 +29,7 @@ function Sidbar({
   }
 
   return (
+    <div className="all">
     <div className="sidbar">
       <header>
         <h1 className="title">{appTitle}</h1>
@@ -62,6 +63,7 @@ function Sidbar({
         <CgProfile className="profileLogo" />
         <IoSettingsOutline className="settingLogo" />
       </footer>
+    </div>
     </div>
   );
 }
