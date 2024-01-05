@@ -1,21 +1,8 @@
 import React from "react";
 import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
-import axios from "axios";
-import { baseUrl } from "../apis/core";
+import { getToggleTask } from "../apis/task";
 
-const getToggleButton = async (selectId: string) => {
-  try {
-    const url = baseUrl + "task/" + selectId + "/toggleDone";
-    const result = await axios.get(url);
-
-    return result.data.data;
-  } catch (error) {
-    const typedError = error as Error;
-    console.error("Error:", typedError.message);
-    return [];
-  }
-};
 function ToDoList({
   items,
   setItems,
@@ -26,7 +13,7 @@ function ToDoList({
   setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
 }): React.JSX.Element {
   async function handleCheck(selectId: string) {
-    const item: TaskItem = await getToggleButton(selectId);
+    const item: TaskItem = await getToggleTask(selectId);
     const selectedItem: TaskItem | undefined = items.find(
       (item: TaskItem) => item.id == selectId
     );
