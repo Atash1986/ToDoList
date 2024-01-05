@@ -4,28 +4,19 @@ import { IconContext } from "react-icons";
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Category } from "../types/Category";
-import { baseUrl } from "../apis/core";
+import { getCategory } from "../apis/category";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
-  const getCategory = async () => {
-    try {
-      const result = await axios.get(baseUrl + "categories");
-      return result.data.data;
-    } catch (error) {
-      const typedError = error as Error;
-      console.error("Error:", typedError.message);
-      return [];
-    }
-  };
+  const [activeCategoryId, setCategoryId] = useState<number>(0);
+
   useEffect(() => {
     (async () => {
       setCategories(await getCategory());
     })();
   }, []);
-  const [activeCategoryId, setCategoryId] = useState<number>(0);
+
   return (
     <IconContext.Provider value={{ color: "white" }}>
       <div className="App ">
