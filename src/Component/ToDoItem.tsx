@@ -1,15 +1,12 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import "./ToDoItem.css";
-import CategoryItem from "./CategoryItem";
-import { Category } from "../types/Category";
 import { TaskItem } from "../types/TaskItem";
 import Checkbox from "./CheckBox";
-import { DateTime } from "../types/DateTime";
 import { getDateTimeFromTimeStamp } from "../util/dateHelpers";
+
 type Props = {
   item: TaskItem;
   onChecked: (id: string) => void;
-  // author: string;
 };
 
 function ToDoItem({ item, onChecked }: Props) {
@@ -25,9 +22,6 @@ function ToDoItem({ item, onChecked }: Props) {
         className="category"
         style={{
           backgroundColor: item.categoryItem.color || "white",
-          // categories.find(
-          //   (category: Category) => category.id === item.categoryItem.id
-          // )?.color || "white",
         }}
       ></div>
       <div className="titleCol">{item.title}</div>

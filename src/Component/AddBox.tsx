@@ -50,12 +50,8 @@ function AddBox({
     author: false,
     isAddFired: false,
   });
-  let containerStyle;
-  let showError = false;
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-  // const [selectedOption, setSelectedOption] = useState(-1);
-
   function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
     setErrorList([]);
     const errorListLocal = [];
@@ -94,10 +90,6 @@ function AddBox({
     const authorSelected: Authors | undefined = authorsItems?.find(
       (option) => option.id == selectedAuthorValue
     );
-    // let idSelect: number;
-    // if (authorSelectedId) {
-    //   idSelect = authorSelectedId.id;
-    // }
 
     const currentItemLocal: TaskItem = {
       ...currentItem,
@@ -130,9 +122,7 @@ function AddBox({
     title: currentItem.title,
     authorId: currentItem.author.id,
   };
-  // const jsonNewTask = JSON.stringify(newTask);
   const addTask = async () => {
-    // console.log(jsonNewTask);
     try {
       const response = await axios.post(baseUrl + "task", newTask);
       return response.data.data;

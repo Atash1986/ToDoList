@@ -1,13 +1,7 @@
-import React, { useState, useEffect, MouseEvent } from "react";
-import ToDoItem from "./ToDoItem";
+import React, { useState, useEffect } from "react";
 import "./MainPage.css";
-// import taskItems from "../data/taskItems";
-// import { authorsItems } from "../data/authorsItems";
 import { TaskItem } from "../types/TaskItem";
-import { Authors } from "../types/Authors";
-import * as MyPlus from "../assest/image/plus.svg";
 import "react-tooltip/dist/react-tooltip.css";
-import { Tooltip } from "react-tooltip";
 import AddBox from "./AddBox";
 import ToDoList from "./ToDoList";
 import { ToggleButton } from "./ToggleButton";
@@ -26,10 +20,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
 
   function toggleTask(item: TaskItem): TaskItem[] | void {
     if (item.isDone === true) {
-      // const selectedItem: TaskItem | undefined = activeItems.find(
-      //   (activeItem: TaskItem) => item.id === activeItem.id
-      // );
-      // selectedItem ? (selectedItem.isDone = true) : "";
       setActiveItems((activeItems) => {
         return activeItems.filter(
           (activeItem: TaskItem) => activeItem.id !== item.id
@@ -37,10 +27,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       });
       return setDoneItems([...doneItems, item]);
     } else {
-      // const selectedItem: TaskItem | undefined = doneItems.find(
-      //   (doneItem: TaskItem) => item.id === doneItem.id
-      // );
-      // selectedItem ? (selectedItem.isDone = false) : "";
       setDoneItems((doneItems) => {
         return doneItems.filter(
           (doneItem: TaskItem) => doneItem.id !== item.id
@@ -48,7 +34,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       });
       return setActiveItems([...activeItems, item]);
     }
-    //   }
   }
   const getActiveItems = async () => {
     setIsLoading(true);
@@ -64,14 +49,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
     setIsLoading(false);
     return result.data;
   };
-  // const getTasks = async () => {
-  //   setIsLoading(true);
-  //   const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
-  //   const result = await axios.get(baseUrl + "tasks");
-  //   setIsLoading(false);
-
-  //   return result.data;
-  // };
   const filterByCategory = (items: TaskItem[]) => {
     return items.filter(
       (item: TaskItem) =>
@@ -83,7 +60,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       const fetchedItems = await getActiveItems();
       const filteredData = filterByCategory(fetchedItems.data);
       setActiveItems(filteredData);
-      // filterTasks(fetchedItems.data);
     })();
   }, [activeCategoryId]);
   useEffect(() => {
@@ -91,17 +67,8 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       const fetchedItems = await getDoneItems();
       const filteredData = filterByCategory(fetchedItems.data);
       setDoneItems(filteredData);
-      // filterTasks(fetchedItems.data);
     })();
   }, [activeCategoryId]);
-
-  // useEffect(() => {
-  //   if (taskItems.length > 0) {
-  //     // Get the maximum id from taskItems
-  //     const maxId = Math.max(...taskItems.map((item) => item.id));
-  //     setLastItemId(maxId + 1);
-  //   }
-  // }, [taskItems]);
 
   return (
     <div className="contentTasks">
@@ -119,6 +86,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
           <span className="name">Categories</span>
         </div>
       </div>
+
       <AddBox
         activeCategoryId={activeCategoryId}
         itemId={lastItemId}
@@ -126,6 +94,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         setItemId={setLastItemId}
         items={activeItems}
       />
+
       <div>
         {isLoading === true && (
           <LoadingSpinnerComponent
@@ -134,17 +103,16 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
             size={"100px"}
           />
         )}
+
         {isLoading === false && activeItems.length === 0 && (
           <img className="noDataImage" src={NoDataImage} />
         )}
+
         {isLoading === false && activeItems.length > 0 && (
           <ToDoList
             items={activeItems}
             setItems={setActiveItems}
             toggleTask={toggleTask}
-            // isDone="false"
-            // otherItem={doneItems}
-            // setOtherItem={setDoneItems}
           />
         )}
 
@@ -159,9 +127,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
               items={doneItems}
               setItems={setDoneItems}
               toggleTask={toggleTask}
-              // isDone="true"
-              // otherItem={activeItems}
-              // setOtherItem={setActiveItems}
             />
           </div>
         )}

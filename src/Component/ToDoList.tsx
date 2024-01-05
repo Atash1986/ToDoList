@@ -1,9 +1,7 @@
 import React from "react";
 import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
-import { Authors } from "../types/Authors";
 import axios from "axios";
-import MainPage from "./MainPage";
 import { baseUrl } from "../apis/core";
 
 const getToggleButton = async (selectId: string) => {
