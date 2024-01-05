@@ -8,7 +8,7 @@ import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
 import axios from "axios";
 import LoadingSpinnerComponent from "react-spinners-components";
-import { baseUrl } from "../apis/core";
+import { getActiveItems, getDoneItems } from "../apis/task";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [lastItemId, setLastItemId] = useState<number>(-1);
@@ -35,36 +35,29 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
       return setActiveItems([...activeItems, item]);
     }
   }
-  const getActiveItems = async () => {
-    setIsLoading(true);
-    const result = await axios.get(baseUrl + "tasks?isDone=false");
-    setIsLoading(false);
 
-    return result.data;
-  };
-
-  const getDoneItems = async () => {
-    setIsLoading(true);
-    const result = await axios.get(baseUrl + "tasks?isDone=true");
-    setIsLoading(false);
-    return result.data;
-  };
   const filterByCategory = (items: TaskItem[]) => {
     return items.filter(
       (item: TaskItem) =>
         item.categoryItem.id === activeCategoryId || isAllCategory
     );
   };
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const fetchedItems = await getActiveItems();
+      setIsLoading(false);
       const filteredData = filterByCategory(fetchedItems.data);
       setActiveItems(filteredData);
     })();
   }, [activeCategoryId]);
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const fetchedItems = await getDoneItems();
+      setIsLoading(false);
       const filteredData = filterByCategory(fetchedItems.data);
       setDoneItems(filteredData);
     })();
