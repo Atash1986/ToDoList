@@ -1,23 +1,15 @@
-import axios from "axios";
-import { baseUrl } from "./core";
+import { getApi } from "./core";
+import { TaskItem } from "../types/TaskItem";
 
 export const getActiveItems = async () => {
-  const result = await axios.get(baseUrl + "tasks?isDone=false");
-  return result.data;
+  const url = "tasks?isDone=false";
+  return getApi(url);
 };
 export const getDoneItems = async () => {
-  const result = await axios.get(baseUrl + "tasks?isDone=true");
-  return result.data;
+  const url = "tasks?isDone=true";
+  return getApi(url);
 };
-export const getToggleTask = async (selectId: string) => {
-  try {
-    const url = baseUrl + "task/" + selectId + "/toggleDone";
-    const result = await axios.get(url);
-
-    return result.data.data;
-  } catch (error) {
-    const typedError = error as Error;
-    console.error("Error:", typedError.message);
-    return [];
-  }
-};
+export async function getToggleTask(selectId: string): Promise<TaskItem> {
+  const url = "task/" + selectId + "/toggleDone";
+  return getApi(url);
+}
