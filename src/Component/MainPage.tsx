@@ -46,9 +46,9 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
     (async () => {
       setIsLoading(true);
       const fetchedItems = await getActiveItems();
-      setIsLoading(false);
-      const filteredData = filterByCategory(fetchedItems.data);
+      const filteredData = filterByCategory(fetchedItems);
       setActiveItems(filteredData);
+      setIsLoading(false);
     })();
   }, [activeCategoryId]);
 
@@ -56,9 +56,9 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
     (async () => {
       setIsLoading(true);
       const fetchedItems = await getDoneItems();
-      setIsLoading(false);
-      const filteredData = filterByCategory(fetchedItems.data);
+      const filteredData = filterByCategory(fetchedItems);
       setDoneItems(filteredData);
+      setIsLoading(false);
     })();
   }, [activeCategoryId]);
 
