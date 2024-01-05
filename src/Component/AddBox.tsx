@@ -1,15 +1,12 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
-import { removeItemsWithValue } from "../util/itemHelpers";
 import "./AddBox.css";
-import { getFormatedDateTime } from "../util/dateHelpers";
 import axios from "axios";
-import { error } from "console";
+import { baseUrl } from "../apis/core";
 
 type DirtyType = {
   title: boolean;
@@ -20,7 +17,6 @@ type DirtyType = {
 let authorsItems: Authors[] | undefined;
 const getAuthorsItems = async () => {
   try {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
     const result = await axios.get(baseUrl + "authors");
     authorsItems = result.data.data;
     return authorsItems;
@@ -138,7 +134,6 @@ function AddBox({
   const addTask = async () => {
     // console.log(jsonNewTask);
     try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
       const response = await axios.post(baseUrl + "task", newTask);
       return response.data.data;
     } catch (error) {

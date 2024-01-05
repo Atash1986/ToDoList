@@ -7,12 +7,12 @@ import logoDynamic from "../assest/image/logo.jpeg";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Category } from "../types/Category";
+import { baseUrl } from "../apis/core";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const getCategory = async () => {
     try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
       const result = await axios.get(baseUrl + "categories");
       // setCategories(result.data.data);
       return result.data.data;
