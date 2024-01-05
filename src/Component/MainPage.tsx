@@ -14,6 +14,7 @@ import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
 import axios from "axios";
 import LoadingSpinnerComponent from "react-spinners-components";
+import { baseUrl } from "../apis/core";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [lastItemId, setLastItemId] = useState<number>(-1);
@@ -51,7 +52,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   }
   const getActiveItems = async () => {
     setIsLoading(true);
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
     const result = await axios.get(baseUrl + "tasks?isDone=false");
     setIsLoading(false);
 
@@ -60,7 +60,6 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
 
   const getDoneItems = async () => {
     setIsLoading(true);
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
     const result = await axios.get(baseUrl + "tasks?isDone=true");
     setIsLoading(false);
     return result.data;
