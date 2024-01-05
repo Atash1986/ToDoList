@@ -6,7 +6,6 @@ import AddBox from "./AddBox";
 import ToDoList from "./ToDoList";
 import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
-import axios from "axios";
 import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../apis/task";
 
