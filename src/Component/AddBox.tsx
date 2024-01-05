@@ -7,6 +7,7 @@ import { initTask } from "../data/initTask";
 import "./AddBox.css";
 import axios from "axios";
 import { baseUrl } from "../apis/core";
+import { getAuthorsItems } from "../apis/author";
 
 type DirtyType = {
   title: boolean;
@@ -15,17 +16,6 @@ type DirtyType = {
 };
 
 let authorsItems: Authors[] | undefined;
-const getAuthorsItems = async () => {
-  try {
-    const result = await axios.get(baseUrl + "authors");
-    authorsItems = result.data.data;
-    return authorsItems;
-  } catch (error) {
-    const typedError = error as Error;
-    console.error("Error:", typedError.message);
-  }
-};
-
 (async () => {
   authorsItems = await getAuthorsItems();
 })();
