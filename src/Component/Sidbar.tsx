@@ -29,7 +29,7 @@ function Sidbar({
   }
 
   return (
-    <div className="all">
+    <div className="sidebar-wrapper">
       <div className="sidbar">
         <header>
           <h1 className="title">{appTitle}</h1>
