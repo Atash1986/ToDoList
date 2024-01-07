@@ -12,17 +12,17 @@
     width: 20px;
     height: 20px;
     margin-right: 0.5em;
-    border: 0.15em solid $Primery_color;
+    border: 0.15em solid $primary_color;
     border-radius: 50%;
     outline: none;
     cursor: pointer;
     &:checked {
-      background-color: $Primery_color;
+      background-color: $primary_color;
       position: relative;
     }
     &:checked::after {
       content: ""; /* Added content property */
-      background-color: $Primery_color;
+      background-color: $primary_color;
       position: relative;
       border-radius: 50%;
     }
@@ -35,7 +35,7 @@
       top: -5px;
     }
     &:hover {
-      box-shadow: 0 0 6px 5px $Primery_color;
+      box-shadow: 0 0 6px 5px $primary_color;
     }
   }
 }
