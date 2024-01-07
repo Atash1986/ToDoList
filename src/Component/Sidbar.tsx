@@ -30,40 +30,46 @@ function Sidbar({
 
   return (
     <div className="all">
-    <div className="sidbar">
-      <header>
-        <h1 className="title">{appTitle}</h1>
-        <div className="logo">{logo}</div>
-      </header>
-      <div className="menu">
-        <h1>To Do </h1>
+      <div className="sidbar">
+        <header>
+          <h1 className="title">{appTitle}</h1>
+          <div className="logo">{logo}</div>
+        </header>
+        <div className="menu">
+          <h1>To Do </h1>
 
-        <ul>
-          <CategoryItem
-            categoryItem={{ id: 0, color: "rgba(0,0,0,0)", title: "All Task" }}
-            isActive={activeCategoryId === 0 ? true : false}
-            onClick={(event: MouseEvent<HTMLElement>) => handelClick(event, 0)}
-          />
+          <ul>
+            <CategoryItem
+              categoryItem={{
+                id: 0,
+                color: "rgba(0,0,0,0)",
+                title: "All Task",
+              }}
+              isActive={activeCategoryId === 0 ? true : false}
+              onClick={(event: MouseEvent<HTMLElement>) =>
+                handelClick(event, 0)
+              }
+            />
 
-          {categories.map((categoryItem: Category) => {
-            return (
-              <CategoryItem
-                key={categoryItem.id}
-                categoryItem={categoryItem}
-                isActive={categoryItem.id === activeCategoryId ? true : false}
-                onClick={(event: MouseEvent<HTMLElement>) =>
-                  handelClick(event, categoryItem.id)
-                }
-              />
-            );
-          })}
-        </ul>
+            {categories.map((categoryItem: Category) => {
+              return (
+                <CategoryItem
+                  key={categoryItem.id}
+                  categoryItem={categoryItem}
+                  isActive={categoryItem.id === activeCategoryId ? true : false}
+                  onClick={(event: MouseEvent<HTMLElement>) =>
+                    handelClick(event, categoryItem.id)
+                  }
+                />
+              );
+            })}
+          </ul>
+        </div>
+        <footer>
+          <CgProfile className="profileLogo" />
+          <IoSettingsOutline className="settingLogo" />
+        </footer>
       </div>
-      <footer>
-        <CgProfile className="profileLogo" />
-        <IoSettingsOutline className="settingLogo" />
-      </footer>
-    </div>
     </div>
   );
 }

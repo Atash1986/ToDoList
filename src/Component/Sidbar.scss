@@ -10,6 +10,7 @@
 }
 .sidbar {
   @include flex;
+  position: fixed;
   background-color: $primary_color;
   position: relative; /* to make footer in the bottom of the body*/
   margin: 0; /*to make footer fill the screen width without scroll*/
