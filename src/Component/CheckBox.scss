@@ -1,39 +1,39 @@
-@import "GenralStyle";
+@import "GeneralStyle";
 
-.checkBoxCol {
+.checkbox-col {
   margin: auto;
   display: block;
   text-align: center;
   flex: 1;
   cursor: pointer;
-}
-.checkBoxCol input {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  //   border-radius: 0.15em;
-  margin-right: 0.5em;
-  border: 0.15em solid $Primery_color;
-  border-radius: 50%;
-  outline: none;
-  cursor: pointer;
-  &:checked {
-    background-color: $Primery_color;
-    position: relative;
-  }
-  &:checked::after {
-    content: ""; /* Added content property */
-    background-color: $Primery_color;
-    position: relative;
+  input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    //   border-radius: 0.15em;
+    margin-right: 0.5em;
+    border: 0.15em solid $Primery_color;
     border-radius: 50%;
-  }
-  &:checked::before {
-    content: "\2714";
-    font-size: 1.5em;
-    color: #fff;
-    position: absolute;
-    right: 1px;
-    top: -5px;
+    outline: none;
+    cursor: pointer;
+    &:checked {
+      background-color: $Primery_color;
+      position: relative;
+    }
+    &:checked::after {
+      content: ""; /* Added content property */
+      background-color: $Primery_color;
+      position: relative;
+      border-radius: 50%;
+    }
+    &:checked::before {
+      content: "\2714";
+      font-size: 1.5em;
+      color: #fff;
+      position: absolute;
+      right: 1px;
+      top: -5px;
+    }
   }
 }

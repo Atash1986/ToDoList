@@ -1,8 +1,8 @@
 export const authorsItems = [
-  { id: -1, value: "Select On", label: "Select On" },
-  { id: 11, value: "Emad", label: "Emad Armoun" },
-  { id: 12, value: "Atefeh", label: "Atefeh Ashourzadeh" },
-  { id: 13, value: "Mahdiar", label: "Mahdiar Armoun" },
-  { id: 14, value: "Arian", label: "Arian Armoun" },
-  { id: 15, value: "Niloo", label: "Niloo Armoun" },
+  { id: -1, name: "Select On", fullName: "Select On" },
+  { id: 1, name: "Emad", fullName: "Emad Armoun" },
+  { id: 2, name: "Atefeh", fullName: "Atefeh Ashourzadeh" },
+  { id: 3, name: "Mahdiar", fullName: "Mahdiar Armoun" },
+  { id: 4, name: "Arian", fullName: "Arian Armoun" },
+  { id: 5, name: "Niloo", fullName: "Niloo Armoun" },
 ];

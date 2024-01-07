@@ -4,9 +4,29 @@ import { IconContext } from "react-icons";
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
 import logoDynamic from "../assest/image/logo.jpeg";
-import Categories from "../data/categories";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Category } from "../types/Category";
+
 function App() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const getCategory = async () => {
+    try {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+      const result = await axios.get(baseUrl + "categories");
+      // setCategories(result.data.data);
+      return result.data.data;
+    } catch (error) {
+      const typedError = error as Error;
+      console.error("Error:", typedError.message);
+      return [];
+    }
+  };
+  useEffect(() => {
+    (async () => {
+      setCategories(await getCategory());
+    })();
+  }, []);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
   return (
     <IconContext.Provider value={{ color: "white" }}>
@@ -15,7 +35,7 @@ function App() {
           <Sidbar
             appTitle="Ati To Do  List"
             logo={<GrDocumentText size="7em" />}
-            categories={Categories}
+            categories={categories}
             activeCategoryId={activeCategoryId}
             setCategoryId={setCategoryId}
           />

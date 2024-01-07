@@ -1,1 +1,1 @@
-export type Authors = { id: number; value: string; label: string };
+export type Authors = { id: number; name: string; fullName: string };

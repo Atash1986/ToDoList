@@ -1,10 +1,10 @@
 import { DateTime } from "./DateTime";
 
 export type TaskItem = {
-  id: number;
+  id: string;
   title: string;
   isDone: boolean;
   authorId: number;
-  dateAndTime: DateTime;
-  categoryId: number;
+  creationDate: number;
+  categoryItem: { id: number; color: string };
 };

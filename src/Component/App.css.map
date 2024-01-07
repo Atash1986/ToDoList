@@ -1,1 +1,1 @@
-{"version":3,"sources":["App.scss","GenralStyle.scss","App.css"],"names":[],"mappings":"AAEA;ECCE,aAAA;EACA,mBDDc;ECEd,sBDFmB;ECGnB,mBAAA;EDFA,yBCJa;EDKb,YAAA;EACA,gBAAA;AEEF;;AFCA;ECNE,aAAA;EACA,mBDMc;ECLd,8BAHwC;EAIxC,mBAAA;EDKA,SAAA;EACA,YAAA;AEKF","file":"App.css"}
+{"version":3,"sources":["App.scss","GeneralStyle.scss","App.css"],"names":[],"mappings":"AAEA;ECCE,aAAA;EACA,mBDDc;ECEd,sBDFmB;ECGnB,iBDH0B;EAC1B,yBCJa;EDKb,YAAA;AEEF;;AFCA;ECLE,aAAA;EACA,mBDKc;ECJd,8BDImB;ECHnB,uBDGkC;EAClC,SAAA;EACA,YAAA;AEKF","file":"App.css"}

@@ -1,7 +1,7 @@
 import React, { MouseEvent } from "react";
-
 import "./CategoryItem.css";
 import { Category } from "../types/Category";
+
 type Props = {
   categoryItem: Category;
   isActive: boolean;

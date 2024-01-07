@@ -15,15 +15,20 @@ import { initTask } from "../data/initTask";
 import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
 import axios from "axios";
+import LoadingSpinnerComponent from "react-spinners-components";
 
 function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   const [items, setItems] = useState<TaskItem[]>(taskItems);
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getTasks = async () => {
-    const result = await axios.get("http://34.41.198.14:3002/api/tasks");
+    setIsLoading(true);
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
+    const result = await axios.get(baseUrl + "tasks");
+    setIsLoading(false);
     return result.data;
   };
 
@@ -34,23 +39,25 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
     })();
   }, []);
 
-  useEffect(() => {
-    if (taskItems.length > 0) {
-      // Get the maximum id from taskItems
-      const maxId = Math.max(...taskItems.map((item) => item.id));
-      setLastItemId(maxId + 1);
-    }
-  }, [taskItems]);
+  // useEffect(() => {
+  //   if (taskItems.length > 0) {
+  //     // Get the maximum id from taskItems
+  //     const maxId = Math.max(...taskItems.map((item) => item.id));
+  //     setLastItemId(maxId + 1);
+  //   }
+  // }, [taskItems]);
 
   const isAllCategory = activeCategoryId === 0;
   const activeItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
-      !item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
+      !item?.isDone &&
+      (item.categoryItem.id === activeCategoryId || isAllCategory)
   );
 
   const doneItems: TaskItem[] = items.filter(
     (item: TaskItem) =>
-      item.isDone && (item.categoryId === activeCategoryId || isAllCategory)
+      item?.isDone &&
+      (item.categoryItem.id === activeCategoryId || isAllCategory)
   );
 
   return (
@@ -77,7 +84,13 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         items={items}
       />
       <div>
-        {activeItems.length === 0 ? (
+        {isLoading === true ? (
+          <LoadingSpinnerComponent
+            type={"Blocks"}
+            colors={["#06628d", "#f91a10"]}
+            size={"100px"}
+          />
+        ) : activeItems.length === 0 ? (
           <img className="noDataImage" src={NoDataImage} />
         ) : (
           <ToDoList items={activeItems} setItems={setItems} />

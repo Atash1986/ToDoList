@@ -1,13 +1,12 @@
 @charset "UTF-8";
-.checkBoxCol {
+.checkbox-col {
   margin: auto;
   display: block;
   text-align: center;
   flex: 1;
   cursor: pointer;
 }
-
-.checkBoxCol input {
+.checkbox-col input {
   -webkit-appearance: none;
   -moz-appearance: none;
        appearance: none;
@@ -19,17 +18,17 @@
   outline: none;
   cursor: pointer;
 }
-.checkBoxCol input:checked {
+.checkbox-col input:checked {
   background-color: #023e8a;
   position: relative;
 }
-.checkBoxCol input:checked::after {
+.checkbox-col input:checked::after {
   content: ""; /* Added content property */
   background-color: #023e8a;
   position: relative;
   border-radius: 50%;
 }
-.checkBoxCol input:checked::before {
+.checkbox-col input:checked::before {
   content: "✔";
   font-size: 1.5em;
   color: #fff;

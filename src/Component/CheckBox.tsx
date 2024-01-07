@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TaskItem } from "../types/TaskItem";
 import "./CheckBox.scss";
 type Props = {
-  onChecked: (id: number) => void;
+  onChecked: (id: string) => void;
   item: TaskItem;
 };
 function Checkbox({ onChecked, item }: Props) {
@@ -10,9 +10,9 @@ function Checkbox({ onChecked, item }: Props) {
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
   return (
-    <div className="checkBoxCol">
+    <div className="checkbox-col">
       <input
-        className="checkBox"
+        className="checkbox"
         type="checkbox"
         checked={item.isDone}
         onClick={() => onChecked(item.id)}
