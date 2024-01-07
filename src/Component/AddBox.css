@@ -34,6 +34,7 @@
   width: 10px;
   background-color: transparent;
   font-size: 20px;
+  margin-left: 20px;
 }
 .taskTitle:focus {
   outline: none;
