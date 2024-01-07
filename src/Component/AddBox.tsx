@@ -5,8 +5,6 @@ import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
 import "./AddBox.css";
-import axios from "axios";
-import { baseUrl } from "../apis/core";
 import { getAuthorsItems } from "../apis/author";
 import { addTask } from "../apis/task";
 
