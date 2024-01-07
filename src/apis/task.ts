@@ -13,7 +13,12 @@ export async function getToggleTask(selectId: string): Promise<TaskItem> {
   const url = "task/" + selectId + "/toggleDone";
   return getApi(url);
 }
-export const addTask = async (newTask: any): Promise<TaskItem | null> => {
+export const addTask = async (
+  categoryId: number,
+  title: string,
+  authorId: number
+): Promise<TaskItem | null> => {
   const url = "task";
-  return postApi(url, newTask);
+  const body = { categoryId: categoryId, title: title, authorId: authorId };
+  return postApi(url, body);
 };

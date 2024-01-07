@@ -106,11 +106,6 @@ function AddBox({
       isAddFired: false,
     });
   }
-  const newTaskBody = {
-    categoryId: activeCategoryId,
-    title: currentItem.title,
-    authorId: currentItem.author.id,
-  };
 
   async function onAddBtnClick() {
     setErrorList([]);
@@ -127,7 +122,11 @@ function AddBox({
     if (errorListLocal.length === 0) {
       setItemId(itemId + 1);
 
-      const newItem: TaskItem | null = await addTask(newTaskBody);
+      const newItem: TaskItem | null = await addTask(
+        activeCategoryId,
+        currentItem.title,
+        currentItem.author.id
+      );
       if (newItem !== null) {
         setItems((prevItems: TaskItem[]) => {
           return [...prevItems, newItem];
