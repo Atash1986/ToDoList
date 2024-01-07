@@ -1,10 +1,7 @@
 import React, { MouseEvent } from "react";
-import { GrDocumentText } from "react-icons/gr";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
-import profileLogo from "../assest/image/profile.png";
-import settingLogo from "../assest/image/OIP.jpg";
 import CategoryItem from "./CategoryItem";
 import "./Sidbar.css";
 import ToDoList from "./MainPage";
@@ -32,39 +29,47 @@ function Sidbar({
   }
 
   return (
-    <div className="sidbar">
-      <header>
-        <h1 className="title">{appTitle}</h1>
-        <div className="logo">{logo}</div>
-      </header>
-      <div className="menu">
-        <h1>To Do </h1>
+    <div className="sidebar-wrapper">
+      <div className="sidbar">
+        <header>
+          <h1 className="title">{appTitle}</h1>
+          <div className="logo">{logo}</div>
+        </header>
+        <div className="menu">
+          <h1>To Do </h1>
 
-        <ul>
-          <CategoryItem
-            categoryItem={{ id: 0, color: "rgba(0,0,0,0)", title: "All Task" }}
-            isActive={activeCategoryId === 0 ? true : false}
-            onClick={(event: MouseEvent<HTMLElement>) => handelClick(event, 0)}
-          />
+          <ul>
+            <CategoryItem
+              categoryItem={{
+                id: 0,
+                color: "rgba(0,0,0,0)",
+                title: "All Task",
+              }}
+              isActive={activeCategoryId === 0 ? true : false}
+              onClick={(event: MouseEvent<HTMLElement>) =>
+                handelClick(event, 0)
+              }
+            />
 
-          {categories.map((categoryItem: Category) => {
-            return (
-              <CategoryItem
-                key={categoryItem.id}
-                categoryItem={categoryItem}
-                isActive={categoryItem.id === activeCategoryId ? true : false}
-                onClick={(event: MouseEvent<HTMLElement>) =>
-                  handelClick(event, categoryItem.id)
-                }
-              />
-            );
-          })}
-        </ul>
+            {categories.map((categoryItem: Category) => {
+              return (
+                <CategoryItem
+                  key={categoryItem.id}
+                  categoryItem={categoryItem}
+                  isActive={categoryItem.id === activeCategoryId ? true : false}
+                  onClick={(event: MouseEvent<HTMLElement>) =>
+                    handelClick(event, categoryItem.id)
+                  }
+                />
+              );
+            })}
+          </ul>
+        </div>
+        <footer>
+          <CgProfile className="profileLogo" />
+          <IoSettingsOutline className="settingLogo" />
+        </footer>
       </div>
-      <footer>
-        <CgProfile className="profileLogo" />
-        <IoSettingsOutline className="settingLogo" />
-      </footer>
     </div>
   );
 }

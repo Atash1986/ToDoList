@@ -1,15 +1,23 @@
-.sidbar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+.sidebar-wrapper {
   background-color: #023e8a;
-  position: relative; /* to make footer in the bottom of the body*/
   margin: 0; /*to make footer fill the screen width without scroll*/
   gap: 10px;
   width: 303px;
   height: 100%;
   border-radius: 20px;
+}
+
+.sidbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  background-color: #023e8a;
+  margin: 0; /*to make footer fill the screen width without scroll*/
+  gap: 10px;
+  width: 303px;
+  height: 100%;
   color: whitesmoke;
 }
 .sidbar ul {

@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import "./CategoryItem.css";
 import { Category } from "../types/Category";
 

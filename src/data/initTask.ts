@@ -5,6 +5,6 @@ export const initTask: TaskItem = {
   id: "-1",
   creationDate: 1702765226,
   isDone: false,
-  authorId: -1,
+  author: { id: -1, name: "Deafult name", fullName: "" },
   categoryItem: { id: 0, color: "red" },
 };

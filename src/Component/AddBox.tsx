@@ -1,15 +1,12 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-import taskItems from "../data/taskItems";
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
-import { removeItemsWithValue } from "../util/itemHelpers";
 import "./AddBox.css";
-import { getFormatedDateTime } from "../util/dateHelpers";
-import axios from "axios";
-import { error } from "console";
+import { getAuthorsItems } from "../apis/author";
+import { addTask } from "../apis/task";
 
 type DirtyType = {
   title: boolean;
@@ -18,18 +15,6 @@ type DirtyType = {
 };
 
 let authorsItems: Authors[] | undefined;
-const getAuthorsItems = async () => {
-  try {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
-    const result = await axios.get(baseUrl + "authors");
-    authorsItems = result.data.data;
-    return authorsItems;
-  } catch (error) {
-    const typedError = error as Error;
-    console.error("Error:", typedError.message);
-  }
-};
-
 (async () => {
   authorsItems = await getAuthorsItems();
 })();
@@ -54,16 +39,8 @@ function AddBox({
     author: false,
     isAddFired: false,
   });
-  let containerStyle;
-  let showError = false;
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-  const [selectedOption, setSelectedOption] = useState("");
-
-  useEffect(() => {
-    setSelectedOption("Select author");
-  }, []);
-
   function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
     setErrorList([]);
     const errorListLocal = [];
@@ -74,7 +51,7 @@ function AddBox({
     if (preConditionTitle && currentItem.title === "") {
       errorListLocal.push("Title is required");
     }
-    if (preConditionAuthor && currentItem.authorId === -1) {
+    if (preConditionAuthor && currentItem.author.id === -1) {
       errorListLocal.push("Author is required");
     }
     setErrorList(errorListLocal);
@@ -83,7 +60,7 @@ function AddBox({
 
   function onTitleChange(event: any) {
     const { name, value } = event.target;
-    const dirtyLocal = {
+    const dirtyLocal: DirtyType = {
       ...dirty,
       title: true,
     };
@@ -98,22 +75,21 @@ function AddBox({
   }
 
   function onAuthorChange(event: any) {
-    const selectIndex: number = event.target.selectedIndex;
-    const authorSelect: Authors | undefined = authorsItems?.find(
-      (option, index) => index === selectIndex
+    const selectedAuthorValue: number = event.target.value;
+    const authorSelected: Authors | undefined = authorsItems?.find(
+      (option) => option.id == selectedAuthorValue
     );
-    let idSelect: number;
-    if (authorSelect) {
-      idSelect = authorSelect.id;
-    }
 
-    const currentItemLocal = {
+    const currentItemLocal: TaskItem = {
       ...currentItem,
-      authorId: authorSelect?.id || -1,
+      author: {
+        ...currentItem.author,
+        id: authorSelected?.id || -1,
+      },
     };
     setCurrentItem(currentItemLocal);
 
-    const dirtyLocal = {
+    const dirtyLocal: DirtyType = {
       ...dirty,
       author: true,
     };
@@ -130,32 +106,15 @@ function AddBox({
       isAddFired: false,
     });
   }
-  const newTask = {
-    categoryId: activeCategoryId,
-    title: currentItem.title,
-    authorId: currentItem.authorId,
-  };
-  // const jsonNewTask = JSON.stringify(newTask);
-  const addTask = async () => {
-    // console.log(jsonNewTask);
-    try {
-      const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
-      const response = await axios.post(baseUrl + "task", newTask);
-      return response.data.data;
-    } catch (error) {
-      const typedError = error as Error;
-      console.error("Error:", typedError.message);
-    }
-  };
 
   async function onAddBtnClick() {
     setErrorList([]);
 
     const creationDate = Math.floor(new Date().getTime() / 1000);
 
-    const dirtyLocal = {
+    const dirtyLocal: DirtyType = {
       ...dirty,
-      addFired: true,
+      isAddFired: true,
     };
     setDirty(dirtyLocal);
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
@@ -163,10 +122,16 @@ function AddBox({
     if (errorListLocal.length === 0) {
       setItemId(itemId + 1);
 
-      const newItem: TaskItem = await addTask();
-      setItems((prevItems: TaskItem[]) => {
-        return [...prevItems, newItem];
-      });
+      const newItem: TaskItem | null = await addTask(
+        activeCategoryId,
+        currentItem.title,
+        currentItem.author.id
+      );
+      if (newItem !== null) {
+        setItems((prevItems: TaskItem[]) => {
+          return [...prevItems, newItem];
+        });
+      }
     } else {
       return;
     }
@@ -174,7 +139,7 @@ function AddBox({
   }
 
   return (
-    <div>
+    <div className="addBoxContainer">
       <Tooltip id="my-tooltip" />
       <div className="addBox">
         <input
@@ -191,19 +156,18 @@ function AddBox({
         />
 
         <select
+          value={currentItem.author?.id || -1}
           disabled={isAllCategory}
           name={
             authorsItems?.find(
-              (option: Authors) => option.id === currentItem.authorId
+              (option: Authors) => option.id === currentItem.author.id
             )?.name || "Default Value"
           }
           onChange={onAuthorChange}
         >
-          <option id="-1" value="Select author">
-            Select author
-          </option>
+          <option value={-1}>Select an author</option>
           {authorsItems?.map((option: Authors) => (
-            <option key={option.id} id={String(option.id)} value={option.name}>
+            <option key={option.id} id={String(option.id)} value={option.id}>
               {option.name}
             </option>
           ))}

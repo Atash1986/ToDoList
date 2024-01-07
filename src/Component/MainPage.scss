@@ -1,6 +1,5 @@
 @import "GeneralStyle";
-.contentTasks {
-}
+
 .textTaskDone {
   color: #868686;
   font-size: 16px;
@@ -49,7 +48,6 @@
   height: 60px;
   font-size: 16px;
   font-weight: 400px;
-  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1); */
 }
 
 .ErrorRequrment {
@@ -67,7 +65,7 @@
 .statisticsDetail {
   padding-top: 10px;
   @include flex(column, none);
-  background-color: $Primery_color;
+  background-color: $primary_color;
   width: 30%;
   height: 140px;
   color: white;

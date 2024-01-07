@@ -35,4 +35,7 @@
   position: absolute;
   right: 1px;
   top: -5px;
+}
+.checkbox-col input:hover {
+  box-shadow: 0 0 6px 5px #023e8a;
 }/*# sourceMappingURL=CheckBox.css.map */

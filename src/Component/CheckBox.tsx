@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { TaskItem } from "../types/TaskItem";
 import "./CheckBox.scss";
+
 type Props = {
   onChecked: (id: string) => void;
   item: TaskItem;
 };
+
 function Checkbox({ onChecked, item }: Props) {
   const defaultChecked = item.isDone ? true : false;
   const [isChecked, setIsChecked] = useState(defaultChecked);

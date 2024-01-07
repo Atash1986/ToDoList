@@ -1,5 +1,6 @@
 $Primery_Font: "sans-serif";
-$Primery_color: #023e8a;
+$primary_color: #023e8a;
+
 @mixin flex($direction: column, $justify: space-between, $align: center) {
   display: flex;
   flex-direction: $direction;
