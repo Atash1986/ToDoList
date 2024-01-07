@@ -165,9 +165,7 @@ function AddBox({
           }
           onChange={onAuthorChange}
         >
-          <option id="-1" value={-1}>
-            Select author
-          </option>
+          <option value={-1}>Select an author</option>
           {authorsItems?.map((option: Authors) => (
             <option key={option.id} id={String(option.id)} value={option.id}>
               {option.name}
