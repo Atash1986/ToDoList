@@ -25,11 +25,11 @@ function Sidbar({
 }: Props) {
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
     setCategoryId(selectedId);
-    <ToDoList activeCategoryId={activeCategoryId} />;
+    <ToDoList activeCategoryId={activeCategoryId} categoryLength={0} />; //why need categoryLength
   }
 
   return (
-    <div className="sidebar-wrapper">
+    <div className="sidebar-container">
       <div className="sidbar">
         <header>
           <h1 className="title">{appTitle}</h1>

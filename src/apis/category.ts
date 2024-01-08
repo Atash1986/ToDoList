@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseUrl } from "./core";
 
-export const getCategory = async () => {
+export const getCategories = async () => {
   try {
     const result = await axios.get(baseUrl + "categories");
     return result.data.data;

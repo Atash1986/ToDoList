@@ -9,7 +9,7 @@ export const getDoneItems = async () => {
   const url = "tasks?isDone=true";
   return getApi(url);
 };
-export async function getToggleTask(selectId: string): Promise<TaskItem> {
+export async function toggleTaskApi(selectId: string): Promise<TaskItem> {
   const url = "task/" + selectId + "/toggleDone";
   return getApi(url);
 }
