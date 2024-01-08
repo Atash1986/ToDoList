@@ -5,7 +5,7 @@ import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
 import React, { useEffect, useState } from "react";
 import { Category } from "../types/Category";
-import { getCategory } from "../apis/category";
+import { getCategories } from "../apis/category";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      setCategories(await getCategory());
+      setCategories(await getCategories());
     })();
   }, []);
 
@@ -29,7 +29,10 @@ function App() {
             setCategoryId={setCategoryId}
           />
 
-          <MainPage activeCategoryId={activeCategoryId} />
+          <MainPage
+            categoryLength={categories.length}
+            activeCategoryId={activeCategoryId}
+          />
         </div>
       </div>
     </IconContext.Provider>

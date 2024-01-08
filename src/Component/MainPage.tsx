@@ -9,7 +9,13 @@ import NoDataImage from "../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../apis/task";
 
-function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
+function MainPage({
+  activeCategoryId,
+  categoryLength,
+}: {
+  activeCategoryId: number;
+  categoryLength: number;
+}) {
   const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -74,7 +80,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{3}</span>
+          <span className="number">{categoryLength}</span>
           <span className="name">Categories</span>
         </div>
       </div>
