@@ -1,10 +1,15 @@
 import { getDateTimeFromTimeStamp, getFormatedDateTime } from "./dateHelpers";
 
-it("getFormatedDateTime() should return proper result", () => {
-  const sampleInput = new Date("05.16.1986");
-  const result = getFormatedDateTime(sampleInput);
-  expect(result).toEqual({ date: "Friday,16 May", time: "0:0" });
-});
+test.each([
+  [new Date("05.16.1986"), { date: "Friday,16 May", time: "0:0" }],
+  [new Date("05.26.1986"), { date: "Monday,26 May", time: "0:0" }],
+])(
+  "getFormatedDateTime() should return proper result %s",
+  (sampleDate, expectedResult) => {
+    const result = getFormatedDateTime(sampleDate);
+    expect(result).toEqual(expectedResult);
+  }
+);
 
 it("getDateTimeFromTimeStamp() should return proper result", () => {
   const sampleTimestamps = [1123736034, 987345765, 0];
