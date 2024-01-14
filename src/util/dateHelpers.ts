@@ -1,7 +1,11 @@
 import { DateTime } from "../types/DateTime";
 
-export function getFormatedDateTime() {
+export function getFormatedNow() {
   const dateObject: Date = new Date();
+  return getFormatedDateTime(dateObject);
+}
+
+export function getFormatedDateTime(dateObject: Date) {
   const day = dateObject.getDate();
   const hour = dateObject.getHours();
   const minute = dateObject.getMinutes();
