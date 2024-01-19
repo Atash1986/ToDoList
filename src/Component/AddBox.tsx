@@ -24,13 +24,13 @@ function AddBox({
   itemId,
   setItemId,
   setItems,
-  items,
-}: {
+}: // items,
+{
   activeCategoryId: number;
   itemId: number;
   setItemId: (itemId: number) => void;
   setItems: Dispatch<SetStateAction<TaskItem[]>>;
-  items: TaskItem[];
+  // items: TaskItem[];
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
@@ -58,7 +58,7 @@ function AddBox({
     return errorListLocal;
   }
 
-  function onTitleChange(event: any) {
+  function onTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     const dirtyLocal: DirtyType = {
       ...dirty,
@@ -75,7 +75,7 @@ function AddBox({
   }
 
   function onAuthorChange(event: any) {
-    const selectedAuthorValue: number = event.target.value;
+    const selectedAuthorValue: number = parseInt(event.target.value, 10);
     const authorSelected: Authors | undefined = authorsItems?.find(
       (option) => option.id == selectedAuthorValue
     );
@@ -110,7 +110,7 @@ function AddBox({
   async function onAddBtnClick() {
     setErrorList([]);
 
-    const creationDate = Math.floor(new Date().getTime() / 1000);
+    // const creationDate = Math.floor(new Date().getTime() / 1000);
 
     const dirtyLocal: DirtyType = {
       ...dirty,
@@ -175,7 +175,7 @@ function AddBox({
 
         <button
           className="addButton"
-          onClick={(event) => onAddBtnClick()}
+          onClick={onAddBtnClick}
           disabled={isAllCategory}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
