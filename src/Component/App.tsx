@@ -3,7 +3,8 @@ import { GrDocumentText } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import { Category } from "../types/Category";
 import { getCategories } from "../apis/category";
 
@@ -20,8 +21,9 @@ function App() {
   return (
     <IconContext.Provider value={{ color: "white" }}>
       <div className="App ">
-        <div className="container">
+        <div data-testid="Container" className="container">
           <Sidbar
+            data-testid="Sidbar"
             appTitle="Ati To Do  List"
             logo={<GrDocumentText size="7em" />}
             categories={categories}
@@ -30,6 +32,7 @@ function App() {
           />
 
           <MainPage
+            data-testid="MainPage"
             categoryLength={categories.length}
             activeCategoryId={activeCategoryId}
           />
