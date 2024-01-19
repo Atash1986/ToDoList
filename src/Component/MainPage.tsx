@@ -90,7 +90,7 @@ function MainPage({
         itemId={lastItemId}
         setItems={setActiveItems}
         setItemId={setLastItemId}
-        items={activeItems}
+        //items={activeItems}
       />
 
       <div>
