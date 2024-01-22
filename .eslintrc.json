@@ -5,6 +5,20 @@
     "es2021": true,
     "node": true
   },
+  "overrides": [
+    {
+      "files": ["*.jsx", "*.tsx"],
+      "rules": {
+        "no-unused-vars": ["warn", { "varsIgnorePattern": "React" }]
+      }
+    }
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -18,6 +32,9 @@
   },
   "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
-    "no-unused-vars": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-unused-vars": "warn",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
