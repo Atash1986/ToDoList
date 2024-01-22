@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./MainPage.css";
 import { TaskItem } from "../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
@@ -109,7 +109,7 @@ function MainPage({
         {isLoading === false && activeItems.length > 0 && (
           <ToDoList
             items={activeItems}
-            setItems={setActiveItems}
+            // setItems={setActiveItems}
             toggleTask={toggleTask}
           />
         )}
@@ -123,7 +123,7 @@ function MainPage({
           <div className="taskDoneItem">
             <ToDoList
               items={doneItems}
-              setItems={setDoneItems}
+              // setItems={setDoneItems}
               toggleTask={toggleTask}
             />
           </div>
