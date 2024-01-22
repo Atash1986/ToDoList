@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import { MouseEvent } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
