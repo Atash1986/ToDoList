@@ -1,4 +1,3 @@
-import React from "react";
 import "./ToDoItem.css";
 import { TaskItem } from "../types/TaskItem";
 import Checkbox from "./CheckBox";
