@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Addbox from "./AddBox";
-import React from "react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 
 test("for testing liberary", () => {
   render(
@@ -12,6 +11,7 @@ test("for testing liberary", () => {
       setItems={() => {}}
     />
   );
-  const s = screen.getByTestId(/Container/i);
+  const s = screen.getByTestId(/add-box-container/i);
+  // console.log(">>>>>> s=", s);
   expect(s).toBeInTheDocument();
 });

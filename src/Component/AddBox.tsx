@@ -139,7 +139,7 @@ function AddBox({
   }
 
   return (
-    <div className="addBoxContainer">
+    <div className="addBoxContainer" data-testid="add-box-container">
       <Tooltip id="my-tooltip" />
       <div className="addBox">
         <input
