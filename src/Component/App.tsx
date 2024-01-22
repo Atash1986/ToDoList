@@ -3,7 +3,6 @@ import { GrDocumentText } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
-import React from "react";
 import { useEffect, useState } from "react";
 import { Category } from "../types/Category";
 import { getCategories } from "../apis/category";
@@ -21,7 +20,7 @@ function App() {
   return (
     <IconContext.Provider value={{ color: "white" }}>
       <div className="App ">
-        <div data-testid="Container" className="container">
+        <div data-testid="app-container" className="container">
           <Sidbar
             data-testid="Sidbar"
             appTitle="Ati To Do  List"
