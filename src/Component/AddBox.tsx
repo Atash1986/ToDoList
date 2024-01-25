@@ -143,6 +143,7 @@ function AddBox({
       <Tooltip id="my-tooltip" />
       <div className="addBox">
         <input
+          data-testid="add-box-title"
           disabled={isAllCategory}
           className="taskTitle"
           type="text"
@@ -156,6 +157,7 @@ function AddBox({
         />
 
         <select
+          data-testid="add-box-author"
           value={currentItem.author?.id || -1}
           disabled={isAllCategory}
           name={
@@ -174,6 +176,7 @@ function AddBox({
         </select>
 
         <button
+          data-testid="add-box-add-button"
           className="addButton"
           onClick={onAddBtnClick}
           disabled={isAllCategory}
@@ -185,7 +188,7 @@ function AddBox({
       </div>
 
       <div className="errorRequirement">
-        <span>
+        <span data-testid="add-box-error-box">
           {errorList.map((error, index) => (
             <div key={index}>{error}</div>
           ))}
