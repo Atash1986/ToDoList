@@ -16,13 +16,18 @@ function MainPage({
   activeCategoryId: number;
   categoryLength: number;
 }) {
-  const [lastItemId, setLastItemId] = useState<number>(-1);
+  // const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [activeItems, setActiveItems] = useState<TaskItem[]>([]);
   const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
 
+  function addNewItemToState(newItem: TaskItem) {
+    setActiveItems((prevItems: TaskItem[]) => {
+      return [...prevItems, newItem];
+    });
+  }
   function toggleTask(item: TaskItem): TaskItem[] | void {
     if (item.isDone === true) {
       setActiveItems((activeItems) => {
@@ -87,9 +92,9 @@ function MainPage({
 
       <AddBox
         activeCategoryId={activeCategoryId}
-        itemId={lastItemId}
-        setItems={setActiveItems}
-        setItemId={setLastItemId}
+        addNewItemToState={addNewItemToState}
+        // itemId={lastItemId}
+        // setItemId={setLastItemId}
         //items={activeItems}
       />
 

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { TaskItem } from "../types/TaskItem";
@@ -13,23 +13,23 @@ type DirtyType = {
   author: boolean;
   isAddFired: boolean;
 };
-
 let authorsItems: Authors[] | undefined;
 (async () => {
   authorsItems = await getAuthorsItems();
 })();
-
 function AddBox({
   activeCategoryId,
-  itemId,
-  setItemId,
-  setItems,
-}: // items,
+  addNewItemToState,
+}: // itemId,
+// setItemId,
+
+// items,
 {
   activeCategoryId: number;
-  itemId: number;
-  setItemId: (itemId: number) => void;
-  setItems: Dispatch<SetStateAction<TaskItem[]>>;
+  addNewItemToState: any;
+  // itemId: number;
+  // setItemId: (itemId: number) => void;
+
   // items: TaskItem[];
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
@@ -120,7 +120,7 @@ function AddBox({
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
 
     if (errorListLocal.length === 0) {
-      setItemId(itemId + 1);
+      // setItemId(itemId + 1);
 
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
@@ -128,9 +128,7 @@ function AddBox({
         currentItem.author.id
       );
       if (newItem !== null) {
-        setItems((prevItems: TaskItem[]) => {
-          return [...prevItems, newItem];
-        });
+        addNewItemToState(newItem);
       }
     } else {
       return;

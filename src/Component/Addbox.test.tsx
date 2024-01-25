@@ -6,9 +6,10 @@ test("containar should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
+      // setItems={() => {}}
     />
   );
   const s = screen.getByTestId(/add-box-container/i);
@@ -19,9 +20,10 @@ test("title box should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
+      // setItems={() => {}}
     />
   );
   const s = screen.getByTestId(/add-box-title/i);
@@ -32,9 +34,10 @@ test("author box should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
+      // setItems={() => {}}
     />
   );
 
@@ -46,9 +49,10 @@ test("add button should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
+      // setItems={() => {}}
     />
   );
   const s = screen.getByTestId(/add-box-add-button/i);
@@ -59,9 +63,10 @@ test("error box should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
+      // setItems={() => {}}
     />
   );
   const s = screen.getByTestId(/add-box-error-box/i);
@@ -72,9 +77,10 @@ test("should disable the fields in case of all task has active category id equal
   render(
     <Addbox
       activeCategoryId={0}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
+      // setItems={() => {}}
     />
   );
   const title = screen.getByTestId(/add-box-title/i);
@@ -89,9 +95,9 @@ test("should enable the fields in case of valid active category", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      itemId={1}
-      setItemId={() => {}}
-      setItems={() => {}}
+      addNewItemToState={() => {}}
+      // itemId={1}
+      // setItemId={() => {}}
     />
   );
   const title = screen.getByTestId(/add-box-title/i);
