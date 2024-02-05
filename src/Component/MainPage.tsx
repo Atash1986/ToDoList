@@ -8,6 +8,8 @@ import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../apis/task";
+import { getAuthorsItems } from "../apis/author";
+import { Authors } from "../types/Authors";
 
 function MainPage({
   activeCategoryId,
@@ -16,7 +18,6 @@ function MainPage({
   activeCategoryId: number;
   categoryLength: number;
 }) {
-  // const [lastItemId, setLastItemId] = useState<number>(-1);
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [activeItems, setActiveItems] = useState<TaskItem[]>([]);
@@ -73,6 +74,13 @@ function MainPage({
     })();
   }, [activeCategoryId]);
 
+  const [authorsItems, setAuthorItems] = useState<Authors[] | undefined>([]);
+  useEffect(() => {
+    getAuthorsItems().then((localAuthorsItems) => {
+      setAuthorItems(localAuthorsItems);
+    });
+  }, []);
+
   return (
     <div className="contentTasks">
       <div className="statisticsBox">
@@ -93,9 +101,7 @@ function MainPage({
       <AddBox
         activeCategoryId={activeCategoryId}
         addNewItemToState={addNewItemToState}
-        // itemId={lastItemId}
-        // setItemId={setLastItemId}
-        //items={activeItems}
+        authorsItems={authorsItems || []}
       />
 
       <div>
@@ -112,11 +118,7 @@ function MainPage({
         )}
 
         {isLoading === false && activeItems.length > 0 && (
-          <ToDoList
-            items={activeItems}
-            // setItems={setActiveItems}
-            toggleTask={toggleTask}
-          />
+          <ToDoList items={activeItems} toggleTask={toggleTask} />
         )}
 
         <ToggleButton
@@ -126,11 +128,7 @@ function MainPage({
 
         {isDivVisible && (
           <div className="taskDoneItem">
-            <ToDoList
-              items={doneItems}
-              // setItems={setDoneItems}
-              toggleTask={toggleTask}
-            />
+            <ToDoList items={doneItems} toggleTask={toggleTask} />
           </div>
         )}
       </div>

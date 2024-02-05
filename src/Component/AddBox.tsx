@@ -5,7 +5,7 @@ import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
 import "./AddBox.css";
-import { getAuthorsItems } from "../apis/author";
+
 import { addTask } from "../apis/task";
 
 type DirtyType = {
@@ -13,13 +13,11 @@ type DirtyType = {
   author: boolean;
   isAddFired: boolean;
 };
-let authorsItems: Authors[] | undefined;
-(async () => {
-  authorsItems = await getAuthorsItems();
-})();
+
 function AddBox({
   activeCategoryId,
   addNewItemToState,
+  authorsItems,
 }: // itemId,
 // setItemId,
 
@@ -27,6 +25,7 @@ function AddBox({
 {
   activeCategoryId: number;
   addNewItemToState: any;
+  authorsItems: Authors[];
   // itemId: number;
   // setItemId: (itemId: number) => void;
 
@@ -109,8 +108,6 @@ function AddBox({
 
   async function onAddBtnClick() {
     setErrorList([]);
-
-    // const creationDate = Math.floor(new Date().getTime() / 1000);
 
     const dirtyLocal: DirtyType = {
       ...dirty,
