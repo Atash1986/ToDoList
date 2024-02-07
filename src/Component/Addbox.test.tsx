@@ -104,6 +104,7 @@ test("should enable the fields in case of valid active category", () => {
 
 test("check call api", async () => {
   (addTask as jest.Mock).mockResolvedValue(sampleTask);
+
   render(
     <Addbox
       activeCategoryId={1}
@@ -111,22 +112,25 @@ test("check call api", async () => {
       authorsItems={sampleAuthors}
     />
   );
+
   const title = screen.getByTestId(/add-box-title/i);
   fireEvent.change(title, { target: { value: "do the dishes" } });
+
   const authorInput = screen.getByTestId(/add-box-author/i);
   const authorId = 1;
   fireEvent.change(authorInput, { target: { value: authorId.toString() } });
   fireEvent.blur(authorInput);
+
   const addbtn = screen.getByTestId(/add-box-add-button/i);
   fireEvent.click(addbtn);
-  // await waitFor(() => expect(axios.get).toHaveBeenCalledTimes(1));
+
   expect(addTask).toHaveBeenCalledWith(1, "do the dishes", 1);
 });
 
 test("addNewItemToState updates activeItems correctly (new)", async () => {
-  // jest.spyOn(taskApis, "addTask").mockResolvedValue(sampleTask);
   (addTask as jest.Mock).mockResolvedValue(sampleTask);
   const mockAddNewItemToState = jest.fn();
+
   render(
     <Addbox
       activeCategoryId={1}
@@ -134,12 +138,16 @@ test("addNewItemToState updates activeItems correctly (new)", async () => {
       authorsItems={sampleAuthors}
     />
   );
+
   const titleInput = screen.getByTestId(/add-box-title/i);
   fireEvent.change(titleInput, { target: { value: "do the dishes2" } });
+
   const authorDropdown = screen.getByTestId(/add-box-author/i);
   const sampleAuthorId = sampleAuthors[0].id.toString();
   await userEvent.selectOptions(authorDropdown, sampleAuthorId);
+
   const triggerButton = screen.getByTestId(/add-box-add-button/i);
   fireEvent.click(triggerButton);
+
   await waitFor(() => expect(mockAddNewItemToState).toHaveBeenCalledTimes(1));
 });
