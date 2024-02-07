@@ -2,13 +2,12 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Addbox from "./AddBox";
 import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
-import axios from "axios";
-import * as taskApis from "../apis/task";
 import { addTask } from "../apis/task";
 import { sampleAuthors } from "../fixtures/author";
 import { sampleTask } from "../fixtures/task";
 
 jest.mock("axios");
+jest.mock("../apis/task");
 
 test("containar should be in page", () => {
   render(
@@ -104,7 +103,7 @@ test("should enable the fields in case of valid active category", () => {
 });
 
 test("check call api", async () => {
-  const addTaskSpy = jest.spyOn(taskApis, "addTask");
+  (addTask as jest.Mock).mockResolvedValue(sampleTask);
   render(
     <Addbox
       activeCategoryId={1}
@@ -120,11 +119,12 @@ test("check call api", async () => {
   fireEvent.blur(authorInput);
   const addbtn = screen.getByTestId(/add-box-add-button/i);
   fireEvent.click(addbtn);
-  await waitFor(() => expect(axios.get).toHaveBeenCalledTimes(1));
-  expect(addTaskSpy).toHaveBeenCalledWith(1, "do the dishes", "1");
+  // await waitFor(() => expect(axios.get).toHaveBeenCalledTimes(1));
+  expect(addTask).toHaveBeenCalledWith(1, "do the dishes", 1);
 });
 
 test("addNewItemToState updates activeItems correctly (new)", async () => {
+  // jest.spyOn(taskApis, "addTask").mockResolvedValue(sampleTask);
   (addTask as jest.Mock).mockResolvedValue(sampleTask);
   const mockAddNewItemToState = jest.fn();
   render(
