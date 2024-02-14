@@ -151,3 +151,74 @@ test("addNewItemToState updates activeItems correctly (new)", async () => {
 
   await waitFor(() => expect(mockAddNewItemToState).toHaveBeenCalledTimes(1));
 });
+
+test("should render title required message if user leaves title empty and clicks on the add", () => {
+  const mockAddNewItemToState = jest.fn();
+  render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+
+  const title = screen.getByTestId(/add-box-title/i);
+  fireEvent.change(title, { target: { value: "" } });
+
+  const authorInput = screen.getByTestId(/add-box-author/i);
+  const authorId = 1;
+  fireEvent.change(authorInput, { target: { value: authorId.toString() } });
+  fireEvent.blur(authorInput);
+  const triggerButton = screen.getByTestId(/add-box-add-button/i);
+  fireEvent.click(triggerButton);
+  const errorTitle = screen.getByText(/Title is required/i);
+  expect(errorTitle).toBeInTheDocument();
+});
+
+test("should render author required message if user leaves author empty and clicks on the add", () => {
+  const mockAddNewItemToState = jest.fn();
+  render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+
+  const title = screen.getByTestId(/add-box-title/i);
+  fireEvent.change(title, { target: { value: "do the shop" } });
+
+  const authorInput = screen.getByTestId(/add-box-author/i);
+  const authorId = -1;
+  fireEvent.change(authorInput, { target: { value: authorId.toString() } });
+  fireEvent.blur(authorInput);
+  const triggerButton = screen.getByTestId(/add-box-add-button/i);
+  fireEvent.click(triggerButton);
+  const errorAuthor = screen.getByText(/Author is required/i);
+  expect(errorAuthor).toBeInTheDocument();
+});
+
+test("should render title & author required messages if the user leaves the title & author empty and clicks on the add button", () => {
+  const mockAddNewItemToState = jest.fn();
+  render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+
+  const title = screen.getByTestId(/add-box-title/i);
+  fireEvent.change(title, { target: { value: "" } });
+
+  const authorInput = screen.getByTestId(/add-box-author/i);
+  const authorId = -1;
+  fireEvent.change(authorInput, { target: { value: authorId.toString() } });
+  fireEvent.blur(authorInput);
+  const triggerButton = screen.getByTestId(/add-box-add-button/i);
+  fireEvent.click(triggerButton);
+  const errorAuthor = screen.getByText(/Author is required/i);
+  const errorTitle = screen.getByText(/Title is required/i);
+  expect(errorAuthor).toBeInTheDocument();
+  expect(errorTitle).toBeInTheDocument();
+});
