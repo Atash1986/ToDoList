@@ -222,3 +222,82 @@ test("should render title & author required messages if the user leaves the titl
   expect(errorAuthor).toBeInTheDocument();
   expect(errorTitle).toBeInTheDocument();
 });
+
+test("should hide the validation messages after user fix that problem", () => {
+  const mockAddNewItemToState = jest.fn();
+  render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+
+  const title = screen.getByTestId(/add-box-title/i);
+  fireEvent.change(title, { target: { value: "" } });
+
+  const authorInput = screen.getByTestId(/add-box-author/i);
+  const authorId = -1;
+  fireEvent.change(authorInput, { target: { value: authorId.toString() } });
+  fireEvent.blur(authorInput);
+  const triggerButton = screen.getByTestId(/add-box-add-button/i);
+  fireEvent.click(triggerButton);
+  const errorAuthor = screen.getByText(/Author is required/i);
+  const errorTitle = screen.getByText(/Title is required/i);
+  expect(errorAuthor).toBeInTheDocument();
+  expect(errorTitle).toBeInTheDocument();
+  fireEvent.change(authorInput, { target: { value: "1" } });
+  fireEvent.blur(authorInput);
+  fireEvent.change(title, { target: { value: "test" } });
+  expect(errorAuthor).not.toBeInTheDocument();
+  expect(errorTitle).not.toBeInTheDocument();
+});
+
+test("should reset the form if the user add the form data successfully", async () => {
+  const mockAddNewItemToState = jest.fn(() => {
+    const title = screen.getByTestId(/add-box-title/i);
+    fireEvent.change(title, { target: { value: "" } });
+    const authorInput = screen.getByTestId(/add-box-author/i);
+    const authorId = -1;
+    fireEvent.change(authorInput, { target: { value: authorId.toString() } });
+  });
+  render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+  const title = screen.getByTestId(/add-box-title/i);
+  fireEvent.change(title, { target: { value: "test" } });
+
+  const authorInput = screen.getByTestId(/add-box-author/i);
+  const authorId = 1;
+  fireEvent.change(authorInput, { target: { value: authorId.toString() } });
+  fireEvent.blur(authorInput);
+  const triggerButton = screen.getByTestId(/add-box-add-button/i);
+  fireEvent.click(triggerButton);
+  await waitFor(() => expect(mockAddNewItemToState).toHaveBeenCalledTimes(1));
+  expect(title).toHaveValue("");
+  expect(authorInput).toHaveValue("-1");
+});
+
+test("should show tooltip if the active category is is invalid and cursor is over the form", () => {
+  const mockAddNewItemToState = jest.fn();
+  render(
+    <Addbox
+      activeCategoryId={0}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+
+  const tooltip = screen.getByTestId(/add-box-title/i);
+  fireEvent.mouseOver(tooltip);
+  expect(
+    screen.getByText((content, element) => {
+      const tooltipText = element?.getAttribute("data-tooltip-content");
+      return tooltipText === "You Must First Select One Category Item";
+    })
+  ).toBeInTheDocument();
+});

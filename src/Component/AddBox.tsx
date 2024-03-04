@@ -135,7 +135,7 @@ function AddBox({
 
   return (
     <div className="addBoxContainer" data-testid="add-box-container">
-      <Tooltip id="my-tooltip" />
+      <Tooltip id="my-tooltip" data-testid="add-box-tooltip" />
       <div className="addBox">
         <input
           data-testid="add-box-title"
