@@ -5,10 +5,19 @@ import { userEvent } from "@testing-library/user-event";
 import { addTask } from "../apis/task";
 import { sampleAuthors } from "../fixtures/author";
 import { sampleTask } from "../fixtures/task";
+// import renderer from "react-test-renderer";
 
 jest.mock("axios");
 jest.mock("../apis/task");
 
+// it('renders correctly when there are no items', () => {
+//   const tree = renderer.create(<Addbox
+//     activeCategoryId={1}
+//     addNewItemToState={() => {}}
+//     authorsItems={sampleAuthors}
+//   />).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });
 test("containar should be in page", () => {
   render(
     <Addbox
@@ -102,7 +111,7 @@ test("should enable the fields in case of valid active category", () => {
   expect(addbtn).toBeEnabled();
 });
 
-test("check call api", async () => {
+test("check call add api", async () => {
   (addTask as jest.Mock).mockResolvedValue(sampleTask);
 
   render(
@@ -127,7 +136,7 @@ test("check call api", async () => {
   expect(addTask).toHaveBeenCalledWith(1, "do the dishes", 1);
 });
 
-test("addNewItemToState updates activeItems correctly (new)", async () => {
+test("addNewItemToState updates activeItems correctly", async () => {
   (addTask as jest.Mock).mockResolvedValue(sampleTask);
   const mockAddNewItemToState = jest.fn();
 
@@ -300,4 +309,24 @@ test("should show tooltip if the active category is is invalid and cursor is ove
       return tooltipText === "You Must First Select One Category Item";
     })
   ).toBeInTheDocument();
+});
+
+test("should render all of the possible authors inside the Select component", () => {
+  const mockAddNewItemToState = jest.fn();
+  render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={mockAddNewItemToState}
+      authorsItems={sampleAuthors}
+    />
+  );
+  const selectElement = screen.getByTestId(/add-box-author/i);
+  const options = selectElement.querySelectorAll("option");
+  sampleAuthors.forEach((author) => {
+    const optionsExists = Array.from(options).some(
+      (option) => option.textContent === author.name
+    );
+
+    expect(optionsExists).toBeTruthy();
+  });
 });

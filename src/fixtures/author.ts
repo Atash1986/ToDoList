@@ -4,4 +4,9 @@ export const sampleAuthors = [
     fullName: "Arian Armoun",
     name: "Arian",
   },
+  {
+    id: 2,
+    fullName: "Mahdiar Armoun",
+    name: "Mahdiar",
+  },
 ];
