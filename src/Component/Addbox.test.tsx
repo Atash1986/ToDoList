@@ -5,19 +5,22 @@ import { userEvent } from "@testing-library/user-event";
 import { addTask } from "../apis/task";
 import { sampleAuthors } from "../fixtures/author";
 import { sampleTask } from "../fixtures/task";
-// import renderer from "react-test-renderer";
 
 jest.mock("axios");
 jest.mock("../apis/task");
 
-// it('renders correctly when there are no items', () => {
-//   const tree = renderer.create(<Addbox
-//     activeCategoryId={1}
-//     addNewItemToState={() => {}}
-//     authorsItems={sampleAuthors}
-//   />).toJSON();
-//   expect(tree).toMatchSnapshot();
-// });
+it("renders correctly when there are no items", () => {
+  //resultRender.container
+  const { container } = render(
+    <Addbox
+      activeCategoryId={1}
+      addNewItemToState={() => {}}
+      authorsItems={sampleAuthors}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 test("containar should be in page", () => {
   render(
     <Addbox

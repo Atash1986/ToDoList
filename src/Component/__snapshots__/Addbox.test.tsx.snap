@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when there are no items 1`] = `
+<div>
+  <div
+    class="addBoxContainer"
+    data-testid="add-box-container"
+  >
+    <div
+      class="addBox"
+    >
+      <input
+        class="taskTitle"
+        data-testid="add-box-title"
+        data-tooltip-content=""
+        data-tooltip-id=""
+        name="title"
+        type="text"
+        value=""
+      />
+      <select
+        data-testid="add-box-author"
+        name="Default Value"
+      >
+        <option
+          value="-1"
+        >
+          Select an author
+        </option>
+        <option
+          id="1"
+          value="1"
+        >
+          Arian
+        </option>
+        <option
+          id="2"
+          value="2"
+        >
+          Mahdiar
+        </option>
+      </select>
+      <button
+        class="addButton"
+        data-testid="add-box-add-button"
+        style="cursor: pointer;"
+      >
+        <img
+          src="plus.svg"
+        />
+      </button>
+      <br />
+    </div>
+    <div
+      class="errorRequirement"
+    >
+      <span
+        data-testid="add-box-error-box"
+      />
+    </div>
+  </div>
+</div>
+`;
