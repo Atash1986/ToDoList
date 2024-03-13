@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   isDivVisible: boolean;
@@ -6,7 +6,7 @@ type Props = {
 };
 
 export function ToggleButton({ isDivVisible, setDivVisible }: Props) {
-  function handleClickDone(event: any) {
+  function handleClickDone() {
     setDivVisible(!isDivVisible);
   }
   return (

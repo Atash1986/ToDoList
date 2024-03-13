@@ -1,7 +1,11 @@
 import { DateTime } from "../types/DateTime";
 
-export function getFormatedDateTime() {
+export function getFormatedNow() {
   const dateObject: Date = new Date();
+  return getFormatedDateTime(dateObject);
+}
+
+export function getFormatedDateTime(dateObject: Date) {
   const day = dateObject.getDate();
   const hour = dateObject.getHours();
   const minute = dateObject.getMinutes();
@@ -12,8 +16,8 @@ export function getFormatedDateTime() {
     month: "long",
   });
 
-  const date: String = dayName + "," + day + " " + monthName.slice(0, 3);
-  const time: String = hour + ":" + minute;
+  const date: string = dayName + "," + day + " " + monthName.slice(0, 3);
+  const time: string = hour + ":" + minute;
   const dateTime: DateTime = { date: date, time: time };
   return dateTime;
 }
@@ -29,9 +33,9 @@ export function getDateTimeFromTimeStamp(originalTimestamp: number) {
     month: "long",
   });
 
-  const date: String =
+  const date: string =
     dayName.slice(0, 3) + "," + day + " " + monthName.slice(0, 3);
-  const time: String = hour + ":" + minute;
+  const time: string = hour + ":" + minute;
   const dateTime: DateTime = { date: date, time: time };
   return dateTime;
 }

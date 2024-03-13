@@ -1,6 +1,6 @@
 export function removeItemsWithValue(
-  errorMessage: String,
-  errorList: String[],
+  errorMessage: string,
+  errorList: string[],
   setErrorList: any
 ) {
   const newArray = errorList.filter((error) => error !== errorMessage);

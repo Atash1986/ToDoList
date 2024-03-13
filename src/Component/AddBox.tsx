@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
 import "./AddBox.css";
-import { getAuthorsItems } from "../apis/author";
+
 import { addTask } from "../apis/task";
 
 type DirtyType = {
@@ -14,23 +14,22 @@ type DirtyType = {
   isAddFired: boolean;
 };
 
-let authorsItems: Authors[] | undefined;
-(async () => {
-  authorsItems = await getAuthorsItems();
-})();
-
 function AddBox({
   activeCategoryId,
-  itemId,
-  setItemId,
-  setItems,
-  items,
-}: {
+  addNewItemToState,
+  authorsItems,
+}: // itemId,
+// setItemId,
+
+// items,
+{
   activeCategoryId: number;
-  itemId: number;
-  setItemId: (itemId: number) => void;
-  setItems: Dispatch<SetStateAction<TaskItem[]>>;
-  items: TaskItem[];
+  addNewItemToState: any;
+  authorsItems: Authors[];
+  // itemId: number;
+  // setItemId: (itemId: number) => void;
+
+  // items: TaskItem[];
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
 
@@ -58,7 +57,7 @@ function AddBox({
     return errorListLocal;
   }
 
-  function onTitleChange(event: any) {
+  function onTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     const dirtyLocal: DirtyType = {
       ...dirty,
@@ -75,7 +74,7 @@ function AddBox({
   }
 
   function onAuthorChange(event: any) {
-    const selectedAuthorValue: number = event.target.value;
+    const selectedAuthorValue: number = parseInt(event.target.value, 10);
     const authorSelected: Authors | undefined = authorsItems?.find(
       (option) => option.id == selectedAuthorValue
     );
@@ -110,8 +109,6 @@ function AddBox({
   async function onAddBtnClick() {
     setErrorList([]);
 
-    const creationDate = Math.floor(new Date().getTime() / 1000);
-
     const dirtyLocal: DirtyType = {
       ...dirty,
       isAddFired: true,
@@ -120,7 +117,7 @@ function AddBox({
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
 
     if (errorListLocal.length === 0) {
-      setItemId(itemId + 1);
+      // setItemId(itemId + 1);
 
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
@@ -128,9 +125,7 @@ function AddBox({
         currentItem.author.id
       );
       if (newItem !== null) {
-        setItems((prevItems: TaskItem[]) => {
-          return [...prevItems, newItem];
-        });
+        addNewItemToState(newItem);
       }
     } else {
       return;
@@ -139,10 +134,11 @@ function AddBox({
   }
 
   return (
-    <div className="addBoxContainer">
-      <Tooltip id="my-tooltip" />
+    <div className="addBoxContainer" data-testid="add-box-container">
+      <Tooltip id="my-tooltip" data-testid="add-box-tooltip" />
       <div className="addBox">
         <input
+          data-testid="add-box-title"
           disabled={isAllCategory}
           className="taskTitle"
           type="text"
@@ -156,6 +152,7 @@ function AddBox({
         />
 
         <select
+          data-testid="add-box-author"
           value={currentItem.author?.id || -1}
           disabled={isAllCategory}
           name={
@@ -174,8 +171,9 @@ function AddBox({
         </select>
 
         <button
+          data-testid="add-box-add-button"
           className="addButton"
-          onClick={(event) => onAddBtnClick()}
+          onClick={onAddBtnClick}
           disabled={isAllCategory}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
@@ -185,7 +183,7 @@ function AddBox({
       </div>
 
       <div className="errorRequirement">
-        <span>
+        <span data-testid="add-box-error-box">
           {errorList.map((error, index) => (
             <div key={index}>{error}</div>
           ))}

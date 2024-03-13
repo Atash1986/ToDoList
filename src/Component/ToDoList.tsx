@@ -1,19 +1,18 @@
-import React from "react";
 import { TaskItem } from "../types/TaskItem";
 import ToDoItem from "./ToDoItem";
-import { getToggleTask } from "../apis/task";
+import { toggleTaskApi } from "../apis/task";
 
 function ToDoList({
   items,
-  setItems,
+  // setItems,
   toggleTask,
 }: {
   toggleTask: (item: TaskItem) => TaskItem[] | void;
   items: TaskItem[];
-  setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
+  // setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
 }): React.JSX.Element {
   async function handleCheck(selectId: string) {
-    const item: TaskItem = await getToggleTask(selectId);
+    const item: TaskItem = await toggleTaskApi(selectId);
     const selectedItem: TaskItem | undefined = items.find(
       (item: TaskItem) => item.id == selectId
     );

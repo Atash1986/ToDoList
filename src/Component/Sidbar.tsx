@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import { MouseEvent } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
@@ -25,11 +25,11 @@ function Sidbar({
 }: Props) {
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
     setCategoryId(selectedId);
-    <ToDoList activeCategoryId={activeCategoryId} />;
+    <ToDoList activeCategoryId={activeCategoryId} categoryLength={0} />; //why need categoryLength
   }
 
   return (
-    <div className="sidebar-wrapper">
+    <div className="sidebar-container">
       <div className="sidbar">
         <header>
           <h1 className="title">{appTitle}</h1>

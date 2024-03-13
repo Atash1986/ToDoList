@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./MainPage.css";
 import { TaskItem } from "../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
@@ -8,15 +8,27 @@ import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../apis/task";
+import { getAuthorsItems } from "../apis/author";
+import { Authors } from "../types/Authors";
 
-function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
-  const [lastItemId, setLastItemId] = useState<number>(-1);
+function MainPage({
+  activeCategoryId,
+  categoryLength,
+}: {
+  activeCategoryId: number;
+  categoryLength: number;
+}) {
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [activeItems, setActiveItems] = useState<TaskItem[]>([]);
   const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
 
+  function addNewItemToState(newItem: TaskItem) {
+    setActiveItems((prevItems: TaskItem[]) => {
+      return [...prevItems, newItem];
+    });
+  }
   function toggleTask(item: TaskItem): TaskItem[] | void {
     if (item.isDone === true) {
       setActiveItems((activeItems) => {
@@ -62,6 +74,13 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
     })();
   }, [activeCategoryId]);
 
+  const [authorsItems, setAuthorItems] = useState<Authors[] | undefined>([]);
+  useEffect(() => {
+    getAuthorsItems().then((localAuthorsItems) => {
+      setAuthorItems(localAuthorsItems);
+    });
+  }, []);
+
   return (
     <div className="contentTasks">
       <div className="statisticsBox">
@@ -74,17 +93,15 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{3}</span>
+          <span className="number">{categoryLength}</span>
           <span className="name">Categories</span>
         </div>
       </div>
 
       <AddBox
         activeCategoryId={activeCategoryId}
-        itemId={lastItemId}
-        setItems={setActiveItems}
-        setItemId={setLastItemId}
-        items={activeItems}
+        addNewItemToState={addNewItemToState}
+        authorsItems={authorsItems || []}
       />
 
       <div>
@@ -101,11 +118,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
         )}
 
         {isLoading === false && activeItems.length > 0 && (
-          <ToDoList
-            items={activeItems}
-            setItems={setActiveItems}
-            toggleTask={toggleTask}
-          />
+          <ToDoList items={activeItems} toggleTask={toggleTask} />
         )}
 
         <ToggleButton
@@ -115,11 +128,7 @@ function MainPage({ activeCategoryId }: { activeCategoryId: number }) {
 
         {isDivVisible && (
           <div className="taskDoneItem">
-            <ToDoList
-              items={doneItems}
-              setItems={setDoneItems}
-              toggleTask={toggleTask}
-            />
+            <ToDoList items={doneItems} toggleTask={toggleTask} />
           </div>
         )}
       </div>

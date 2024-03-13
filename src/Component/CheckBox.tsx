@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { TaskItem } from "../types/TaskItem";
 import "./CheckBox.scss";
 
@@ -8,8 +7,8 @@ type Props = {
 };
 
 function Checkbox({ onChecked, item }: Props) {
-  const defaultChecked = item.isDone ? true : false;
-  const [isChecked, setIsChecked] = useState(defaultChecked);
+  // const defaultChecked = item.isDone ? true : false;
+  // const [isChecked, setIsChecked] = useState(defaultChecked);
 
   return (
     <div className="checkbox-col">
