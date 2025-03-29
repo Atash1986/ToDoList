@@ -2,6 +2,7 @@ import { TaskItem } from "../types/TaskItem";
 import "./CheckBox.scss";
 
 type Props = {
+  // eslint-disable-next-line no-unused-vars
   onChecked: (id: string) => void;
   item: TaskItem;
 };

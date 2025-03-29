@@ -7,6 +7,7 @@ function ToDoList({
   // setItems,
   toggleTask,
 }: {
+  // eslint-disable-next-line no-unused-vars
   toggleTask: (item: TaskItem) => TaskItem[] | void;
   items: TaskItem[];
   // setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
