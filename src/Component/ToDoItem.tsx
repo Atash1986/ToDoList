@@ -5,6 +5,7 @@ import { getDateTimeFromTimeStamp } from "../util/dateHelpers";
 
 type Props = {
   item: TaskItem;
+  // eslint-disable-next-line no-unused-vars
   onChecked: (id: string) => void;
 };
 
