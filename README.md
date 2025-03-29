@@ -2,7 +2,7 @@
 
 ---
 
-[**Deployment Addres**](https://delightful-froyo-d15e70.netlify.app/)
+[**Live Demo**](https://atash-todolist.netlify.app/)
 
 **To run project in local**
 
