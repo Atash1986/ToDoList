@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { TaskItem } from "../types/TaskItem";
@@ -32,7 +32,7 @@ function AddBox({
   // items: TaskItem[];
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const [dirty, setDirty] = useState<DirtyType>({
     title: false,
     author: false,
@@ -76,7 +76,7 @@ function AddBox({
   function onAuthorChange(event: any) {
     const selectedAuthorValue: number = parseInt(event.target.value, 10);
     const authorSelected: Authors | undefined = authorsItems?.find(
-      (option) => option.id == selectedAuthorValue
+      (option) => option.id == selectedAuthorValue,
     );
 
     const currentItemLocal: TaskItem = {
@@ -122,7 +122,7 @@ function AddBox({
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
         currentItem.title,
-        currentItem.author.id
+        currentItem.author.id,
       );
       if (newItem !== null) {
         addNewItemToState(newItem);
@@ -131,6 +131,7 @@ function AddBox({
       return;
     }
     reset();
+    inputRef.current?.focus();
   }
 
   return (
@@ -149,6 +150,7 @@ function AddBox({
           data-tooltip-content={
             isAllCategory ? "You Must First Select One Category Item" : ""
           }
+          ref={inputRef}
         />
 
         <select
@@ -157,7 +159,7 @@ function AddBox({
           disabled={isAllCategory}
           name={
             authorsItems?.find(
-              (option: Authors) => option.id === currentItem.author.id
+              (option: Authors) => option.id === currentItem.author.id,
             )?.name || "Default Value"
           }
           onChange={onAuthorChange}
