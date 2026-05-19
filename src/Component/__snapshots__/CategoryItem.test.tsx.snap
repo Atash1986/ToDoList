@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render containar in the page 1`] = `
+<div>
+  <li
+    class="categoryItem"
+  >
+    <div
+      class="inner-div active-div"
+      data-testid="categoryItem"
+      id="0"
+    >
+      <div
+        class="bubble"
+        style="background-color: rgba(0, 0, 0, 0);"
+      />
+      <div
+        class="categoryItemTitle"
+        data-testid="categoryItemTitle"
+      >
+        All Task
+      </div>
+    </div>
+  </li>
+</div>
+`;
