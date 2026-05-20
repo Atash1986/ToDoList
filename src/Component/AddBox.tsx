@@ -7,6 +7,7 @@ import { initTask } from "../data/initTask";
 import "./AddBox.css";
 
 import { addTask } from "../apis/task";
+// import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
 
 type DirtyType = {
   title: boolean;
@@ -33,6 +34,7 @@ function AddBox({
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isClickedAddRef = useRef(false);
   const [dirty, setDirty] = useState<DirtyType>({
     title: false,
     author: false,
@@ -107,6 +109,7 @@ function AddBox({
   }
 
   async function onAddBtnClick() {
+    isClickedAddRef.current = true;
     setErrorList([]);
 
     const dirtyLocal: DirtyType = {
@@ -132,6 +135,7 @@ function AddBox({
     }
     reset();
     inputRef.current?.focus();
+    isClickedAddRef.current = false;
   }
 
   return (
@@ -176,7 +180,7 @@ function AddBox({
           data-testid="add-box-add-button"
           className="addButton"
           onClick={onAddBtnClick}
-          disabled={isAllCategory}
+          disabled={isAllCategory || isClickedAddRef.current}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
           <img src="plus.svg" />
