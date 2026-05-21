@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./MainPage.css";
 import { TaskItem } from "../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
@@ -23,6 +23,7 @@ function MainPage({
   const [activeItems, setActiveItems] = useState<TaskItem[]>([]);
   const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
+  const bottomRef = useRef<HTMLDivElement | null>(null);
 
   function addNewItemToState(newItem: TaskItem) {
     setActiveItems((prevItems: TaskItem[]) => {
@@ -33,14 +34,14 @@ function MainPage({
     if (item.isDone === true) {
       setActiveItems((activeItems) => {
         return activeItems.filter(
-          (activeItem: TaskItem) => activeItem.id !== item.id
+          (activeItem: TaskItem) => activeItem.id !== item.id,
         );
       });
       return setDoneItems([...doneItems, item]);
     } else {
       setDoneItems((doneItems) => {
         return doneItems.filter(
-          (doneItem: TaskItem) => doneItem.id !== item.id
+          (doneItem: TaskItem) => doneItem.id !== item.id,
         );
       });
       return setActiveItems([...activeItems, item]);
@@ -50,7 +51,7 @@ function MainPage({
   const filterByCategory = (items: TaskItem[]) => {
     return items.filter(
       (item: TaskItem) =>
-        item.categoryItem.id === activeCategoryId || isAllCategory
+        item.categoryItem.id === activeCategoryId || isAllCategory,
     );
   };
 
@@ -124,10 +125,11 @@ function MainPage({
         <ToggleButton
           isDivVisible={isDivVisible}
           setDivVisible={setDivVisible}
+          bottomRef={bottomRef}
         />
 
         {isDivVisible && (
-          <div className="taskDoneItem">
+          <div className="taskDoneItem" ref={bottomRef}>
             <ToDoList items={doneItems} toggleTask={toggleTask} />
           </div>
         )}
