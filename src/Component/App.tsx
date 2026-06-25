@@ -6,7 +6,9 @@ import Sidbar from "./Sidbar";
 import { useEffect, useState } from "react";
 import { Category } from "../types/Category";
 import { getCategories } from "../apis/category";
-
+import { Routes, Route } from "react-router-dom";
+import Setting from "./Setting";
+import Profile from "./Profile";
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
@@ -29,12 +31,20 @@ function App() {
             activeCategoryId={activeCategoryId}
             setCategoryId={setCategoryId}
           />
-
-          <MainPage
-            data-testid="MainPage"
-            categoryLength={categories.length}
-            activeCategoryId={activeCategoryId}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainPage
+                  data-testid="MainPage"
+                  categoryLength={categories.length}
+                  activeCategoryId={activeCategoryId}
+                />
+              }
+            />
+            <Route path="/setting" element={<Setting />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
         </div>
       </div>
     </IconContext.Provider>

@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
@@ -15,7 +16,6 @@ type Props = {
   activeCategoryId: number;
   setCategoryId: SetterFn;
 };
-
 function Sidbar({
   appTitle = "Ati project",
   logo = logoDefaultImg,
@@ -27,7 +27,14 @@ function Sidbar({
     setCategoryId(selectedId);
     <ToDoList activeCategoryId={activeCategoryId} categoryLength={0} />; //why need categoryLength
   }
+  const navigate = useNavigate();
 
+  const settingNavigate = () => {
+    navigate("/Setting");
+  };
+  const profileNavigate = () => {
+    navigate("/Profile");
+  };
   return (
     <div className="sidebar-container">
       <div className="sidbar">
@@ -66,8 +73,19 @@ function Sidbar({
           </ul>
         </div>
         <footer>
-          <CgProfile className="profileLogo" />
-          <IoSettingsOutline className="settingLogo" />
+          <CgProfile className="profileLogo" onClick={profileNavigate} />
+
+          {/* <button
+            type="button"
+            className="settingsButton"
+            aria-label="Open settings"
+           
+          > */}
+          <IoSettingsOutline
+            className="settingLogo"
+            onClick={settingNavigate}
+          />
+          {/* </button> */}
         </footer>
       </div>
     </div>
