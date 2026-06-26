@@ -24,7 +24,9 @@ function Sidbar({
   setCategoryId,
 }: Props) {
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
+    console.log(selectedId);
     setCategoryId(selectedId);
+    navigate("/");
     <ToDoList activeCategoryId={activeCategoryId} categoryLength={0} />; //why need categoryLength
   }
   const navigate = useNavigate();
