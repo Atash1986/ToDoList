@@ -5,9 +5,7 @@ import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
 import "./AddBox.css";
-
 import { addTask } from "../apis/task";
-// import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
 
 type DirtyType = {
   title: boolean;
@@ -19,27 +17,22 @@ function AddBox({
   activeCategoryId,
   addNewItemToState,
   authorsItems,
-}: // itemId,
-// setItemId,
-
-// items,
+}: 
 {
   activeCategoryId: number;
   addNewItemToState: any;
   authorsItems: Authors[];
-  // itemId: number;
-  // setItemId: (itemId: number) => void;
-
-  // items: TaskItem[];
+  
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const isClickedAddRef = useRef(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const isAddBtnClickedRef = useRef(false);
   const [dirty, setDirty] = useState<DirtyType>({
     title: false,
     author: false,
     isAddFired: false,
   });
+  
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
@@ -78,7 +71,7 @@ function AddBox({
   function onAuthorChange(event: any) {
     const selectedAuthorValue: number = parseInt(event.target.value, 10);
     const authorSelected: Authors | undefined = authorsItems?.find(
-      (option) => option.id == selectedAuthorValue,
+      (option) => option.id == selectedAuthorValue
     );
 
     const currentItemLocal: TaskItem = {
@@ -109,7 +102,7 @@ function AddBox({
   }
 
   async function onAddBtnClick() {
-    isClickedAddRef.current = true;
+    isAddBtnClickedRef.current = true;
     setErrorList([]);
 
     const dirtyLocal: DirtyType = {
@@ -120,8 +113,7 @@ function AddBox({
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
 
     if (errorListLocal.length === 0) {
-      // setItemId(itemId + 1);
-
+      
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
         currentItem.title,
@@ -134,10 +126,10 @@ function AddBox({
       return;
     }
     reset();
-    inputRef.current?.focus();
-    isClickedAddRef.current = false;
+    searchInputRef.current?.focus();
+    isAddBtnClickedRef.current = false;
   }
-
+  const isAddBtnDisabled = isAllCategory || isAddBtnClickedRef.current;
   return (
     <div className="addBoxContainer" data-testid="add-box-container">
       <Tooltip id="my-tooltip" data-testid="add-box-tooltip" />
@@ -154,7 +146,7 @@ function AddBox({
           data-tooltip-content={
             isAllCategory ? "You Must First Select One Category Item" : ""
           }
-          ref={inputRef}
+          ref={searchInputRef}
         />
 
         <select
@@ -163,7 +155,7 @@ function AddBox({
           disabled={isAllCategory}
           name={
             authorsItems?.find(
-              (option: Authors) => option.id === currentItem.author.id,
+              (option: Authors) => option.id === currentItem.author.id
             )?.name || "Default Value"
           }
           onChange={onAuthorChange}
@@ -180,7 +172,7 @@ function AddBox({
           data-testid="add-box-add-button"
           className="addButton"
           onClick={onAddBtnClick}
-          disabled={isAllCategory || isClickedAddRef.current}
+          disabled={ isAddBtnDisabled}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
           <img src="plus.svg" />

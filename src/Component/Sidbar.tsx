@@ -1,5 +1,5 @@
 import { MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
@@ -8,6 +8,8 @@ import "./Sidbar.css";
 import ToDoList from "./MainPage";
 import { Category } from "../types/Category";
 import { SetterFn } from "../types/General";
+
+
 
 type Props = {
   appTitle: string;
@@ -23,14 +25,17 @@ function Sidbar({
   activeCategoryId,
   setCategoryId,
 }: Props) {
+  const navigate = useNavigate();
+  const location = useLocation();
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
-    console.log(selectedId);
     setCategoryId(selectedId);
-    navigate("/");
+    if(location.pathname!=="/")
+      {
+         navigate("/");
+      }
     <ToDoList activeCategoryId={activeCategoryId} categoryLength={0} />; //why need categoryLength
   }
-  const navigate = useNavigate();
-
+  
   const settingNavigate = () => {
     navigate("/Setting");
   };
@@ -75,19 +80,12 @@ function Sidbar({
           </ul>
         </div>
         <footer>
-          <CgProfile className="profileLogo" onClick={profileNavigate} />
-
-          {/* <button
-            type="button"
-            className="settingsButton"
-            aria-label="Open settings"
-           
-          > */}
+          <CgProfile className="SidbarIcon" onClick={profileNavigate} />
           <IoSettingsOutline
-            className="settingLogo"
+            className="SidbarIcon"
             onClick={settingNavigate}
           />
-          {/* </button> */}
+         
         </footer>
       </div>
     </div>

@@ -36,7 +36,6 @@ function App() {
               path="/"
               element={
                 <MainPage
-                  data-testid="MainPage"
                   categoryLength={categories.length}
                   activeCategoryId={activeCategoryId}
                 />
