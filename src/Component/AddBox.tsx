@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { TaskItem } from "../types/TaskItem";
 import { Authors } from "../types/Authors";
 import { initTask } from "../data/initTask";
 import "./AddBox.css";
-
 import { addTask } from "../apis/task";
 
 type DirtyType = {
@@ -18,26 +17,22 @@ function AddBox({
   activeCategoryId,
   addNewItemToState,
   authorsItems,
-}: // itemId,
-// setItemId,
-
-// items,
+}: 
 {
   activeCategoryId: number;
   addNewItemToState: any;
   authorsItems: Authors[];
-  // itemId: number;
-  // setItemId: (itemId: number) => void;
-
-  // items: TaskItem[];
+  
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
-
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const isAddBtnClickedRef = useRef(false);
   const [dirty, setDirty] = useState<DirtyType>({
     title: false,
     author: false,
     isAddFired: false,
   });
+  
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
@@ -107,6 +102,7 @@ function AddBox({
   }
 
   async function onAddBtnClick() {
+    isAddBtnClickedRef.current = true;
     setErrorList([]);
 
     const dirtyLocal: DirtyType = {
@@ -117,12 +113,11 @@ function AddBox({
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
 
     if (errorListLocal.length === 0) {
-      // setItemId(itemId + 1);
-
+      
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
         currentItem.title,
-        currentItem.author.id
+        currentItem.author.id,
       );
       if (newItem !== null) {
         addNewItemToState(newItem);
@@ -131,8 +126,10 @@ function AddBox({
       return;
     }
     reset();
+    searchInputRef.current?.focus();
+    isAddBtnClickedRef.current = false;
   }
-
+  const isAddBtnDisabled = isAllCategory || isAddBtnClickedRef.current;
   return (
     <div className="addBoxContainer" data-testid="add-box-container">
       <Tooltip id="my-tooltip" data-testid="add-box-tooltip" />
@@ -149,6 +146,7 @@ function AddBox({
           data-tooltip-content={
             isAllCategory ? "You Must First Select One Category Item" : ""
           }
+          ref={searchInputRef}
         />
 
         <select
@@ -174,7 +172,7 @@ function AddBox({
           data-testid="add-box-add-button"
           className="addButton"
           onClick={onAddBtnClick}
-          disabled={isAllCategory}
+          disabled={ isAddBtnDisabled}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
           <img src="plus.svg" />
