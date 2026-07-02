@@ -9,6 +9,7 @@ import { getCategories } from "../apis/category";
 import { Routes, Route } from "react-router-dom";
 import Setting from "./Setting";
 import Profile from "./Profile";
+import { TodoListContext } from "../Contexts/TodoListContext";
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
@@ -20,7 +21,8 @@ function App() {
   }, []);
 
   return (
-    <IconContext.Provider value={{ color: "white" }}>
+    <TodoListContext.Provider value={{ language: "en" }}>
+         <IconContext.Provider value={{ color: "white" }}>
       <div className="App ">
         <div data-testid="app-container" className="container">
           <Sidbar
@@ -47,6 +49,7 @@ function App() {
         </div>
       </div>
     </IconContext.Provider>
+    </TodoListContext.Provider>
   );
 }
 export default App;
