@@ -10,6 +10,7 @@ import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../apis/task";
 import { getAuthorsItems } from "../apis/author";
 import { Authors } from "../types/Authors";
+import { useTodoListContext } from "../Contexts/TodoListContext";
 
 function MainPage({
   activeCategoryId,
@@ -24,7 +25,12 @@ function MainPage({
   const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const language = useTodoListContext();
 
+  useEffect(() => {
+    console.log("Setting mounted");
+    console.log("current language:", language);
+  }, [language]);
   function addNewItemToState(newItem: TaskItem) {
     setActiveItems((prevItems: TaskItem[]) => {
       return [...prevItems, newItem];
@@ -125,7 +131,7 @@ function MainPage({
         <ToggleButton
           isDivVisible={isDivVisible}
           setDivVisible={setDivVisible}
-          afterToggle={() => bottomRef.current?.scrollIntoView()}
+          bottomRef={bottomRef}
         />
 
         {isDivVisible && (
