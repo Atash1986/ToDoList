@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useTodoListContext } from "../Contexts/TodoListContext";
-import "./Setting.css";
+import "./Setting.scss";
 
 function Setting() {
   const { language, setLanguage } = useTodoListContext();
@@ -10,7 +10,7 @@ function Setting() {
     { value: "en", label: "English" },
     { value: "fa", label: "فارسی" },
   ];
- 
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>Settings</h1>

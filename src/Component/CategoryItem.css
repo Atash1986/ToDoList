@@ -56,4 +56,6 @@
 }
 .categoryItem:hover {
   animation: shake 0.5s infinite; /* Apply the 'shake' animation with a 0.5s duration and infinite iterations */
-}/*# sourceMappingURL=CategoryItem.css.map */
+}
+
+/*# sourceMappingURL=CategoryItem.css.map */
