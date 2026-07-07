@@ -9,9 +9,13 @@ import { getCategories } from "../apis/category";
 import { Routes, Route } from "react-router-dom";
 import Setting from "./Setting";
 import Profile from "./Profile";
+import { TodoListContext } from "../Contexts/TodoListContext";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
+  const [language, setLanguage] = useState("en");
 
   useEffect(() => {
     (async () => {
@@ -20,33 +24,40 @@ function App() {
   }, []);
 
   return (
-    <IconContext.Provider value={{ color: "white" }}>
-      <div className="App ">
-        <div data-testid="app-container" className="container">
-          <Sidbar
-            data-testid="Sidbar"
-            appTitle="Ati To Do  List"
-            logo={<GrDocumentText size="7em" />}
-            categories={categories}
-            activeCategoryId={activeCategoryId}
-            setCategoryId={setCategoryId}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <MainPage
-                  categoryLength={categories.length}
-                  activeCategoryId={activeCategoryId}
-                />
-              }
+    <TodoListContext.Provider value={{ language, setLanguage }}>
+      <IconContext.Provider value={{ color: "white" }}>
+        <div className="App ">
+          <div data-testid="app-container" className="container">
+            <Sidbar
+              data-testid="Sidbar"
+              appTitle="Ati To Do  List"
+              logo={<GrDocumentText size="7em" />}
+              categories={categories}
+              activeCategoryId={activeCategoryId}
+              setCategoryId={setCategoryId}
             />
-            <Route path="/setting" element={<Setting />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <MainPage
+                    categoryLength={categories.length}
+                    activeCategoryId={activeCategoryId}
+                  />
+                }
+              />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </IconContext.Provider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          transition={Slide}
+        />
+      </IconContext.Provider>
+    </TodoListContext.Provider>
   );
 }
 export default App;

@@ -34,10 +34,12 @@
   width: 10px;
   background-color: transparent;
   font-size: 20px;
-  margin-left: 20px;
 }
 .taskTitle:focus {
   outline: none;
+}
+.taskTitle {
+  margin-left: 20px;
 }
 
 .errorRequirement {
@@ -53,4 +55,6 @@
   background: none;
   width: 30px;
   height: 30px;
-}/*# sourceMappingURL=AddBox.css.map */
+}
+
+/*# sourceMappingURL=AddBox.css.map */
