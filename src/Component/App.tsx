@@ -12,10 +12,10 @@ import Profile from "./Profile";
 import { TodoListContext } from "../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LanguageEnum } from "../data/language";
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
-  const [language, setLanguage] = useState("en");
 
   useEffect(() => {
     (async () => {
@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   return (
-    <TodoListContext.Provider value={{ language, setLanguage }}>
+    <TodoListContext.Provider value={{ language: LanguageEnum.ENGLISH }}>
       <IconContext.Provider value={{ color: "white" }}>
         <div className="App ">
           <div data-testid="app-container" className="container">

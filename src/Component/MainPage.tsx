@@ -25,7 +25,8 @@ function MainPage({
   const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const language = useTodoListContext();
+  const contextValue = useTodoListContext();
+  const { language } = contextValue;
 
   useEffect(() => {
     console.log("Setting mounted");
