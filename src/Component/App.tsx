@@ -8,7 +8,7 @@ import { Category } from "../types/Category";
 import { getCategories } from "../apis/category";
 import { Routes, Route } from "react-router-dom";
 import Setting from "./Setting";
-import Profile from "./Profile";
+import Login from "./Login";
 import { TodoListContext } from "../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -47,7 +47,7 @@ function App() {
                 }
               />
               <Route path="/setting" element={<Setting />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
         </div>
