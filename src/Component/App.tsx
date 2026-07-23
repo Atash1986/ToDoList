@@ -6,7 +6,7 @@ import Sidbar from "./Sidbar";
 import { useEffect, useState } from "react";
 import { Category } from "../types/Category";
 import { getCategories } from "../apis/category";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Setting from "./Setting";
 import Login from "./Login";
 import { TodoListContext } from "../Contexts/TodoListContext";
@@ -21,7 +21,8 @@ function App() {
   const [language, setLanguage] = useState("en");
   const [user,setUser]=useState<User|null>(null);
   
-
+const isLogin = localStorage.getItem("localUser");
+console.log ("isLogin:", isLogin);
 
 
   useEffect(() => {
@@ -54,11 +55,16 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <MainPage
-                    categoryLength={categories.length}
-                    activeCategoryId={activeCategoryId}
-                  />
-                }
+                     isLogin ?(
+                      <MainPage
+                      categoryLength={categories.length}
+                      activeCategoryId={activeCategoryId}
+                    />
+                  
+                ):(
+                 <Navigate to="/login" replace />
+                )
+              }
               />
               <Route path="/setting" element={<Setting />} />
               <Route path="/login" element={<Login />} />

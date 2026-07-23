@@ -13,8 +13,6 @@ export const login = async (
       password,
     });
 
-
-    console.log("Login result:", result.data);
     const loginResponse:LoginResponse | undefined = result.data;
   
     return loginResponse?.data;
