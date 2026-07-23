@@ -25,7 +25,7 @@ function Login() {
       navigate("/App");
       setUser(userResult);
       localStorage.setItem(
-      "user",
+  "localUser",
       JSON.stringify(userResult)
     );
     }

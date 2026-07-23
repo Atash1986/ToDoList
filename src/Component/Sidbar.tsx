@@ -39,6 +39,8 @@ function Sidbar({
   const loginNavigate = () => {
     navigate("/Login");
   };
+  const localUser = localStorage.getItem("localUser");
+const user=localUser ? JSON.parse(localUser) : null;
   return (
     <div className="sidebar-container">
       <div className="sidbar">
@@ -78,6 +80,7 @@ function Sidbar({
         </div>
         <footer>
           <CgProfile className="SidbarIcon" onClick={loginNavigate} />
+          <p>{user?.userName || "Guest"}{"   "} {user?.lastLoginDate ? new Date(user.lastLoginDate).toLocaleDateString() : "Not yet logged in"}</p>
           <IoSettingsOutline className="SidbarIcon" onClick={settingNavigate} />
         </footer>
       </div>
