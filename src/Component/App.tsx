@@ -12,19 +12,33 @@ import Login from "./Login";
 import { TodoListContext } from "../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { User } from "../types/User";
+import { UserContext } from "../Contexts/UserContext";
+
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
   const [language, setLanguage] = useState("en");
+  const [user,setUser]=useState<User|null>(null);
+  
+
+
 
   useEffect(() => {
     (async () => {
       setCategories(await getCategories());
     })();
   }, []);
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      setUser(JSON.parse(userString));
+    }
+  }, []);
 
   return (
     <TodoListContext.Provider value={{ language, setLanguage }}>
+      <UserContext.Provider value={{user,setUser}}>
       <IconContext.Provider value={{ color: "white" }}>
         <div className="App ">
           <div data-testid="app-container" className="container">
@@ -57,6 +71,7 @@ function App() {
           transition={Slide}
         />
       </IconContext.Provider>
+      </UserContext.Provider>
     </TodoListContext.Provider>
   );
 }
