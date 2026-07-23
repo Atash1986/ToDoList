@@ -22,7 +22,7 @@ function Login() {
     const userResult = await login(userName, password);
 
     if (userResult) {
-      navigate("/App");
+      navigate("/");
       setUser(userResult);
       localStorage.setItem(
   "localUser",
@@ -30,6 +30,11 @@ function Login() {
     );
     }
   }
+  function onLogoutClick()
+{
+  localStorage.removeItem("localUser");
+  navigate("/Login");
+}
 
   useEffect(() => {
     if (user) {
@@ -63,15 +68,24 @@ function Login() {
           <span>The username or password is incorrect,Please try again.</span>
         </div>
       </div>
-      <div className="loginBtnContainer" style={{}}>
+      <div className="BtnContainer" style={{}}>
         <button
-          className="loginBtn"
+          className="Btn"
           onClick={() => {
             onLoginClick() 
           //   toast.success("Settings saved successfully!");
            }}
         >
           Login
+        </button>
+        <button
+          className="Btn"
+          onClick={() => {
+            onLogoutClick() 
+          //   toast.success("Settings saved successfully!");
+           }}
+        >
+          LogOut
         </button>
       </div>
     </div>
