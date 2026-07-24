@@ -14,6 +14,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User } from "../types/User";
 import { UserContext } from "../Contexts/UserContext";
+import Profile from "./Profile";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -22,8 +23,6 @@ function App() {
   const [user,setUser]=useState<User|null>(null);
   
 const isLogin = localStorage.getItem("localUser");
-console.log ("isLogin:", isLogin);
-
 
   useEffect(() => {
     (async () => {
@@ -68,6 +67,7 @@ console.log ("isLogin:", isLogin);
               />
               <Route path="/setting" element={<Setting />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </div>

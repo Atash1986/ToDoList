@@ -7,25 +7,61 @@
   border-color: white;
   border: 1px;
   width: 700px;
-  height: 100px;
   margin-top: 47px;
   margin-left: 50px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-top: 20px;
   font-family: Arial;
   font-weight: 400;
   gap: 12px;
 }
-.loginBox input {
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.row input {
   margin-left: 5%;
   width: 180px;
-  height: 40px;
+  height: 30px;
   border-radius: 10px;
   padding: 0 10px;
 }
-.loginBox label {
+
+.row label {
   padding-left: 5%;
   padding-top: 2%;
   color: gray;
+  width: 100px;
   margin: 0;
+}
+
+.inputWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 15px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: gray !important;
+  pointer-events: none;
+  fill: gray;
+}
+
+.errorLogin {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 .loginBtn {
