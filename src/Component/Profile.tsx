@@ -24,7 +24,7 @@ const user=localUser ? JSON.parse(localUser) : null;
         month: "short",
         year: "numeric",
       }) : "Not yet logged in"}</b></p>
-      </div>
+      
       <div className="logoutBtnContainer" style={{}}>
         <button
           className="LogoutBtn"
@@ -33,8 +33,9 @@ const user=localUser ? JSON.parse(localUser) : null;
           //   toast.success("Settings saved successfully!");
            }}
         >
-          LogOut
+          Logout
         </button>
+        </div>
         </div>
         </div>
   );
