@@ -1,46 +1,47 @@
-import { useEffect, useState} from "react";
+import {  useState} from "react";
 import "./Login.scss";
 import { FaUser, FaLock } from "react-icons/fa";
 import { login } from "../apis/login";
 //import { LoginResponse } from "../types/LoginResponse";
 import {  useUserContext } from "../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useTokenContext } from "../Contexts/TokenContext";
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const context = useUserContext();
+  const userContext = useUserContext();
+  const tokenContext = useTokenContext();
 
-  if (!context) {
-    throw new Error("Login must be inside UserContext.Provider");
+  if (!userContext || !tokenContext) {
+    throw new Error("Login must be inside UserContext.Provider and TokenContext.Provider");
   }
 
-  const { user, setUser } = context;
+  const { setUser } = userContext;
+   const { setToken } = tokenContext;
   const navigate = useNavigate();
 
   async function onLoginClick() {
-    const userResult = await login(userName, password);
+    const loginResult = await login(userName, password);
 
-    if (userResult) {
+    if (loginResult) {
       navigate("/");
-      setUser(userResult.user);
+      setUser(loginResult.user);
+      setToken(loginResult.token);
       localStorage.setItem(
   "localUser",
-      JSON.stringify(userResult.user)
+      JSON.stringify(loginResult.user)
     );
+    localStorage.setItem(
+  "localToken",
+     JSON.stringify(loginResult.token)
+    );
+    const localToken = localStorage.getItem("localToken");
+    console.log("User and token saved to localStorage:",localToken);
     }
   }
   
-  useEffect(() => {
-    if (user) {
-      console.log("Context updated:", user.registerDate);
-    }
-  }, [user]);
-
   
-
-
-
   return (
     <div style={{ padding: "20px" }}>
       <h1>Login to the App</h1>

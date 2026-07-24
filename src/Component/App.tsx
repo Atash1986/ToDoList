@@ -15,13 +15,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { User } from "../types/User";
 import { UserContext } from "../Contexts/UserContext";
 import Profile from "./Profile";
+import { TokenContext } from "../Contexts/TokenContext";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
   const [language, setLanguage] = useState("en");
   const [user,setUser]=useState<User|null>(null);
-  
+  const [token,setToken]=useState<string|null>(null);
 const isLogin = localStorage.getItem("localUser");
 
   useEffect(() => {
@@ -38,7 +39,8 @@ const isLogin = localStorage.getItem("localUser");
 
   return (
     <TodoListContext.Provider value={{ language, setLanguage }}>
-      <UserContext.Provider value={{user,setUser}}>
+      <UserContext.Provider value={{ user, setUser}}>
+         <TokenContext.Provider value={{ token, setToken }}>
       <IconContext.Provider value={{ color: "white" }}>
         <div className="App ">
           <div data-testid="app-container" className="container">
@@ -77,7 +79,8 @@ const isLogin = localStorage.getItem("localUser");
           transition={Slide}
         />
       </IconContext.Provider>
-      </UserContext.Provider>
+      </TokenContext.Provider>
+      </UserContext.Provider>     
     </TodoListContext.Provider>
   );
 }
