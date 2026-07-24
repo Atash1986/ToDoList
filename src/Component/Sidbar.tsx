@@ -4,6 +4,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../assest/image/LDI.png";
 import CategoryItem from "./CategoryItem";
+import { FiLogIn } from "react-icons/fi";
 import "./Sidbar.css";
 import ToDoList from "./MainPage";
 import { Category } from "../types/Category";
@@ -23,6 +24,7 @@ function Sidbar({
   activeCategoryId,
   setCategoryId,
 }: Props) {
+  const isLogin = localStorage.getItem("localUser");
   const navigate = useNavigate();
   const location = useLocation();
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
@@ -39,6 +41,9 @@ function Sidbar({
   const loginNavigate = () => {
     navigate("/Login");
   };
+  const profileNavigate = () => {
+    navigate("/Profile");
+  }
   const localUser = localStorage.getItem("localUser");
 const user=localUser ? JSON.parse(localUser) : null;
   return (
@@ -79,8 +84,8 @@ const user=localUser ? JSON.parse(localUser) : null;
           </ul>
         </div>
         <footer>
-          <CgProfile className="SidbarIcon" onClick={loginNavigate} />
-          <p>{user?.userName || "Guest"}{"   "} {user?.lastLoginDate ? new Date(user.lastLoginDate).toLocaleDateString() : "Not yet logged in"}</p>
+          <div>{isLogin ? <CgProfile className="SidbarIcon" onClick={profileNavigate} /> :<FiLogIn className="SidbarIcon" onClick={loginNavigate} />}</div>
+           <p>{user?.fullName || "Guest"}{"   "} </p>
           <IoSettingsOutline className="SidbarIcon" onClick={settingNavigate} />
         </footer>
       </div>
