@@ -30,12 +30,7 @@ function Login() {
     );
     }
   }
-  function onLogoutClick()
-{
-  localStorage.removeItem("localUser");
-  navigate("/Login");
-}
-
+  
   useEffect(() => {
     if (user) {
       console.log("Context updated:", user.registerDate);
@@ -68,9 +63,9 @@ function Login() {
           <span>The username or password is incorrect,Please try again.</span>
         </div>
       </div>
-      <div className="BtnContainer" style={{}}>
+      <div className="loginBtnContainer" style={{}}>
         <button
-          className="Btn"
+          className="loginBtn"
           onClick={() => {
             onLoginClick() 
           //   toast.success("Settings saved successfully!");
@@ -78,15 +73,7 @@ function Login() {
         >
           Login
         </button>
-        <button
-          className="Btn"
-          onClick={() => {
-            onLogoutClick() 
-          //   toast.success("Settings saved successfully!");
-           }}
-        >
-          LogOut
-        </button>
+        
       </div>
     </div>
   );
