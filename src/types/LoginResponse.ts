@@ -1,6 +1,11 @@
 import { User } from "./User";
 
 export type  LoginResponse = {
-   data:User | null,
+   data:{
+    token: string,
+  tokenType: "Bearer",
+  expiresInSeconds: number,
+  user:User | null,
+   }
     message:string,
 };

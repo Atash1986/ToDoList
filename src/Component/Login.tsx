@@ -23,10 +23,10 @@ function Login() {
 
     if (userResult) {
       navigate("/");
-      setUser(userResult);
+      setUser(userResult.user);
       localStorage.setItem(
   "localUser",
-      JSON.stringify(userResult)
+      JSON.stringify(userResult.user)
     );
     }
   }
