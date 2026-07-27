@@ -20,5 +20,6 @@ export const addTask = async (
 ): Promise<TaskItem | null> => {
   const url = "task";
   const body = { categoryId: categoryId, title: title, authorId: authorId };
-  return postApi(url, body);
+  const result = await postApi(url, body);
+  return result.data;
 };
