@@ -1,1 +1,11 @@
-{"version":3,"sourceRoot":"","sources":["AddBox.scss","GeneralStyle.scss"],"names":[],"mappings":"AACA;EACE;IACE;IACA;;;AAGJ;ECHE;EACA,gBDGc;ECFd,iBAHwC;EAIxC,aAJ+D;EDM/D;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AACA;EACE;EACA;EACA;EACA;;;AAIJ;EACE;EACA;EACA;EACA;EACA;;AACA;EACE;;AAPJ;EASE;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;EACA;EACA","file":"AddBox.css"}
+{
+    "version": 3,
+    "sourceRoot": "",
+    "sources": [
+        "AddBox.scss",
+        "GeneralStyle.scss"
+    ],
+    "names": [],
+    "mappings": "AACA;EACE;IACE;IACA;;;AAGJ;ECHE;EACA,gBDGc;ECFd,iBAHwC;EAIxC,aAJ+D;EDM/D;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AACA;EACE;EACA;EACA;EACA;;;AAIJ;EACE;EACA;EACA;EACA;EACA;;AACA;EACE;;AAPJ;EASE;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;EACA;EACA",
+    "file": "AddBox.css"
+}

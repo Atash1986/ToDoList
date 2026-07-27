@@ -4,6 +4,7 @@
     top: 20px;
   }
 }
+
 .addBox {
   display: flex;
   flex-direction: row;
@@ -21,6 +22,7 @@
   font-family: Arial;
   font-weight: 400px;
 }
+
 .addBox select {
   border-radius: 10px;
   width: 127px;
@@ -35,9 +37,11 @@
   background-color: transparent;
   font-size: 20px;
 }
+
 .taskTitle:focus {
   outline: none;
 }
+
 .taskTitle {
   margin-left: 20px;
 }

@@ -8,7 +8,7 @@ test.each([
   (sampleDate, expectedResult) => {
     const result = getFormatedDateTime(sampleDate);
     expect(result).toEqual(expectedResult);
-  }
+  },
 );
 
 it("getDateTimeFromTimeStamp() should return proper result", () => {

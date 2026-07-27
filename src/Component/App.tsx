@@ -13,17 +13,16 @@ import { TodoListContext } from "../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User } from "../types/User";
-import { UserContext } from "../Contexts/UserContext";
 import Profile from "./Profile";
-import { TokenContext } from "../Contexts/TokenContext";
+import { LOCAL_USER } from "../Constants/constants";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
   const [language, setLanguage] = useState("en");
-  const [user,setUser]=useState<User|null>(null);
-  const [token,setToken]=useState<string|null>(null);
-const isLogin = localStorage.getItem("localUser");
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const isLogin = localStorage.getItem(LOCAL_USER) !== null;
 
   useEffect(() => {
     (async () => {
@@ -31,16 +30,16 @@ const isLogin = localStorage.getItem("localUser");
     })();
   }, []);
   useEffect(() => {
-    const userString = localStorage.getItem("user");
+    const userString = localStorage.getItem(LOCAL_USER);
     if (userString) {
       setUser(JSON.parse(userString));
     }
   }, []);
 
   return (
-    <TodoListContext.Provider value={{ language, setLanguage }}>
-      <UserContext.Provider value={{ user, setUser}}>
-         <TokenContext.Provider value={{ token, setToken }}>
+    <TodoListContext.Provider
+      value={{ language, setLanguage, user, setUser, token, setToken }}
+    >
       <IconContext.Provider value={{ color: "white" }}>
         <div className="App ">
           <div data-testid="app-container" className="container">
@@ -56,16 +55,15 @@ const isLogin = localStorage.getItem("localUser");
               <Route
                 path="/"
                 element={
-                     isLogin ?(
-                      <MainPage
+                  isLogin ? (
+                    <MainPage
                       categoryLength={categories.length}
                       activeCategoryId={activeCategoryId}
                     />
-                  
-                ):(
-                 <Navigate to="/login" replace />
-                )
-              }
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )
+                }
               />
               <Route path="/setting" element={<Setting />} />
               <Route path="/login" element={<Login />} />
@@ -79,8 +77,6 @@ const isLogin = localStorage.getItem("localUser");
           transition={Slide}
         />
       </IconContext.Provider>
-      </TokenContext.Provider>
-      </UserContext.Provider>     
     </TodoListContext.Provider>
   );
 }

@@ -1,24 +1,29 @@
-import {  useState} from "react";
+import { useState } from "react";
 import "./Login.scss";
 import { FaUser, FaLock } from "react-icons/fa";
 import { login } from "../apis/login";
-//import { LoginResponse } from "../types/LoginResponse";
-import {  useUserContext } from "../Contexts/UserContext";
+import { useTodoListContext } from "../Contexts/TodoListContext";
 import { useNavigate } from "react-router-dom";
-import { useTokenContext } from "../Contexts/TokenContext";
+import {
+  LOCAL_EXPIRES_IN_SECONDS,
+  LOCAL_TOKEN,
+  LOCAL_USER,
+} from "../Constants/constants";
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const userContext = useUserContext();
-  const tokenContext = useTokenContext();
+  const userContext = useTodoListContext();
+  const tokenContext = useTodoListContext();
 
   if (!userContext || !tokenContext) {
-    throw new Error("Login must be inside UserContext.Provider and TokenContext.Provider");
+    throw new Error(
+      "Login must be inside UserContext.Provider and TokenContext.Provider",
+    );
   }
 
   const { setUser } = userContext;
-   const { setToken } = tokenContext;
+  const { setToken } = tokenContext;
   const navigate = useNavigate();
 
   async function onLoginClick() {
@@ -28,43 +33,43 @@ function Login() {
       navigate("/");
       setUser(loginResult.user);
       setToken(loginResult.token);
-      localStorage.setItem(
-  "localUser",
-      JSON.stringify(loginResult.user)
-    );
-  if(loginResult.expiresInSeconds) {
-  localStorage.setItem(
-  "localExpiresInSeconds",
-     loginResult.expiresInSeconds.toString()
-  );
-  }
-    if (loginResult.token) {
-    localStorage.setItem(
-  "localToken",
-     loginResult.token
-    );
-  }
-    const localToken = localStorage.getItem("localToken");
-    console.log("User and token saved to localStorage:",localToken);
+      localStorage.setItem(LOCAL_USER, JSON.stringify(loginResult.user));
+      if (loginResult.expiresInSeconds) {
+        localStorage.setItem(
+          LOCAL_EXPIRES_IN_SECONDS,
+          loginResult.expiresInSeconds.toString(),
+        );
+      }
+      if (loginResult.token) {
+        localStorage.setItem(LOCAL_TOKEN, loginResult.token);
+      }
     }
   }
-  
-  
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>Login to the App</h1>
       <div className="loginBox">
         <div className="row">
           <label htmlFor="username">Username</label>
-          <div className="inputWrapper" >
-            <input className="username" value={userName} onChange={(e) => setUserName(e.target.value)}></input>
+          <div className="inputWrapper">
+            <input
+              className="username"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            ></input>
             <FaUser className="icon" />
           </div>
         </div>
         <div className="row">
           <label htmlFor="password">Password</label>
           <div className="inputWrapper">
-            <input className="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+            <input
+              className="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
             <FaLock className="icon" />
           </div>
         </div>
@@ -73,23 +78,12 @@ function Login() {
         </div>
       </div>
       <div className="loginBtnContainer" style={{}}>
-        <button
-          className="loginBtn"
-          onClick={() => {
-            onLoginClick() 
-          //   toast.success("Settings saved successfully!");
-           }}
-        >
+        <button className="loginBtn" onClick={onLoginClick}>
           Login
         </button>
-        
       </div>
     </div>
   );
 }
 
 export default Login;
-//function setUser(user: LoginData[]) {
- // throw new Error("Function not implemented.");
-//}
-

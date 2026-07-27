@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
@@ -9,6 +9,7 @@ import "./Sidbar.css";
 import ToDoList from "./MainPage";
 import { Category } from "../types/Category";
 import { SetterFn } from "../types/General";
+import { TodoListContext } from "../Contexts/TodoListContext";
 
 type Props = {
   appTitle: string;
@@ -24,7 +25,8 @@ function Sidbar({
   activeCategoryId,
   setCategoryId,
 }: Props) {
-  const isLogin = localStorage.getItem("localUser");
+  const context = useContext(TodoListContext);
+  const user = context?.user;
   const navigate = useNavigate();
   const location = useLocation();
   function handelClick(event: MouseEvent<HTMLElement>, selectedId: number) {
@@ -43,9 +45,7 @@ function Sidbar({
   };
   const profileNavigate = () => {
     navigate("/Profile");
-  }
-  const localUser = localStorage.getItem("localUser");
-const user=localUser ? JSON.parse(localUser) : null;
+  };
   return (
     <div className="sidebar-container">
       <div className="sidbar">
@@ -84,8 +84,17 @@ const user=localUser ? JSON.parse(localUser) : null;
           </ul>
         </div>
         <footer>
-          <div>{isLogin ? <CgProfile className="SidbarIcon" onClick={profileNavigate} /> :<FiLogIn className="SidbarIcon" onClick={loginNavigate} />}</div>
-           <p>{user?.fullName || "Guest"}{"   "} </p>
+          <div>
+            {user ? (
+              <CgProfile className="SidbarIcon" onClick={profileNavigate} />
+            ) : (
+              <FiLogIn className="SidbarIcon" onClick={loginNavigate} />
+            )}
+          </div>
+          <p>
+            {user?.fullName || "Guest"}
+            {"   "}{" "}
+          </p>
           <IoSettingsOutline className="SidbarIcon" onClick={settingNavigate} />
         </footer>
       </div>

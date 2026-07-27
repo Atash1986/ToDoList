@@ -16,7 +16,7 @@ export async function toggleTaskApi(selectId: string): Promise<TaskItem> {
 export const addTask = async (
   categoryId: number,
   title: string,
-  authorId: number
+  authorId: number,
 ): Promise<TaskItem | null> => {
   const url = "task";
   const body = { categoryId: categoryId, title: title, authorId: authorId };

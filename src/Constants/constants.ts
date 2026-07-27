@@ -1,0 +1,3 @@
+export const LOCAL_USER = "LOCAL_USER";
+export const LOCAL_TOKEN = "LOCAL_TOKEN";
+export const LOCAL_EXPIRES_IN_SECONDS = "LOCAL_EXPIRES_IN_SECONDS";

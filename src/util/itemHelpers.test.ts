@@ -12,5 +12,5 @@ test.each([
     expect(setItemsMock).toHaveBeenCalled();
     expect(setItemsMock).toHaveBeenCalledTimes(1);
     expect(setItemsMock).toHaveBeenCalledWith(expectedResult);
-  }
+  },
 );

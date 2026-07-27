@@ -1,20 +1,18 @@
 import axios from "axios";
-
-
+import { LOCAL_TOKEN } from "../Constants/constants";
 
 export const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
 
-const token = localStorage.getItem("localToken") || "";
-
+const token = localStorage.getItem(LOCAL_TOKEN) || "";
 
 export async function getApi(url: string) {
   try {
-        const result = await axios.get(baseUrl + url,{headers: {
-    Authorization: `Bearer ${token}`,
+    const result = await axios.get(baseUrl + url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-  
-});
-   return result.data.data;
+    });
+    return result.data.data;
   } catch (error) {
     const typedError = error as Error;
     console.error("Error:", typedError.message);
@@ -24,12 +22,16 @@ export async function getApi(url: string) {
 export async function postApi(
   url: string,
   body: any,
-  withAuth: boolean = true
+  withAuth: boolean = true,
 ) {
   try {
-    const result = await axios.post(baseUrl + url, body, {headers:withAuth ? {
-    Authorization: `Bearer ${token}`,}:{},
-      });
+    const result = await axios.post(baseUrl + url, body, {
+      headers: withAuth
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {},
+    });
     return result.data;
   } catch (error) {
     const typedError = error as Error;
