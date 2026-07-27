@@ -3,12 +3,13 @@ import "./Profile.scss";
 function Profile() {
   const localUser = localStorage.getItem("localUser");
 const user=localUser ? JSON.parse(localUser) : null;
-const localToken = localStorage.getItem("localToken");
-const token=localToken ? JSON.parse(localToken) : null;
+//const token = localStorage.getItem("localToken");
+const expiresInSeconds=localStorage.getItem("localExpiresInSeconds") ? Number(localStorage.getItem("localExpiresInSeconds")) : null;
 
  function onLogoutClick()
  {
    localStorage.removeItem("localUser");
+   localStorage.removeItem("localToken");
    navigate("/Login");
  }
  const navigate = useNavigate();
@@ -17,7 +18,7 @@ const token=localToken ? JSON.parse(localToken) : null;
        <h1>User Profile</h1>
     <div className="profileBox" >
       <p>{"Username:"} <b>{user?.userName || "Guest"}</b></p>
-      <p>{"expiresInSeconds:"} <b>{token?.expiresInSeconds || ""}</b></p>
+      <p>{"expiresInSeconds:"} <b>{expiresInSeconds || ""}</b></p>
       <p>{"Sign-up date: "}<b> {user?.registerDate ? new Date(Number(user.registerDate)).toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "short",

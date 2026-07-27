@@ -32,10 +32,18 @@ function Login() {
   "localUser",
       JSON.stringify(loginResult.user)
     );
+  if(loginResult.expiresInSeconds) {
+  localStorage.setItem(
+  "localExpiresInSeconds",
+     loginResult.expiresInSeconds.toString()
+  );
+  }
+    if (loginResult.token) {
     localStorage.setItem(
   "localToken",
-     JSON.stringify(loginResult.token)
+     loginResult.token
     );
+  }
     const localToken = localStorage.getItem("localToken");
     console.log("User and token saved to localStorage:",localToken);
     }
