@@ -14,7 +14,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User } from "../types/User";
 import Profile from "./Profile";
-import { LOCAL_USER } from "../Constants/constants";
+import { USER_KEY } from "../Constants/constants";
 
 function App() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -22,7 +22,7 @@ function App() {
   const [language, setLanguage] = useState("en");
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const isLogin = localStorage.getItem(LOCAL_USER) !== null;
+  const isLogin = localStorage.getItem(USER_KEY) !== null;
 
   useEffect(() => {
     (async () => {
@@ -30,7 +30,7 @@ function App() {
     })();
   }, []);
   useEffect(() => {
-    const userString = localStorage.getItem(LOCAL_USER);
+    const userString = localStorage.getItem(USER_KEY);
     if (userString) {
       setUser(JSON.parse(userString));
     }
