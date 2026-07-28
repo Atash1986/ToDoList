@@ -1,30 +1,22 @@
-import { createContext, useContext } from "react";
+import { createContext, SetStateAction, useContext } from "react";
 import { TokenContextType } from "../types/TokenContextType";
 import { UserContextType } from "../types/UserContextType";
+import { User } from "../types/User";
 
 export const TodoListContext = createContext({
   language: "english",
-  setLanguage: () => {},
+  setLanguage: () => { },
+  token: null as string | null,
+  setToken: (value: SetStateAction<string | null>) => { },
+  user: null as User | null,
+  setUser: (value: SetStateAction<User | null>) => { },
 } as any);
 
 export function useTodoListContext() {
-  return useContext(TodoListContext);
-}
-export const TokenContext = createContext<TokenContextType | null>(null);
-export function useTokenContext() {
-  const context = useContext(TokenContext);
+  const context = useContext(TodoListContext);
   if (!context) {
-    throw new Error("TokenContext must be used within a TokenContext.Provider");
+    throw new Error("TodoListContext must be used within a TodoListContext.Provider");
   }
   return context;
 }
-export const UserContext = createContext<UserContextType | null>(null);
-export function useUserContext() {
-  const context = useContext(UserContext);
 
-  if (!context) {
-    throw new Error("useUserContext must be used inside UserContext.Provider");
-  }
-
-  return context;
-}
