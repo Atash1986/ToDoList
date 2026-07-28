@@ -1,21 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import "./Profile.scss";
 import {
-  LOCAL_EXPIRES_IN_SECONDS,
-  LOCAL_TOKEN,
-  LOCAL_USER,
+  EXPIRES_IN_SECONDS_KEY,
+  TOKEN_KEY,
+  USER_KEY,
 } from "../Constants/constants";
+import { TodoListContext } from "../Contexts/TodoListContext";
+import { useContext } from "react";
 function Profile() {
-  const localUser = localStorage.getItem(LOCAL_USER);
-  const user = localUser ? JSON.parse(localUser) : null;
-  const expiresInSeconds = localStorage.getItem(LOCAL_EXPIRES_IN_SECONDS)
-    ? Number(localStorage.getItem(LOCAL_EXPIRES_IN_SECONDS))
-    : null;
+  const context = useContext(TodoListContext);
+  const user = context?.user;
 
   function onLogoutClick() {
-    localStorage.removeItem(LOCAL_USER);
-    localStorage.removeItem(LOCAL_TOKEN);
-    localStorage.removeItem(LOCAL_EXPIRES_IN_SECONDS);
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(EXPIRES_IN_SECONDS_KEY);
     navigate("/Login");
   }
   const registerDateFormatted = new Date(
@@ -39,9 +38,6 @@ function Profile() {
       <div className="profileBox">
         <p>
           {"Username:"} <b>{user?.userName || "Guest"}</b>
-        </p>
-        <p>
-          {"expiresInSeconds:"} <b>{expiresInSeconds || ""}</b>
         </p>
         <p>
           {"Sign-up date: "}
