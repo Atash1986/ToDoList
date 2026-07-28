@@ -5,9 +5,9 @@ import { login } from "../apis/login";
 import { useTodoListContext } from "../Contexts/TodoListContext";
 import { useNavigate } from "react-router-dom";
 import {
-  LOCAL_EXPIRES_IN_SECONDS,
-  LOCAL_TOKEN,
-  LOCAL_USER,
+  EXPIRES_IN_SECONDS_KEY,
+  TOKEN_KEY,
+  USER_KEY,
 } from "../Constants/constants";
 function Login() {
   const [userName, setUserName] = useState("");
@@ -33,16 +33,8 @@ function Login() {
       navigate("/");
       setUser(loginResult.user);
       setToken(loginResult.token);
-      localStorage.setItem(LOCAL_USER, JSON.stringify(loginResult.user));
-      if (loginResult.expiresInSeconds) {
-        localStorage.setItem(
-          LOCAL_EXPIRES_IN_SECONDS,
-          loginResult.expiresInSeconds.toString(),
-        );
-      }
-      if (loginResult.token) {
-        localStorage.setItem(LOCAL_TOKEN, loginResult.token);
-      }
+      localStorage.setItem(USER_KEY, JSON.stringify(loginResult.user));
+      localStorage.setItem(TOKEN_KEY, loginResult.token);
     }
   }
 
