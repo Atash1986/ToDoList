@@ -3,7 +3,7 @@ import { GrDocumentText } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import MainPage from "./MainPage";
 import Sidbar from "./Sidbar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { Category } from "../types/Category";
 import { getCategories } from "../apis/category";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -15,14 +15,33 @@ import "react-toastify/dist/ReactToastify.css";
 import { User } from "../types/User";
 import Profile from "./Profile";
 import { USER_KEY } from "../Constants/constants";
+import { LanguageAction, LanguageState, } from "../Contexts/TodoListContext";
 
 function App() {
+  function languageReducer(
+    state: LanguageState,
+    action: LanguageAction
+  ): LanguageState {
+    switch (action.type) {
+      case "SET_LANGUAGE":
+        return {
+          ...state,
+          language: action.payload,
+        };
+
+      default:
+        return state;
+    }
+  }
+  const initialLanguageState: LanguageState = { language: "en" };
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategoryId, setCategoryId] = useState<number>(0);
-  const [language, setLanguage] = useState("en");
+  const [languageState, dispatch] = useReducer(languageReducer, initialLanguageState);
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const isLogin = localStorage.getItem(USER_KEY) !== null;
+
+
 
   useEffect(() => {
     (async () => {
@@ -38,7 +57,7 @@ function App() {
 
   return (
     <TodoListContext.Provider
-      value={{ language, setLanguage, user, setUser, token, setToken }}
+      value={{ languageState, dispatch, user, setUser, token, setToken }}
     >
       <IconContext.Provider value={{ color: "white" }}>
         <div className="App ">

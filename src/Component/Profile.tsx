@@ -5,11 +5,14 @@ import {
   TOKEN_KEY,
   USER_KEY,
 } from "../Constants/constants";
-import { TodoListContext } from "../Contexts/TodoListContext";
+import { TodoListContext, useTodoListContext } from "../Contexts/TodoListContext";
 import { useContext } from "react";
+import { LANGUAGE_NAMES } from "../Constants/constants";
 function Profile() {
   const context = useContext(TodoListContext);
   const user = context?.user;
+  const { languageState } = useTodoListContext();
+
 
   function onLogoutClick() {
     localStorage.removeItem(USER_KEY);
@@ -18,14 +21,14 @@ function Profile() {
     navigate("/Login");
   }
   const registerDateFormatted = new Date(
-    Number(user.registerDate),
+    Number(user?.registerDate),
   ).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
   const lastLoginDateFormatted = new Date(
-    user.lastLoginDate,
+    Number(user?.lastLoginDate),
   ).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
@@ -47,6 +50,12 @@ function Profile() {
           {"Last login date: "}
           <b>
             {user?.lastLoginDate ? lastLoginDateFormatted : "Not yet logged in"}
+          </b>
+        </p>
+        <p>
+          {"Language:"}
+          <b>
+            {LANGUAGE_NAMES[languageState.language]}
           </b>
         </p>
 
