@@ -1,16 +1,26 @@
-import { useState } from "react";
+import { ChangeEvent } from "react";
 import { toast } from "react-toastify";
 import { useTodoListContext } from "../Contexts/TodoListContext";
 import "./Setting.scss";
 
 function Setting() {
-  const { language, setLanguage } = useTodoListContext();
-  const [selectedLanguage, setSelectedLanguage] = useState(language);
+  const { languageState, dispatch } =
+    useTodoListContext();
   const languages = [
     { value: "en", label: "English" },
     { value: "fa", label: "فارسی" },
   ];
-
+  function handleLanguageChange(
+    event: ChangeEvent<HTMLSelectElement>
+  ) {
+    dispatch({
+      type: "SET_LANGUAGE",
+      payload: event.target.value as
+        | "en"
+        | "de"
+        | "fa",
+    });
+  }
   return (
     <div style={{ padding: "20px" }}>
       <h1>Settings</h1>
@@ -18,8 +28,8 @@ function Setting() {
         <label htmlFor="langSelect">Language</label>
         <select
           id="LangSelect"
-          value={selectedLanguage}
-          onChange={(e) => setSelectedLanguage(e.target.value)}
+          value={languageState.language}
+          onChange={handleLanguageChange}
         >
           {languages.map((lang) => (
             <option key={lang.value} value={lang.value}>
@@ -32,7 +42,7 @@ function Setting() {
         <button
           className="saveBtn"
           onClick={() => {
-            setLanguage(selectedLanguage);
+
             toast.success("Settings saved successfully!");
           }}
         >

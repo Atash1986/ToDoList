@@ -1,11 +1,22 @@
 import axios from "axios";
-import { TaskItem } from "../types/TaskItem";
+import { TOKEN_KEY } from "../Constants/constants";
 
 export const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
 
-export async function getApi(url: string) {
+const token = localStorage.getItem(TOKEN_KEY) || "";
+
+export async function getApi(
+  url: string,
+  withAuth: boolean = true,
+) {
   try {
-    const result = await axios.get(baseUrl + url);
+    const result = await axios.get(baseUrl + url, {
+      headers: withAuth
+        ? {
+          Authorization: `Bearer ${token}`,
+        }
+        : {},
+    });
     return result.data.data;
   } catch (error) {
     const typedError = error as Error;
@@ -15,11 +26,18 @@ export async function getApi(url: string) {
 }
 export async function postApi(
   url: string,
-  body: any
-): Promise<TaskItem | null> {
+  body: any,
+  withAuth: boolean = true,
+) {
   try {
-    const result = await axios.post(baseUrl + url, body);
-    return result.data.data;
+    const result = await axios.post(baseUrl + url, body, {
+      headers: withAuth
+        ? {
+          Authorization: `Bearer ${token}`,
+        }
+        : {},
+    });
+    return result.data;
   } catch (error) {
     const typedError = error as Error;
     console.error("Error:", typedError.message);

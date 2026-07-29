@@ -17,12 +17,10 @@ function AddBox({
   activeCategoryId,
   addNewItemToState,
   authorsItems,
-}: 
-{
+}: {
   activeCategoryId: number;
   addNewItemToState: any;
   authorsItems: Authors[];
-  
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +30,7 @@ function AddBox({
     author: false,
     isAddFired: false,
   });
-  
+
   const isAllCategory = activeCategoryId === 0;
   const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
   function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
@@ -71,7 +69,7 @@ function AddBox({
   function onAuthorChange(event: any) {
     const selectedAuthorValue: number = parseInt(event.target.value, 10);
     const authorSelected: Authors | undefined = authorsItems?.find(
-      (option) => option.id == selectedAuthorValue
+      (option) => option.id == selectedAuthorValue,
     );
 
     const currentItemLocal: TaskItem = {
@@ -113,7 +111,6 @@ function AddBox({
     const errorListLocal = checkValidation(dirtyLocal, currentItem);
 
     if (errorListLocal.length === 0) {
-      
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
         currentItem.title,
@@ -155,7 +152,7 @@ function AddBox({
           disabled={isAllCategory}
           name={
             authorsItems?.find(
-              (option: Authors) => option.id === currentItem.author.id
+              (option: Authors) => option.id === currentItem.author.id,
             )?.name || "Default Value"
           }
           onChange={onAuthorChange}
@@ -172,7 +169,7 @@ function AddBox({
           data-testid="add-box-add-button"
           className="addButton"
           onClick={onAddBtnClick}
-          disabled={ isAddBtnDisabled}
+          disabled={isAddBtnDisabled}
           style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
         >
           <img src="plus.svg" />

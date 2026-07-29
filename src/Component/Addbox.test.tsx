@@ -16,7 +16,7 @@ it("renders correctly when there are no items", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   expect(container).toMatchSnapshot();
 });
@@ -27,7 +27,7 @@ test("containar should be in page", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const s = screen.getByTestId(/add-box-container/i);
   expect(s).toBeInTheDocument();
@@ -39,7 +39,7 @@ test("title box should be in page", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const s = screen.getByTestId(/add-box-title/i);
   expect(s).toBeInTheDocument();
@@ -51,7 +51,7 @@ test("author box should be in page", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const s = screen.getByTestId(/add-box-author/i);
@@ -64,7 +64,7 @@ test("add button should be in page", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const s = screen.getByTestId(/add-box-add-button/i);
   expect(s).toBeInTheDocument();
@@ -76,7 +76,7 @@ test("error box should be in page", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const s = screen.getByTestId(/add-box-error-box/i);
   expect(s).toBeInTheDocument();
@@ -88,7 +88,7 @@ test("should disable the fields in case of all task has active category id equal
       activeCategoryId={0}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const title = screen.getByTestId(/add-box-title/i);
   expect(title).toBeDisabled();
@@ -104,7 +104,7 @@ test("should enable the fields in case of valid active category", () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const title = screen.getByTestId(/add-box-title/i);
   expect(title).toBeEnabled();
@@ -122,7 +122,7 @@ test("check call add api", async () => {
       activeCategoryId={1}
       addNewItemToState={() => {}}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const title = screen.getByTestId(/add-box-title/i);
@@ -148,7 +148,7 @@ test("addNewItemToState updates activeItems correctly", async () => {
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const titleInput = screen.getByTestId(/add-box-title/i);
@@ -171,7 +171,7 @@ test("should render title required message if user leaves title empty and clicks
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const title = screen.getByTestId(/add-box-title/i);
@@ -194,7 +194,7 @@ test("should render author required message if user leaves author empty and clic
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const title = screen.getByTestId(/add-box-title/i);
@@ -217,7 +217,7 @@ test("should render title & author required messages if the user leaves the titl
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const title = screen.getByTestId(/add-box-title/i);
@@ -242,7 +242,7 @@ test("should hide the validation messages after user fix that problem", () => {
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const title = screen.getByTestId(/add-box-title/i);
@@ -278,7 +278,7 @@ test("should reset the form if the user add the form data successfully", async (
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const title = screen.getByTestId(/add-box-title/i);
   fireEvent.change(title, { target: { value: "test" } });
@@ -301,7 +301,7 @@ test("should show tooltip if the active category is is invalid and cursor is ove
       activeCategoryId={0}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
 
   const tooltip = screen.getByTestId(/add-box-title/i);
@@ -310,7 +310,7 @@ test("should show tooltip if the active category is is invalid and cursor is ove
     screen.getByText((content, element) => {
       const tooltipText = element?.getAttribute("data-tooltip-content");
       return tooltipText === "You Must First Select One Category Item";
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -321,13 +321,13 @@ test("should render all of the possible authors inside the Select component", ()
       activeCategoryId={1}
       addNewItemToState={mockAddNewItemToState}
       authorsItems={sampleAuthors}
-    />
+    />,
   );
   const selectElement = screen.getByTestId(/add-box-author/i);
   const options = selectElement.querySelectorAll("option");
   sampleAuthors.forEach((author) => {
     const optionsExists = Array.from(options).some(
-      (option) => option.textContent === author.name
+      (option) => option.textContent === author.name,
     );
 
     expect(optionsExists).toBeTruthy();

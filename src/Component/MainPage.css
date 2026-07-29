@@ -33,7 +33,12 @@
   align-items: center;
   background: rgb(243, 242, 241);
   background: rgb(245, 245, 245);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgb(255, 255, 255) 10%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgb(255, 255, 255) 10%,
+    rgba(255, 255, 255, 0) 100%
+  );
   border-radius: 15px;
   border-color: white;
   width: 800px;
@@ -85,4 +90,4 @@
   width: 400px;
   height: 400px;
   margin-left: 320px;
-}/*# sourceMappingURL=MainPage.css.map */
+} /*# sourceMappingURL=MainPage.css.map */

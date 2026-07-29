@@ -131,7 +131,7 @@ function MainPage({
         <ToggleButton
           isDivVisible={isDivVisible}
           setDivVisible={setDivVisible}
-          bottomRef={bottomRef}
+          afterToggle={bottomRef}
         />
 
         {isDivVisible && (

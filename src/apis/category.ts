@@ -1,13 +1,7 @@
-import axios from "axios";
-import { baseUrl } from "./core";
+import { getApi } from "./core";
 
 export const getCategories = async () => {
-  try {
-    const result = await axios.get(baseUrl + "categories");
-    return result.data.data;
-  } catch (error) {
-    const typedError = error as Error;
-    console.error("Error:", typedError.message);
-    return [];
-  }
+  const url = "categories";
+  const result = getApi(url);
+  return result;
 };

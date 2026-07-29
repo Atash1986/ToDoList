@@ -3,13 +3,13 @@ import { Dispatch, SetStateAction } from "react";
 type Props = {
   isDivVisible: boolean;
   setDivVisible: Dispatch<SetStateAction<boolean>>;
-  bottomRef: React.RefObject<HTMLDivElement>;
+  afterToggle: React.RefObject<HTMLDivElement>;
 };
 
 export function ToggleButton({
   isDivVisible,
   setDivVisible,
-  bottomRef,
+  afterToggle: bottomRef,
 }: Props) {
   function handleClickDone() {
     setDivVisible(!isDivVisible);

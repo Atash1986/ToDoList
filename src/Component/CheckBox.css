@@ -8,8 +8,7 @@
 }
 .checkbox-col input {
   -webkit-appearance: none;
-  -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   width: 20px;
   height: 20px;
   margin-right: 0.5em;
@@ -38,4 +37,6 @@
 }
 .checkbox-col input:hover {
   box-shadow: 0 0 6px 5px #023e8a;
-}/*# sourceMappingURL=CheckBox.css.map */
+}
+
+/*# sourceMappingURL=CheckBox.css.map */

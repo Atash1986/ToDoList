@@ -15,7 +15,7 @@ function ToDoList({
   async function handleCheck(selectId: string) {
     const item: TaskItem = await toggleTaskApi(selectId);
     const selectedItem: TaskItem | undefined = items.find(
-      (item: TaskItem) => item.id == selectId
+      (item: TaskItem) => item.id == selectId,
     );
     const colorSelectedItem = selectedItem!.categoryItem.color;
     const idSelectedItem = selectedItem!.categoryItem.id;
