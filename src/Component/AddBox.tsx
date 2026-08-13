@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { TaskItem } from "../types/TaskItem";
@@ -90,16 +90,16 @@ function AddBox({
     checkValidation(dirtyLocal, currentItemLocal);
   }
 
-  function reset() {
+  const reset = useCallback(() => {
     setCurrentItem(initTask);
     setDirty({
       title: false,
       author: false,
       isAddFired: false,
     });
-  }
+  }, []);
 
-  async function onAddBtnClick() {
+  const onAddBtnClick = useCallback(async () => {
     isAddBtnClickedRef.current = true;
     setErrorList([]);
 
@@ -122,10 +122,18 @@ function AddBox({
     } else {
       return;
     }
-    reset();
+
+    reset()
+
+
     searchInputRef.current?.focus();
     isAddBtnClickedRef.current = false;
-  }
+  }, [dirty,
+    currentItem,
+    activeCategoryId,
+    addNewItemToState,
+    reset,])
+
   const isAddBtnDisabled = isAllCategory || isAddBtnClickedRef.current;
   return (
     <div className="addBoxContainer" data-testid="add-box-container">
