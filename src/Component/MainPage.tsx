@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import "./MainPage.css";
 import { TaskItem } from "../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
-import AddBox from "./AddBox";
+import AddBox from "./AddBox/AddBox";
 import ToDoList from "./ToDoList";
 import { ToggleButton } from "./ToggleButton";
 import NoDataImage from "../assest/image/no-data.png";
@@ -24,8 +24,8 @@ function MainPage({
   const [AllDoneItems, setAllDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  
-  
+
+
   function addNewItemToState(newItem: TaskItem) {
     setAllactiveItems((prevItems: TaskItem[]) => {
       return [...prevItems, newItem];
@@ -56,9 +56,10 @@ function MainPage({
     );
   };
 
- const filterActiveData=useMemo(() => { return filterByCategory(allActiveItems);
+  const filterActiveData = useMemo(() => {
+    return filterByCategory(allActiveItems);
 
-     }, [activeCategoryId, allActiveItems]);
+  }, [activeCategoryId, allActiveItems]);
 
   useEffect(() => {
     (async () => {
@@ -67,13 +68,13 @@ function MainPage({
       const fetchedItems = await getActiveItems();
       setAllactiveItems(fetchedItems);
       setIsLoading(false);
-         })();
+    })();
   }, []);
 
-   const filterDoneData=useMemo(() => { 
+  const filterDoneData = useMemo(() => {
     return filterByCategory(AllDoneItems);
-    }, [activeCategoryId, AllDoneItems]);
-  
+  }, [activeCategoryId, AllDoneItems]);
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
