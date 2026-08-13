@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import "./MainPage.css";
 import { TaskItem } from "../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
@@ -10,7 +10,6 @@ import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../apis/task";
 import { getAuthorsItems } from "../apis/author";
 import { Authors } from "../types/Authors";
-import { useTodoListContext } from "../Contexts/TodoListContext";
 
 function MainPage({
   activeCategoryId,
@@ -21,36 +20,32 @@ function MainPage({
 }) {
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [activeItems, setActiveItems] = useState<TaskItem[]>([]);
-  const [doneItems, setDoneItems] = useState<TaskItem[]>([]);
+  const [allActiveItems, setAllactiveItems] = useState<TaskItem[]>([]);
+  const [AllDoneItems, setAllDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const language = useTodoListContext();
-
-  useEffect(() => {
-    console.log("Setting mounted");
-    console.log("current language:", language);
-  }, [language]);
+  
+  
   function addNewItemToState(newItem: TaskItem) {
-    setActiveItems((prevItems: TaskItem[]) => {
+    setAllactiveItems((prevItems: TaskItem[]) => {
       return [...prevItems, newItem];
     });
   }
   function toggleTask(item: TaskItem): TaskItem[] | void {
     if (item.isDone === true) {
-      setActiveItems((activeItems) => {
+      setAllactiveItems((activeItems) => {
         return activeItems.filter(
           (activeItem: TaskItem) => activeItem.id !== item.id,
         );
       });
-      return setDoneItems([...doneItems, item]);
+      return setAllDoneItems([...AllDoneItems, item]);
     } else {
-      setDoneItems((doneItems) => {
+      setAllDoneItems((doneItems) => {
         return doneItems.filter(
           (doneItem: TaskItem) => doneItem.id !== item.id,
         );
       });
-      return setActiveItems([...activeItems, item]);
+      return setAllactiveItems([...allActiveItems, item]);
     }
   }
 
@@ -61,25 +56,32 @@ function MainPage({
     );
   };
 
+ const filterActiveData=useMemo(() => { return filterByCategory(allActiveItems);
+
+     }, [activeCategoryId, allActiveItems]);
+
   useEffect(() => {
     (async () => {
+
       setIsLoading(true);
       const fetchedItems = await getActiveItems();
-      const filteredData = filterByCategory(fetchedItems);
-      setActiveItems(filteredData);
+      setAllactiveItems(fetchedItems);
       setIsLoading(false);
-    })();
-  }, [activeCategoryId]);
+         })();
+  }, []);
 
+   const filterDoneData=useMemo(() => { 
+    return filterByCategory(AllDoneItems);
+    }, [activeCategoryId, AllDoneItems]);
+  
   useEffect(() => {
     (async () => {
       setIsLoading(true);
       const fetchedItems = await getDoneItems();
-      const filteredData = filterByCategory(fetchedItems);
-      setDoneItems(filteredData);
+      setAllDoneItems(fetchedItems);
       setIsLoading(false);
     })();
-  }, [activeCategoryId]);
+  }, []);
 
   const [authorsItems, setAuthorItems] = useState<Authors[] | undefined>([]);
   useEffect(() => {
@@ -92,11 +94,11 @@ function MainPage({
     <div className="contentTasks">
       <div className="statisticsBox">
         <div className="statisticsDetail">
-          <span className="number">{activeItems.length}</span>
+          <span className="number">{filterActiveData.length}</span>
           <span className="name">Active Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{doneItems.length}</span>
+          <span className="number">{filterDoneData.length}</span>
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
@@ -120,12 +122,12 @@ function MainPage({
           />
         )}
 
-        {isLoading === false && activeItems.length === 0 && (
+        {isLoading === false && filterActiveData.length === 0 && (
           <img className="noDataImage" src={NoDataImage} />
         )}
 
-        {isLoading === false && activeItems.length > 0 && (
-          <ToDoList items={activeItems} toggleTask={toggleTask} />
+        {isLoading === false && filterActiveData.length > 0 && (
+          <ToDoList items={filterActiveData} toggleTask={toggleTask} />
         )}
 
         <ToggleButton
@@ -136,7 +138,7 @@ function MainPage({
 
         {isDivVisible && (
           <div className="taskDoneItem" ref={bottomRef}>
-            <ToDoList items={doneItems} toggleTask={toggleTask} />
+            <ToDoList items={filterDoneData} toggleTask={toggleTask} />
           </div>
         )}
       </div>
