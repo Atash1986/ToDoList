@@ -12,6 +12,7 @@ function Profile() {
   const context = useContext(TodoListContext);
   const user = context?.user;
   const { languageState } = useTodoListContext();
+  const navigate = useNavigate();
 
 
   function onLogoutClick() {
@@ -34,7 +35,7 @@ function Profile() {
     month: "short",
     year: "numeric",
   });
-  const navigate = useNavigate();
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>User Profile</h1>
