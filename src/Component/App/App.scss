@@ -1,4 +1,4 @@
-@import "GeneralStyle";
+@import "../GeneralStyle/GeneralStyle.scss";
 
 .App {
   @include flex(row, unset, left);

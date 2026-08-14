@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import App from "./App";
+import App from "../App/App";
 
 test("check container div item is in page", () => {
   render(<App />);

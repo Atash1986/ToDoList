@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import Addbox from "./AddBox";
+import Addbox from "../AddBox/AddBox";
 import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
-import { addTask } from "../apis/task";
-import { sampleAuthors } from "../fixtures/author";
-import { sampleTask } from "../fixtures/task";
+import { addTask } from "../../apis/task";
+import { sampleAuthors } from "../../fixtures/author";
+import { sampleTask } from "../../fixtures/task";
 
 jest.mock("axios");
 jest.mock("../apis/task");
@@ -14,7 +14,7 @@ it("renders correctly when there are no items", () => {
   const { container } = render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -25,7 +25,7 @@ test("containar should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -37,7 +37,7 @@ test("title box should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -49,7 +49,7 @@ test("author box should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -62,7 +62,7 @@ test("add button should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -74,7 +74,7 @@ test("error box should be in page", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -86,7 +86,7 @@ test("should disable the fields in case of all task has active category id equal
   render(
     <Addbox
       activeCategoryId={0}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -102,7 +102,7 @@ test("should enable the fields in case of valid active category", () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );
@@ -120,7 +120,7 @@ test("check call add api", async () => {
   render(
     <Addbox
       activeCategoryId={1}
-      addNewItemToState={() => {}}
+      addNewItemToState={() => { }}
       authorsItems={sampleAuthors}
     />,
   );

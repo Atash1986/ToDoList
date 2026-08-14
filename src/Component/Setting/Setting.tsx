@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { toast } from "react-toastify";
-import { useTodoListContext } from "../Contexts/TodoListContext";
-import "./Setting.scss";
+import { useTodoListContext } from "../../Contexts/TodoListContext";
+import "../Setting/Setting.scss";
 
 function Setting() {
   const { languageState, dispatch } =

@@ -1,20 +1,26 @@
-@import "GeneralStyle";
+@import "../GeneralStyle/GeneralStyle.scss";
+
 @keyframes shake {
   0% {
     transform: translateX(0);
   }
+
   20% {
     transform: translateX(-5px);
   }
+
   40% {
     transform: translateX(5px);
   }
+
   60% {
     transform: translateX(-5px);
   }
+
   80% {
     transform: translateX(5px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -51,10 +57,11 @@
 }
 
 .categoryItem {
-  margin-bottom: 14px !important ;
+  margin-bottom: 14px !important;
   cursor: pointer;
 
   &:hover {
-    animation: shake 0.5s infinite; /* Apply the 'shake' animation with a 0.5s duration and infinite iterations */
+    animation: shake 0.5s infinite;
+    /* Apply the 'shake' animation with a 0.5s duration and infinite iterations */
   }
 }

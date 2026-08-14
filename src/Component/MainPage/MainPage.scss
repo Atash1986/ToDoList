@@ -1,4 +1,4 @@
-@import "GeneralStyle";
+@import "../GeneralStyle/GeneralStyle.scss";
 
 .textTaskDone {
   color: #868686;
@@ -12,7 +12,8 @@
     font-weight: bold;
     font-size: 18px;
   }
-  &:hover + .sparator {
+
+  &:hover+.sparator {
     font-size: 18px;
     font-weight: bold;
     opacity: 1;
@@ -33,12 +34,10 @@
   @include flex(row);
   background: rgb(243, 242, 241);
   background: rgb(245, 245, 245);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(255, 255, 255, 1) 10%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(255, 255, 255, 1) 10%,
+      rgba(255, 255, 255, 0) 100%);
 
   border-radius: 15px;
   border-color: white;
@@ -71,15 +70,18 @@
   color: white;
   font-size: 30px;
   text-align: center;
+
   .number {
     font-size: 60px;
     padding-bottom: 6px;
     padding-top: 20px;
   }
+
   .name {
     font-size: 18px;
   }
 }
+
 .noDataImage {
   width: 400px;
   height: 400px;

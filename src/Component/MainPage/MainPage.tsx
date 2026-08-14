@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import "./MainPage.css";
-import { TaskItem } from "../types/TaskItem";
+import { TaskItem } from "../../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
-import AddBox from "./AddBox/AddBox";
-import ToDoList from "./ToDoList";
-import { ToggleButton } from "./ToggleButton";
-import NoDataImage from "../assest/image/no-data.png";
+import AddBox from "../AddBox/AddBox";
+import ToDoList from "../ToDoList/ToDoList";
+import { ToggleButton } from "../ToggleButton/ToggleButton";
+import NoDataImage from "../../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
-import { getActiveItems, getDoneItems } from "../apis/task";
-import { getAuthorsItems } from "../apis/author";
-import { Authors } from "../types/Authors";
+import { getActiveItems, getDoneItems } from "../../apis/task";
+import { getAuthorsItems } from "../../apis/author";
+import { Authors } from "../../types/Authors";
 
 function MainPage({
   activeCategoryId,

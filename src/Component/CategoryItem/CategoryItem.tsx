@@ -1,5 +1,5 @@
 import "./CategoryItem.css";
-import { Category } from "../types/Category";
+import { Category } from "../../types/Category";
 
 type Props = {
   categoryItem: Category;

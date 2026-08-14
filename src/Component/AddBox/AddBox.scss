@@ -1,4 +1,4 @@
-@import "GeneralStyle";
+@import "../GeneralStyle/GeneralStyle.scss";
 @supports (position: sticky) {
   .addBoxContainer {
     position: sticky;

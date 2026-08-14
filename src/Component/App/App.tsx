@@ -1,21 +1,21 @@
 import "./App.css";
 import { GrDocumentText } from "react-icons/gr";
 import { IconContext } from "react-icons";
-import MainPage from "./MainPage";
-import Sidbar from "./Sidbar";
+import MainPage from "../MainPage/MainPage";
+import Sidbar from "../Sidbar/Sidbar";
 import { useEffect, useState, useReducer } from "react";
-import { Category } from "../types/Category";
-import { getCategories } from "../apis/category";
+import { Category } from "../../types/Category";
+import { getCategories } from "../../apis/category";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Setting from "./Setting";
-import Login from "./Login";
-import { TodoListContext } from "../Contexts/TodoListContext";
+import Setting from "../Setting/Setting";
+import Login from "../Login/Login";
+import { TodoListContext } from "../../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { User } from "../types/User";
-import Profile from "./Profile";
-import { USER_KEY } from "../Constants/constants";
-import { LanguageAction, LanguageState, } from "../Contexts/TodoListContext";
+import { User } from "../../types/User";
+import Profile from "../Profile/Profile";
+import { USER_KEY } from "../../Constants/constants";
+import { LanguageAction, LanguageState, } from "../../Contexts/TodoListContext";
 
 function App() {
   function languageReducer(

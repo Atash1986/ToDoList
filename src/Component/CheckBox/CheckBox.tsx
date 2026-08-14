@@ -1,5 +1,5 @@
-import { TaskItem } from "../types/TaskItem";
-import "./CheckBox.scss";
+import { TaskItem } from "../../types/TaskItem";
+import "../CheckBox/CheckBox.scss";
 
 type Props = {
   // eslint-disable-next-line no-unused-vars
