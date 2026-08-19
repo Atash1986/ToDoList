@@ -8,7 +8,7 @@ import { Category } from "../../types/Category";
 import { getCategories } from "../../apis/category";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Setting from "../Setting/Setting";
-import Login from "../Login/Login";
+import Login from "../Pages/Login/Login";
 import { TodoListContext } from "../../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
