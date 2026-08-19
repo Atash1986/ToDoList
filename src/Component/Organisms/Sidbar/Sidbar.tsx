@@ -3,13 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../../assest/image/LDI.png";
-import CategoryItem from "../Atoms/CategoryItem/CategoryItem";
+import CategoryItem from "../../Atoms/CategoryItem/CategoryItem";
 import { FiLogIn } from "react-icons/fi";
 import "./Sidbar.css";
-import ToDoList from "../Pages/MainPage/MainPage";
-import { Category } from "../../types/Category";
-import { SetterFn } from "../../types/General";
-import { TodoListContext } from "../../Contexts/TodoListContext";
+import ToDoList from "../../Pages/MainPage/MainPage";
+import { Category } from "../../../types/Category";
+import { SetterFn } from "../../../types/General";
+import { TodoListContext } from "../../../Contexts/TodoListContext";
 
 type Props = {
   appTitle: string;

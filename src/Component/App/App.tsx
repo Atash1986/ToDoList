@@ -2,7 +2,7 @@ import "./App.css";
 import { GrDocumentText } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import MainPage from "../Pages/MainPage/MainPage";
-import Sidbar from "../Sidbar/Sidbar";
+import Sidbar from "../Organisms/Sidbar/Sidbar";
 import { useEffect, useState, useReducer } from "react";
 import { Category } from "../../types/Category";
 import { getCategories } from "../../apis/category";
