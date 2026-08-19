@@ -6,7 +6,7 @@ import logoDefaultImg from "../../assest/image/LDI.png";
 import CategoryItem from "../Atoms/CategoryItem/CategoryItem";
 import { FiLogIn } from "react-icons/fi";
 import "./Sidbar.css";
-import ToDoList from "../MainPage/MainPage";
+import ToDoList from "../Pages/MainPage/MainPage";
 import { Category } from "../../types/Category";
 import { SetterFn } from "../../types/General";
 import { TodoListContext } from "../../Contexts/TodoListContext";
