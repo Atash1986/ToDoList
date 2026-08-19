@@ -1,6 +1,6 @@
-import { TaskItem } from "../../types/TaskItem"
-import ToDoItem from "../Molecules/ToDoItem/ToDoItem";
-import { toggleTaskApi } from "../../apis/task";
+import { TaskItem } from "../../../types/TaskItem"
+import ToDoItem from "../../Molecules/ToDoItem/ToDoItem";
+import { toggleTaskApi } from "../../../apis/task";
 
 function ToDoList({
   items,

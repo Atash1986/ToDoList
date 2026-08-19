@@ -3,7 +3,7 @@ import "./MainPage.css";
 import { TaskItem } from "../../../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
 import AddBox from "../../Molecules/AddBox/AddBox";
-import ToDoList from "../../ToDoList/ToDoList";
+import ToDoList from "../../Organisms/ToDoList/ToDoList";
 import { ToggleButton } from "../../Atoms/ToggleButton/ToggleButton";
 import NoDataImage from "../../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
