@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import "./MainPage.css";
 import { TaskItem } from "../../types/TaskItem";
 import "react-tooltip/dist/react-tooltip.css";
-import AddBox from "../AddBox/AddBox";
+import AddBox from "../Molecules/AddBox/AddBox";
 import ToDoList from "../ToDoList/ToDoList";
 import { ToggleButton } from "../ToggleButton/ToggleButton";
 import NoDataImage from "../../assest/image/no-data.png";

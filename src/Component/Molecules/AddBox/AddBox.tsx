@@ -1,11 +1,11 @@
 import { useState, useRef, useCallback } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-import { TaskItem } from "../../types/TaskItem";
-import { Authors } from "../../types/Authors";
-import { initTask } from "../../data/initTask";
+import { TaskItem } from "../../../types/TaskItem";
+import { Authors } from "../../../types/Authors";
+import { initTask } from "../../../data/initTask";
 import "./AddBox.css";
-import { addTask } from "../../apis/task";
+import { addTask } from "../../../apis/task";
 
 type DirtyType = {
   title: boolean;

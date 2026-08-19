@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import Addbox from "../AddBox/AddBox";
+import Addbox from "./AddBox";
 import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
-import { addTask } from "../../apis/task";
-import { sampleAuthors } from "../../fixtures/author";
-import { sampleTask } from "../../fixtures/task";
+import { addTask } from "../../../apis/task";
+import { sampleAuthors } from "../../../fixtures/author";
+import { sampleTask } from "../../../fixtures/task";
 
 jest.mock("axios");
 jest.mock("../apis/task");
