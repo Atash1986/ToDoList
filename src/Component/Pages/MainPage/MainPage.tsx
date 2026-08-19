@@ -5,7 +5,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import AddBox from "../../Molecules/AddBox/AddBox";
 import ToDoList from "../../Organisms/ToDoList/ToDoList";
 import { ToggleButton } from "../../Atoms/ToggleButton/ToggleButton";
-import NoDataImage from "../../assest/image/no-data.png";
+import NoDataImage from "../../../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
 import { getActiveItems, getDoneItems } from "../../../apis/task";
 import { getAuthorsItems } from "../../../apis/author";
