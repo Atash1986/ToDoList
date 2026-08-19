@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import logoDefaultImg from "../../assest/image/LDI.png";
-import CategoryItem from "../CategoryItem/CategoryItem";
+import CategoryItem from "../Atoms/CategoryItem/CategoryItem";
 import { FiLogIn } from "react-icons/fi";
 import "./Sidbar.css";
 import ToDoList from "../MainPage/MainPage";
