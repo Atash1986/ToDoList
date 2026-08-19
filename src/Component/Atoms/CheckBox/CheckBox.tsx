@@ -1,4 +1,4 @@
-import { TaskItem } from "../../types/TaskItem";
+import { TaskItem } from "../../../types/TaskItem";
 import "../CheckBox/CheckBox.scss";
 
 type Props = {

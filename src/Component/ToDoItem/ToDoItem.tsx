@@ -1,6 +1,6 @@
 import "./ToDoItem.css";
 import { TaskItem } from "../../types/TaskItem";
-import Checkbox from "../CheckBox/CheckBox";
+import Checkbox from "../Atoms/CheckBox/CheckBox";
 import { getDateTimeFromTimeStamp } from "../../util/dateHelpers";
 
 type Props = {
