@@ -13,7 +13,7 @@ import { TodoListContext } from "../../Contexts/TodoListContext";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User } from "../../types/User";
-import Profile from "../Profile/Profile";
+import Profile from "../Pages/Profile/Profile";
 import { USER_KEY } from "../../Constants/constants";
 import { LanguageAction, LanguageState, } from "../../Contexts/TodoListContext";
 

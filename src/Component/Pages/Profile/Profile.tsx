@@ -4,10 +4,10 @@ import {
   EXPIRES_IN_SECONDS_KEY,
   TOKEN_KEY,
   USER_KEY,
-} from "../../Constants/constants";
-import { TodoListContext, useTodoListContext } from "../../Contexts/TodoListContext";
+} from "../../../Constants/constants";
+import { TodoListContext, useTodoListContext } from "../../../Contexts/TodoListContext";
 import { useContext } from "react";
-import { LANGUAGE_NAMES } from "../../Constants/constants";
+import { LANGUAGE_NAMES } from "../../../Constants/constants";
 function Profile() {
   const context = useContext(TodoListContext);
   const user = context?.user;
