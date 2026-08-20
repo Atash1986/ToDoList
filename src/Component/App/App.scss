@@ -1,0 +1,13 @@
+@import "../../../GeneralStyle/GeneralStyle.scss";
+
+.App {
+  @include flex(row, unset, left);
+  font-family: $Primery_Font;
+  height: 100%;
+}
+
+.container {
+  @include flex(row, space-between, flex-start);
+  gap: 10px;
+  height: 100%;
+}
