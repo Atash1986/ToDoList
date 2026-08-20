@@ -20,32 +20,32 @@ function MainPage({
 }) {
   const [isDivVisible, setDivVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [allActiveItems, setAllactiveItems] = useState<TaskItem[]>([]);
-  const [AllDoneItems, setAllDoneItems] = useState<TaskItem[]>([]);
+  const [allActiveItems, setAllActiveItems] = useState<TaskItem[]>([]);
+  const [allDoneItems, setAllDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
 
   function addNewItemToState(newItem: TaskItem) {
-    setAllactiveItems((prevItems: TaskItem[]) => {
+    setAllActiveItems((prevItems: TaskItem[]) => {
       return [...prevItems, newItem];
     });
   }
   function toggleTask(item: TaskItem): TaskItem[] | void {
     if (item.isDone === true) {
-      setAllactiveItems((activeItems) => {
+      setAllActiveItems((activeItems) => {
         return activeItems.filter(
           (activeItem: TaskItem) => activeItem.id !== item.id,
         );
       });
-      return setAllDoneItems([...AllDoneItems, item]);
+      return setAllDoneItems([...allDoneItems, item]);
     } else {
       setAllDoneItems((doneItems) => {
         return doneItems.filter(
           (doneItem: TaskItem) => doneItem.id !== item.id,
         );
       });
-      return setAllactiveItems([...allActiveItems, item]);
+      return setAllActiveItems([...allActiveItems, item]);
     }
   }
 
@@ -56,7 +56,7 @@ function MainPage({
     );
   };
 
-  const filterActiveData = useMemo(() => {
+  const filteredActiveItems = useMemo(() => {
     return filterByCategory(allActiveItems);
 
   }, [activeCategoryId, allActiveItems]);
@@ -66,14 +66,14 @@ function MainPage({
 
       setIsLoading(true);
       const fetchedItems = await getActiveItems();
-      setAllactiveItems(fetchedItems);
+      setAllActiveItems(fetchedItems);
       setIsLoading(false);
     })();
   }, []);
 
-  const filterDoneData = useMemo(() => {
-    return filterByCategory(AllDoneItems);
-  }, [activeCategoryId, AllDoneItems]);
+  const filteredDoneItems = useMemo(() => {
+    return filterByCategory(allDoneItems);
+  }, [activeCategoryId, allDoneItems]);
 
   useEffect(() => {
     (async () => {
@@ -95,11 +95,11 @@ function MainPage({
     <div className="contentTasks">
       <div className="statisticsBox">
         <div className="statisticsDetail">
-          <span className="number">{filterActiveData.length}</span>
+          <span className="number">{filteredActiveItems.length}</span>
           <span className="name">Active Tasks</span>
         </div>
         <div className="statisticsDetail">
-          <span className="number">{filterDoneData.length}</span>
+          <span className="number">{filteredDoneItems.length}</span>
           <span className="name">Done Tasks</span>
         </div>
         <div className="statisticsDetail">
@@ -123,12 +123,12 @@ function MainPage({
           />
         )}
 
-        {isLoading === false && filterActiveData.length === 0 && (
+        {isLoading === false && filteredActiveItems.length === 0 && (
           <img className="noDataImage" src={NoDataImage} />
         )}
 
-        {isLoading === false && filterActiveData.length > 0 && (
-          <ToDoList items={filterActiveData} toggleTask={toggleTask} />
+        {isLoading === false && filteredActiveItems.length > 0 && (
+          <ToDoList items={filteredActiveItems} toggleTask={toggleTask} />
         )}
 
         <ToggleButton
@@ -139,7 +139,7 @@ function MainPage({
 
         {isDivVisible && (
           <div className="taskDoneItem" ref={bottomRef}>
-            <ToDoList items={filterDoneData} toggleTask={toggleTask} />
+            <ToDoList items={filteredDoneItems} toggleTask={toggleTask} />
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../Profile/Profile.scss";
+import "./Profile.scss";
 import {
   EXPIRES_IN_SECONDS_KEY,
   TOKEN_KEY,

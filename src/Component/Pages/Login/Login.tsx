@@ -25,7 +25,6 @@ function Login() {
 
   async function onLoginClick() {
     const loginResult = await login(userName, password);
-    console.log("result:", loginResult)
     if (loginResult) {
       navigate("/");
       setUser(loginResult.user);
