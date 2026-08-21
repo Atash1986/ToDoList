@@ -1,11 +1,20 @@
 import { useState, useRef, useCallback } from "react";
+import { useForm } from "react-hook-form"
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { TaskItem } from "../../../types/TaskItem";
 import { Authors } from "../../../types/Authors";
-import { initTask } from "../../../data/initTask";
+//import { initTask } from "../../../data/initTask";
 import "./AddBox.css";
 import { addTask } from "../../../apis/task";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  title: z.string().min(1, "پر کردن این فیلد الزامی است").min(3, "حداقل باید 3 کاراکتر باشد"),
+  authorId: z.string().min(1, "Please select a category"),
+
+})
 
 type DirtyType = {
   title: boolean;
@@ -30,76 +39,18 @@ function AddBox({
     author: false,
     isAddFired: false,
   });
-
-  const isAllCategory = activeCategoryId === 0;
-  const [currentItem, setCurrentItem] = useState<TaskItem>(initTask);
-  function checkValidation(dirty: DirtyType, currentItem: TaskItem) {
-    setErrorList([]);
-    const errorListLocal = [];
-
-    const preConditionTitle = dirty.isAddFired || dirty.title;
-    const preConditionAuthor = dirty.isAddFired || dirty.author;
-
-    if (preConditionTitle && currentItem.title === "") {
-      errorListLocal.push("Title is required");
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: {
+      errors
     }
-    if (preConditionAuthor && currentItem.author.id === -1) {
-      errorListLocal.push("Author is required");
-    }
-    setErrorList(errorListLocal);
-    return errorListLocal;
-  }
-
-  function onTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    const dirtyLocal: DirtyType = {
-      ...dirty,
-      title: true,
-    };
-    setDirty(dirtyLocal);
-
-    const currentItemLocal = {
-      ...currentItem,
-      [name]: value,
-    };
-    setCurrentItem(currentItemLocal);
-    checkValidation(dirtyLocal, currentItemLocal);
-  }
-
-  function onAuthorChange(event: any) {
-    const selectedAuthorValue: number = parseInt(event.target.value, 10);
-    const authorSelected: Authors | undefined = authorsItems?.find(
-      (option) => option.id == selectedAuthorValue,
-    );
-
-    const currentItemLocal: TaskItem = {
-      ...currentItem,
-      author: {
-        ...currentItem.author,
-        id: authorSelected?.id || -1,
-      },
-    };
-    setCurrentItem(currentItemLocal);
-
-    const dirtyLocal: DirtyType = {
-      ...dirty,
-      author: true,
-    };
-    setDirty(dirtyLocal);
-
-    checkValidation(dirtyLocal, currentItemLocal);
-  }
-
-  const reset = useCallback(() => {
-    setCurrentItem(initTask);
-    setDirty({
-      title: false,
-      author: false,
-      isAddFired: false,
-    });
-  }, []);
-
-  const onAddBtnClick = useCallback(async () => {
+  } = useForm({ resolver: zodResolver(schema) });
+  const onSubmit = async (data: {
+    title: string;
+    authorId: string;
+  }) => {
     isAddBtnClickedRef.current = true;
     setErrorList([]);
 
@@ -108,13 +59,11 @@ function AddBox({
       isAddFired: true,
     };
     setDirty(dirtyLocal);
-    const errorListLocal = checkValidation(dirtyLocal, currentItem);
-
-    if (errorListLocal.length === 0) {
+    if (Object.keys(errors).length === 0) {
       const newItem: TaskItem | null = await addTask(
         activeCategoryId,
-        currentItem.title,
-        currentItem.author.id,
+        data.title,
+        Number(data.authorId),
       );
       if (newItem !== null) {
         addNewItemToState(newItem);
@@ -124,75 +73,74 @@ function AddBox({
     }
 
     reset()
-
-
     searchInputRef.current?.focus();
     isAddBtnClickedRef.current = false;
-  }, [dirty,
-    currentItem,
-    activeCategoryId,
-    addNewItemToState,
-    reset,])
+
+  };
+  const isAllCategory = activeCategoryId === 0;
+
+
+  const reset = useCallback(() => {
+    setValue("title", "")
+    setValue("authorId", "-1")
+
+  }, []);
 
   const isAddBtnDisabled = isAllCategory || isAddBtnClickedRef.current;
   return (
-    <div className="addBoxContainer" data-testid="add-box-container">
-      <Tooltip id="my-tooltip" data-testid="add-box-tooltip" />
-      <div className="addBox">
-        <input
-          data-testid="add-box-title"
-          disabled={isAllCategory}
-          className="taskTitle"
-          type="text"
-          name="title"
-          value={currentItem.title}
-          onChange={onTitleChange}
-          data-tooltip-id={isAllCategory ? "my-tooltip" : ""}
-          data-tooltip-content={
-            isAllCategory ? "You Must First Select One Category Item" : ""
-          }
-          ref={searchInputRef}
-        />
 
-        <select
-          data-testid="add-box-author"
-          value={currentItem.author?.id || -1}
-          disabled={isAllCategory}
-          name={
-            authorsItems?.find(
-              (option: Authors) => option.id === currentItem.author.id,
-            )?.name || "Default Value"
-          }
-          onChange={onAuthorChange}
-        >
-          <option value={-1}>Select an author</option>
-          {authorsItems?.map((option: Authors) => (
-            <option key={option.id} id={String(option.id)} value={option.id}>
-              {option.name}
-            </option>
-          ))}
-        </select>
+    <form className="flex flex-col gap-8 p-4" onSubmit={handleSubmit(onSubmit)} >
+      <div className="addBoxContainer" data-testid="add-box-container">
+        {errors?.title && <p>{errors?.title.message}</p>}
+        <Tooltip id="my-tooltip" data-testid="add-box-tooltip" />
+        <div className="addBox">
 
-        <button
-          data-testid="add-box-add-button"
-          className="addButton"
-          onClick={onAddBtnClick}
-          disabled={isAddBtnDisabled}
-          style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
-        >
-          <img src="plus.svg" />
-        </button>
-        <br />
+          <input
+            {...register("title")}
+            data-testid="add-box-title"
+            disabled={isAllCategory}
+            className="taskTitle"
+            type="text"
+            data-tooltip-id={isAllCategory ? "my-tooltip" : ""}
+            data-tooltip-content={
+              isAllCategory ? "You Must First Select One Category Item" : ""
+            }
+          />
+
+          <select
+            {...register("authorId")}
+            data-testid="add-box-author"
+            disabled={isAllCategory}
+          >
+            <option value="">Select an author</option>
+
+            {authorsItems?.map((option: Authors) => (
+              <option key={option.id} value={String(option.id)}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+          {errors?.authorId && <p>{errors?.authorId.message}</p>}
+
+          <input
+            type="submit"
+            data-testid="add-box-add-button"
+            className="addButton"
+            disabled={isAddBtnDisabled}
+            style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
+          />
+          <br />
+        </div>
+
+        <div className="errorRequirement">
+          <span data-testid="add-box-error-box">
+            {errorList.map((error, index) => (
+              <div key={index}>{error}</div>
+            ))}
+          </span>
+        </div>
       </div>
-
-      <div className="errorRequirement">
-        <span data-testid="add-box-error-box">
-          {errorList.map((error, index) => (
-            <div key={index}>{error}</div>
-          ))}
-        </span>
-      </div>
-    </div>
+    </form>
   );
 }
 export default AddBox;
