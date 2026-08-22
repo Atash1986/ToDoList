@@ -46,7 +46,10 @@ function AddBox({
     formState: {
       errors
     }
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm({
+    resolver: zodResolver(schema),
+    mode: "onChange"
+  });
   const onSubmit = async (data: {
     title: string;
     authorId: string;
@@ -105,6 +108,7 @@ function AddBox({
             data-tooltip-content={
               isAllCategory ? "You Must First Select One Category Item" : ""
             }
+
           />
 
           <select
@@ -121,14 +125,16 @@ function AddBox({
             ))}
           </select>
           {errors?.authorId && <p>{errors?.authorId.message}</p>}
-
-          <input
-            type="submit"
+          <button type="submit"
             data-testid="add-box-add-button"
             className="addButton"
             disabled={isAddBtnDisabled}
             style={{ cursor: isAllCategory ? "not-allowed" : "pointer" }}
-          />
+          >
+
+            <img src="plus.svg" />
+          </button>
+
           <br />
         </div>
 
