@@ -5,7 +5,6 @@ import MainPage from "../Pages/MainPage/MainPage";
 import Sidbar from "../Organisms/Sidbar/Sidbar";
 import { useEffect, useState, useReducer } from "react";
 import { Category } from "../../types/Category";
-import { getCategories } from "../../apis/category";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Setting from "../Pages/Setting/Setting";
 import Login from "../Pages/Login/Login";
@@ -16,6 +15,7 @@ import { User } from "../../types/User";
 import Profile from "../Pages/Profile/Profile";
 import { USER_KEY } from "../../Constants/constants";
 import { LanguageAction, LanguageState, } from "../../Contexts/TodoListContext";
+import { useCategoryApi } from "../../apis/category";
 
 function App() {
   function languageReducer(
@@ -39,13 +39,14 @@ function App() {
   const [languageState, dispatch] = useReducer(languageReducer, initialLanguageState);
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const categoryApi = useCategoryApi();
   const isLogin = localStorage.getItem(USER_KEY) !== null;
 
 
 
   useEffect(() => {
     (async () => {
-      setCategories(await getCategories());
+      setCategories(await categoryApi.getCategories());
     })();
   }, []);
   useEffect(() => {

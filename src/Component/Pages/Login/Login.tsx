@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form"
 import { FaUser, FaLock } from "react-icons/fa";
-import { login } from "../../../apis/login";
 import { useTodoListContext } from "../../../Contexts/TodoListContext";
 import { useNavigate } from "react-router-dom";
 import { TOKEN_KEY, USER_KEY } from "../../../Constants/constants";
 import "../Login/Login.scss";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginApi } from "../../../apis/login";
 
 const schema = z.object({
   userName: z
@@ -25,6 +25,7 @@ const schema = z.object({
 function Login() {
   const userContext = useTodoListContext();
   const tokenContext = useTodoListContext();
+  const loginApi = useLoginApi();
 
 
   if (!userContext || !tokenContext) {
@@ -54,7 +55,7 @@ function Login() {
     password: string;
   }) => {
 
-    const loginResult = await login(data.userName, data.password);
+    const loginResult = await loginApi.login(data.userName, data.password);
     if (loginResult) {
       navigate("/");
       setUser(loginResult.user);

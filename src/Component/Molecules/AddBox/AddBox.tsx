@@ -6,9 +6,9 @@ import { TaskItem } from "../../../types/TaskItem";
 import { Authors } from "../../../types/Authors";
 //import { initTask } from "../../../data/initTask";
 import "./AddBox.css";
-import { addTask } from "../../../apis/task";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTaskApi } from "../../../apis/task";
 
 const schema = z.object({
   title: z.string().min(1, "پر کردن این فیلد الزامی است").min(3, "حداقل باید 3 کاراکتر باشد"),
@@ -33,6 +33,7 @@ function AddBox({
 }) {
   const [errorList, setErrorList] = useState<string[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const taskApi = useTaskApi();
   const isAddBtnClickedRef = useRef(false);
   const [dirty, setDirty] = useState<DirtyType>({
     title: false,
@@ -63,7 +64,7 @@ function AddBox({
     };
     setDirty(dirtyLocal);
     if (Object.keys(errors).length === 0) {
-      const newItem: TaskItem | null = await addTask(
+      const newItem: TaskItem | null = await taskApi.addTask(
         activeCategoryId,
         data.title,
         Number(data.authorId),

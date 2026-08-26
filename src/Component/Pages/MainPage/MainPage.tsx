@@ -7,9 +7,9 @@ import ToDoList from "../../Organisms/ToDoList/ToDoList";
 import { ToggleButton } from "../../Atoms/ToggleButton/ToggleButton";
 import NoDataImage from "../../../assest/image/no-data.png";
 import LoadingSpinnerComponent from "react-spinners-components";
-import { getActiveItems, getDoneItems } from "../../../apis/task";
-import { getAuthorsItems } from "../../../apis/author";
 import { Authors } from "../../../types/Authors";
+import { useTaskApi } from "../../../apis/task";
+import { useAuthorApi } from "../../../apis/author";
 
 function MainPage({
   activeCategoryId,
@@ -24,6 +24,8 @@ function MainPage({
   const [allDoneItems, setAllDoneItems] = useState<TaskItem[]>([]);
   const isAllCategory = activeCategoryId === 0;
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const tasksApi = useTaskApi();
+  const authourApi = useAuthorApi();
 
 
   function addNewItemToState(newItem: TaskItem) {
@@ -65,7 +67,7 @@ function MainPage({
     (async () => {
 
       setIsLoading(true);
-      const fetchedItems = await getActiveItems();
+      const fetchedItems = await tasksApi.getActiveItems();
       setAllActiveItems(fetchedItems);
       setIsLoading(false);
     })();
@@ -78,7 +80,7 @@ function MainPage({
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const fetchedItems = await getDoneItems();
+      const fetchedItems = await tasksApi.getDoneItems();
       setAllDoneItems(fetchedItems);
       setIsLoading(false);
     })();
@@ -86,7 +88,7 @@ function MainPage({
 
   const [authorsItems, setAuthorItems] = useState<Authors[] | undefined>([]);
   useEffect(() => {
-    getAuthorsItems().then((localAuthorsItems) => {
+    authourApi.getAuthorsItems().then((localAuthorsItems) => {
       setAuthorItems(localAuthorsItems);
     });
   }, []);

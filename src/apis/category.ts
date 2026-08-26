@@ -1,7 +1,11 @@
-import { getApi } from "./core";
+import { useApi } from "./core";
 
-export const getCategories = async () => {
-  const url = "categories";
-  const result = getApi(url);
-  return result;
+export const useCategoryApi = () => {
+  const api = useApi();
+  const getCategories = async () => {
+    const url = "categories";
+    const result = api.getApi(url);
+    return result;
+  }
+  return { getCategories }
 };

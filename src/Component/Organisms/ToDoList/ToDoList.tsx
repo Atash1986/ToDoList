@@ -1,6 +1,7 @@
+import { useTaskApi } from "../../../apis/task";
 import { TaskItem } from "../../../types/TaskItem"
 import ToDoItem from "../../Molecules/ToDoItem/ToDoItem";
-import { toggleTaskApi } from "../../../apis/task";
+
 
 function ToDoList({
   items,
@@ -12,13 +13,15 @@ function ToDoList({
   items: TaskItem[];
   // setItems: React.Dispatch<React.SetStateAction<TaskItem[]>>;
 }): React.JSX.Element {
+  const taskApi = useTaskApi();
   async function handleCheck(selectId: string) {
-    const item: TaskItem = await toggleTaskApi(selectId);
+    const item: TaskItem = await taskApi.toggleTaskApi(selectId);
     const selectedItem: TaskItem | undefined = items.find(
       (item: TaskItem) => item.id == selectId,
     );
     const colorSelectedItem = selectedItem!.categoryItem.color;
     const idSelectedItem = selectedItem!.categoryItem.id;
+
     item.categoryItem = { id: idSelectedItem, color: colorSelectedItem };
     toggleTask(item);
   }

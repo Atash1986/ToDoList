@@ -2,9 +2,9 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Addbox from "./AddBox";
 import "@testing-library/jest-dom";
 import { userEvent } from "@testing-library/user-event";
-import { addTask } from "../../../apis/task";
 import { sampleAuthors } from "../../../fixtures/author";
 import { sampleTask } from "../../../fixtures/task";
+import { useTaskApi } from "../../../apis/task";
 
 jest.mock("axios");
 jest.mock("../apis/task");
@@ -32,7 +32,7 @@ test("containar should be in page", () => {
   const s = screen.getByTestId(/add-box-container/i);
   expect(s).toBeInTheDocument();
 });
-
+const taskApi = useTaskApi();
 test("title box should be in page", () => {
   render(
     <Addbox
@@ -115,7 +115,7 @@ test("should enable the fields in case of valid active category", () => {
 });
 
 test("check call add api", async () => {
-  (addTask as jest.Mock).mockResolvedValue(sampleTask);
+  (taskApi.addTask as jest.Mock).mockResolvedValue(sampleTask);
 
   render(
     <Addbox
@@ -136,11 +136,11 @@ test("check call add api", async () => {
   const addbtn = screen.getByTestId(/add-box-add-button/i);
   fireEvent.click(addbtn);
 
-  expect(addTask).toHaveBeenCalledWith(1, "do the dishes", 1);
+  expect(taskApi.addTask).toHaveBeenCalledWith(1, "do the dishes", 1);
 });
 
 test("addNewItemToState updates activeItems correctly", async () => {
-  (addTask as jest.Mock).mockResolvedValue(sampleTask);
+  (taskApi.addTask as jest.Mock).mockResolvedValue(sampleTask);
   const mockAddNewItemToState = jest.fn();
 
   render(
