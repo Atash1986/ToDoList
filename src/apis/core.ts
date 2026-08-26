@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { TOKEN_KEY } from "../Constants/constants";
 
 export const baseUrl = process.env.REACT_APP_API_BASE_URL || "";
@@ -19,8 +19,10 @@ export async function getApi(
     });
     return result.data.data;
   } catch (error) {
-    const typedError = error as Error;
-    console.error("Error:", typedError.message);
+    const typedError = error as AxiosError;
+    if (typedError.response?.status) {
+      localStorage.clear();
+    }
     return [];
   }
 }
