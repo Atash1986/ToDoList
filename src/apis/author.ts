@@ -1,10 +1,14 @@
 import { Authors } from "../types/Authors";
-import { getApi } from "./core";
+import { useApi } from "./core";
 
-export const getAuthorsItems = async () => {
-  const url = "authors";
-  const result = await getApi(url);
+export const useAuthorApi = () => {
+  const api = useApi();
+  const getAuthorsItems = async () => {
+    const url = "authors";
+    const result = await api.getApi(url);
 
-  const authorsItems: Authors[] | undefined = result;
-  return authorsItems;
+    const authorsItems: Authors[] | undefined = result;
+    return authorsItems;
+  }
+  return { getAuthorsItems };
 };
